@@ -1,0 +1,235 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-15T10:00:00Z",
+  "articles": [
+    {
+      "id": "ia-transformacion-digital-2025",
+      "title": "IA y Transformación Digital: Tendencias 2025",
+      "excerpt": "Descubre cómo la inteligencia artificial está revolucionando los negocios y qué esperar en los próximos meses. Desde chatbots hasta automatización de procesos, exploramos las tecnologías que marcarán la diferencia en el panorama empresarial actual.",
+      "content": "./articles/ia-transformacion-digital-2025.html",
+      "category": "ia",
+      "categoryLabel": "Inteligencia Artificial",
+      "readTime": "5 min",
+      "image": "https://via.placeholder.com/400x300/667eea/ffffff?text=IA+2025",
+      "author": "Equipo LAURA",
+      "authorBio": "Especialistas en transformación digital e implementación de IA empresarial",
+      "date": "2025-01-15",
+      "tags": ["inteligencia artificial", "transformación digital", "automatización", "tendencias 2025"],
+      "featured": true,
+      "status": "published",
+      "seo": {
+        "metaTitle": "IA y Transformación Digital: Tendencias 2025 | LAURA Blog",
+        "metaDescription": "Descubre las tendencias de IA que transformarán los negocios en 2025. Casos reales, consejos prácticos y estrategias de implementación.",
+        "keywords": "inteligencia artificial 2025, transformación digital, IA empresarial, automatización procesos"
+      }
+    },
+    {
+      "id": "ciberseguridad-pymes-guia-completa",
+      "title": "Ciberseguridad para PYMEs: Guía Completa 2025",
+      "excerpt": "Todo lo que necesitas saber para proteger tu empresa de las amenazas digitales más comunes en 2025. Una guía práctica con pasos concretos, herramientas recomendadas y estrategias de prevención que realmente funcionan.",
+      "content": "./articles/ciberseguridad-pymes-guia-completa.html",
+      "category": "seguridad",
+      "categoryLabel": "Ciberseguridad",
+      "readTime": "8 min",
+      "image": "https://via.placeholder.com/400x300/764ba2/ffffff?text=Seguridad+PYME",
+      "author": "Equipo LAURA",
+      "authorBio": "Expertos en ciberseguridad empresarial y protección de datos",
+      "date": "2025-01-10",
+      "tags": ["ciberseguridad", "PYME", "seguridad digital", "protección datos", "amenazas"],
+      "featured": true,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Ciberseguridad para PYMEs: Guía Completa 2025 | LAURA",
+        "metaDescription": "Guía completa de ciberseguridad para PYMEs. Protege tu empresa de amenazas digitales con estrategias probadas y herramientas efectivas.",
+        "keywords": "ciberseguridad PYME, seguridad digital, protección datos empresa, amenazas cibernéticas"
+      }
+    },
+    {
+      "id": "marketing-digital-ia-resultados",
+      "title": "Marketing Digital + IA = Resultados Exponenciales",
+      "excerpt": "Casos reales de cómo nuestros clientes multiplicaron sus conversiones usando marketing impulsado por IA. Estrategias, herramientas y métricas que realmente funcionan para hacer crecer tu negocio de forma sostenible.",
+      "content": "./articles/marketing-digital-ia-resultados.html",
+      "category": "marketing",
+      "categoryLabel": "Marketing Digital",
+      "readTime": "6 min",
+      "image": "https://via.placeholder.com/400x300/10b981/ffffff?text=Marketing+IA",
+      "author": "Equipo LAURA",
+      "authorBio": "Especialistas en marketing digital impulsado por inteligencia artificial",
+      "date": "2025-01-05",
+      "tags": ["marketing digital", "inteligencia artificial", "conversiones", "ROI", "automatización marketing"],
+      "featured": true,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Marketing Digital con IA: Casos de Éxito Reales | LAURA",
+        "metaDescription": "Descubre cómo la IA puede multiplicar tus resultados de marketing. Casos reales, estrategias probadas y herramientas que aumentan conversiones.",
+        "keywords": "marketing digital IA, automatización marketing, conversiones, ROI marketing, casos éxito"
+      }
+    },
+    {
+      "id": "desarrollo-web-tendencias-2025",
+      "title": "Desarrollo Web: Tendencias y Tecnologías 2025",
+      "excerpt": "Las tecnologías emergentes que están transformando el desarrollo web. Desde frameworks revolucionarios hasta herramientas de IA, descubre qué necesitas saber para mantenerte competitivo en el panorama digital actual.",
+      "content": "./articles/desarrollo-web-tendencias-2025.html",
+      "category": "desarrollo",
+      "categoryLabel": "Desarrollo Web",
+      "readTime": "7 min",
+      "image": "https://via.placeholder.com/400x300/3b82f6/ffffff?text=Web+2025",
+      "author": "Equipo LAURA",
+      "authorBio": "Desarrolladores full-stack especializados en tecnologías emergentes",
+      "date": "2025-01-01",
+      "tags": ["desarrollo web", "tendencias 2025", "frameworks", "tecnologías emergentes", "programación"],
+      "featured": false,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Tendencias Desarrollo Web 2025: Tecnologías Emergentes | LAURA",
+        "metaDescription": "Conoce las tendencias de desarrollo web que marcarán 2025. Frameworks, herramientas IA y tecnologías emergentes para mantenerte competitivo.",
+        "keywords": "desarrollo web 2025, tendencias programación, frameworks modernos, tecnologías web"
+      }
+    },
+    {
+      "id": "consultoria-digital-casos-exito",
+      "title": "Consultoría Digital: Casos de Éxito Reales",
+      "excerpt": "Historias reales de transformación digital exitosa. Cómo ayudamos a empresas a optimizar procesos, reducir costos y aumentar ingresos con estrategias digitales personalizadas que generan resultados medibles.",
+      "content": "./articles/consultoria-digital-casos-exito.html",
+      "category": "consultoria",
+      "categoryLabel": "Consultoría",
+      "readTime": "9 min",
+      "image": "https://via.placeholder.com/400x300/f59e0b/ffffff?text=Consultoría",
+      "author": "Equipo LAURA",
+      "authorBio": "Consultores en transformación digital y optimización de procesos empresariales",
+      "date": "2024-12-28",
+      "tags": ["consultoría digital", "transformación digital", "casos éxito", "optimización procesos", "ROI"],
+      "featured": false,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Consultoría Digital: Casos de Éxito y Transformaciones | LAURA",
+        "metaDescription": "Casos reales de transformación digital exitosa. Descubre cómo optimizar procesos y aumentar ingresos con consultoría especializada.",
+        "keywords": "consultoría digital, transformación digital, casos éxito, optimización procesos"
+      }
+    },
+    {
+      "id": "pyme-segura-programa-completo",
+      "title": "PYME Segura: El Programa Que Protege Tu Empresa",
+      "excerpt": "Conoce nuestro programa exclusivo PYME Segura: auditorías integrales, resolución de vulnerabilidades y monitoreo continuo. Descubre por qué más de 200 empresas confían en nosotros para su seguridad digital.",
+      "content": "./articles/pyme-segura-programa-completo.html",
+      "category": "seguridad",
+      "categoryLabel": "Ciberseguridad",
+      "readTime": "6 min",
+      "image": "https://via.placeholder.com/400x300/dc2626/ffffff?text=PYME+Segura",
+      "author": "Equipo LAURA",
+      "authorBio": "Especialistas en ciberseguridad para pequeñas y medianas empresas",
+      "date": "2024-12-20",
+      "tags": ["PYME Segura", "ciberseguridad", "auditoría seguridad", "vulnerabilidades", "monitoreo"],
+      "featured": false,
+      "status": "published",
+      "seo": {
+        "metaTitle": "PYME Segura: Programa Integral de Ciberseguridad | LAURA",
+        "metaDescription": "Protege tu PYME con nuestro programa integral de ciberseguridad. Auditorías, monitoreo 24/7 y resolución de vulnerabilidades.",
+        "keywords": "PYME Segura, ciberseguridad empresas, auditoría seguridad, programa seguridad"
+      }
+    },
+    {
+      "id": "automatizacion-procesos-ia-guia-practica",
+      "title": "Automatización de Procesos con IA: Guía Práctica",
+      "excerpt": "Guía paso a paso para automatizar procesos empresariales con inteligencia artificial. Desde la identificación de oportunidades hasta la implementación exitosa, con ejemplos reales y herramientas recomendadas.",
+      "content": "./articles/automatizacion-procesos-ia-guia-practica.html",
+      "category": "ia",
+      "categoryLabel": "Inteligencia Artificial",
+      "readTime": "10 min",
+      "image": "https://via.placeholder.com/400x300/8b5cf6/ffffff?text=Automatización+IA",
+      "author": "Equipo LAURA",
+      "authorBio": "Expertos en automatización inteligente y optimización de procesos",
+      "date": "2024-12-15",
+      "tags": ["automatización", "inteligencia artificial", "procesos empresariales", "RPA", "eficiencia"],
+      "featured": false,
+      "status": "published",
+      "seo": {
+        "metaTitle": "Automatización de Procesos con IA: Guía Práctica | LAURA",
+        "metaDescription": "Aprende a automatizar procesos empresariales con IA. Guía práctica con pasos, herramientas y casos reales de automatización exitosa.",
+        "keywords": "automatización procesos IA, RPA inteligente, automatización empresarial, procesos automáticos"
+      }
+    },
+    {
+      "id": "ecommerce-optimizacion-conversiones-2025",
+      "title": "E-commerce: Optimización de Conversiones en 2025",
+      "excerpt": "Las estrategias más efectivas para aumentar conversiones en tu tienda online. Desde UX/UI hasta personalización con IA, descubre las técnicas que están multiplicando las ventas de nuestros clientes.",
+      "content": "./articles/ecommerce-optimizacion-conversiones-2025.html",
+      "category": "desarrollo",
+      "categoryLabel": "Desarrollo Web",
+      "readTime": "8 min",
+      "image": "https://via.placeholder.com/400x300/059669/ffffff?text=E-commerce+2025",
+      "author": "Equipo LAURA",
+      "authorBio": "Especialistas en desarrollo de e-commerce y optimización de conversiones",
+      "date": "2024-12-10",
+      "tags": ["e-commerce", "conversiones", "tienda online", "UX/UI", "ventas online"],
+      "featured": false,
+      "status": "published",
+      "seo": {
+        "metaTitle": "E-commerce: Cómo Optimizar Conversiones en 2025 | LAURA",
+        "metaDescription": "Estrategias probadas para aumentar conversiones en tu e-commerce. Técnicas de UX/UI, personalización y optimización que multiplican ventas.",
+        "keywords": "optimización e-commerce, conversiones tienda online, UX e-commerce, ventas online"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "ia",
+      "name": "Inteligencia Artificial",
+      "description": "Tendencias, casos de uso y implementación de IA en empresas",
+      "color": "#667eea",
+      "icon": "fas fa-brain"
+    },
+    {
+      "id": "desarrollo",
+      "name": "Desarrollo Web",
+      "description": "Tecnologías, frameworks y mejores prácticas en desarrollo web",
+      "color": "#3b82f6",
+      "icon": "fas fa-code"
+    },
+    {
+      "id": "seguridad",
+      "name": "Ciberseguridad",
+      "description": "Protección digital, amenazas y soluciones de seguridad",
+      "color": "#764ba2",
+      "icon": "fas fa-shield-alt"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing Digital",
+      "description": "Estrategias de marketing digital y automatización",
+      "color": "#10b981",
+      "icon": "fas fa-chart-line"
+    },
+    {
+      "id": "consultoria",
+      "name": "Consultoría",
+      "description": "Transformación digital y optimización empresarial",
+      "color": "#f59e0b",
+      "icon": "fas fa-lightbulb"
+    }
+  ],
+  "tags": [
+    "inteligencia artificial",
+    "transformación digital",
+    "ciberseguridad",
+    "marketing digital",
+    "desarrollo web",
+    "automatización",
+    "PYME",
+    "casos éxito",
+    "tendencias 2025",
+    "consultoría digital"
+  ],
+  "authors": [
+    {
+      "id": "equipo-laura",
+      "name": "Equipo LAURA",
+      "bio": "Equipo interdisciplinario de expertos en tecnología, marketing digital y transformación empresarial",
+      "avatar": "https://via.placeholder.com/100x100/667eea/ffffff?text=LAURA",
+      "social": {
+        "linkedin": "https://linkedin.com/company/laura-digital",
+        "twitter": "https://twitter.com/lauradigital"
+      }
+    }
+  ]
+}

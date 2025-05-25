@@ -1,0 +1,529 @@
+<!-- 
+LAURA DIGITAL AGENCY
+Arquitectura Escalable y Modular
+Autor: LAURA Dev Team
+Versión: 1.0.0
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>LAURA - Agencia Digital IA | Desarrollo Web, Ciberseguridad y Marketing Digital</title>
+    <meta name="description" content="Agencia digital especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.">
+    <meta name="keywords" content="agencia digital, desarrollo web, ciberseguridad, marketing digital, inteligencia artificial, consultoría digital, PYME, automatización">
+    <meta name="author" content="LAURA Digital Agency">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="LAURA - Agencia Digital con IA">
+    <meta property="og:description" content="Transformamos tu negocio con soluciones digitales potenciadas por IA">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/images/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LAURA - Agencia Digital con IA">
+    <meta name="twitter:description" content="Transformamos tu negocio con soluciones digitales potenciadas por IA">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        /* Critical CSS - Above the fold styles */
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #4f46e5;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background-primary: #ffffff;
+            --background-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --border-radius: 0.5rem;
+            --transition: all 0.3s ease;
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background-primary);
+        }
+        
+        .navbar { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 1000; 
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .hero { 
+            padding-top: 4rem; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+    
+    <!-- Non-critical CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+    
+    <!-- Fonts (load after critical CSS) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <div class="nav-brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <span class="logo-text gradient-text">LAURA</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#servicios" class="nav-link">Servicios</a>
+                    <a href="#nosotros" class="nav-link">Nosotros</a>
+                    <a href="#clientes" class="nav-link">Clientes</a>
+                    <a href="#contacto" class="btn-primary">Contacto</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i class="fas fa-robot"></i>
+                        <span>Potenciado por IA</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Transformamos tu <span class="gradient-text">negocio digital</span> con inteligencia artificial
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        Desarrollamos soluciones web, protegemos tu seguridad digital y amplificamos tu marca con tecnología de vanguardia y procesos optimizados por IA.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <a href="#contacto" class="btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            <span>Comenzar proyecto</span>
+                        </a>
+                        <a href="#casos" class="btn-secondary">
+                            <i class="fas fa-play"></i>
+                            <span>Ver casos de éxito</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number" data-target="95">0%</div>
+                            <p class="stat-label">Clientes satisfechos</p>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-target="150">0+</div>
+                            <p class="stat-label">Proyectos completados</p>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-target="24">24/7</div>
+                            <p class="stat-label">Soporte técnico</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="hero-image">
+                        <img src="https://via.placeholder.com/500x400/667eea/ffffff?text=LAURA+AI+Dashboard" 
+                             alt="LAURA AI Dashboard" 
+                             class="floating"
+                             loading="eager"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDUwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiM2NjdlZWEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkxBVVJBIERhc2hib2FyZDwvdGV4dD48L3N2Zz4='">
+                        <div class="ai-indicator">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Servicios que <span class="gradient-text">impulsan</span> tu crecimiento
+                </h2>
+                <p class="section-subtitle">
+                    Combinamos experiencia humana con inteligencia artificial para crear soluciones que realmente funcionan
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be loaded via JavaScript for better performance -->
+            </div>
+            
+            <!-- Dynamic Service Plans Section -->
+            <div id="service-plans-container" class="service-plans-container hidden">
+                <div class="service-plans-header">
+                    <h3 class="service-plans-title">Elige tu plan perfecto</h3>
+                    <p class="service-plans-subtitle">Todos los planes incluyen nuestra garantía de satisfacción</p>
+                </div>
+                <div class="service-plans-grid">
+                    <!-- Plans will be loaded dynamically -->
+                </div>
+                <div class="service-plans-actions">
+                    <button class="btn-custom-contact" onclick="scrollToContact()">
+                        <span class="btn-custom-text">¿Necesitas algo personalizado?</span>
+                        <div class="btn-custom-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-badge">
+                        <i class="fas fa-users"></i>
+                        <span>Conoce a tu equipo</span>
+                    </div>
+                    
+                    <h2 class="section-title">
+                        ¿Qué es <span class="gradient-text">LAURA</span>?
+                    </h2>
+                    
+                    <p class="about-description">
+                        Somos una agencia digital que combina la creatividad humana con la precisión de la inteligencia artificial. Nuestro nombre representa la síntesis perfecta entre tecnología avanzada y toque personal.
+                    </p>
+                    
+                    <div class="features-list">
+                        <!-- Features will be loaded via JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="about-image">
+                        <img src="https://via.placeholder.com/600x500/f8fafc/667eea?text=LAURA+Team+%2B+AI" 
+                             alt="Equipo LAURA trabajando con IA" 
+                             loading="lazy"
+                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDYwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNmOGZhZmMiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjY3ZWVhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RXF1aXBvIExBVVJBPC90ZXh0Pjwvc3ZnPg=='">
+                        <div class="status-indicator">
+                            <div class="status-dot"></div>
+                            <p>IA trabajando 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Por qué hacer crecer tu negocio <span class="gradient-text">con nosotros</span>
+                </h2>
+                <p class="section-subtitle">
+                    No somos solo una agencia más. Somos tu socio estratégico en la transformación digital
+                </p>
+            </div>
+            
+            <div class="benefits-grid">
+                <!-- Benefits will be loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans Section -->
+    <section id="planes" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Planes diseñados para <span class="gradient-text">tu crecimiento</span>
+                </h2>
+                <p class="section-subtitle">
+                    Desde emprendedores hasta empresas establecidas, tenemos la solución perfecta para tu etapa de crecimiento
+                </p>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Pricing cards will be loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clientes" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Clientes que <span class="gradient-text">confían en nosotros</span>
+                </h2>
+                <p class="section-subtitle">
+                    Desde startups hasta empresas consolidadas, ayudamos a crecer negocios de todos los tamaños
+                </p>
+            </div>
+            
+            <!-- Client Logos -->
+            <div class="clients-logos">
+                <!-- Client logos will be loaded via JavaScript -->
+            </div>
+            
+            <!-- Testimonials -->
+            <div class="testimonials-grid">
+                <!-- Testimonials will be loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/Articles Section -->
+    <section id="blog" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Insights que <span class="gradient-text">transforman</span> negocios
+                </h2>
+                <p class="section-subtitle">
+                    Descubre las últimas tendencias en IA, desarrollo web, ciberseguridad y marketing digital
+                </p>
+            </div>
+            
+            <div class="blog-grid">
+                <!-- Featured articles will be loaded via JavaScript -->
+            </div>
+            
+            <div class="blog-actions">
+                <a href="./blog.html" class="btn-secondary blog-cta">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Ver todos los artículos</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">
+                        ¿Listo para <span class="gradient-text">transformar</span> tu negocio?
+                    </h2>
+                    <p class="contact-description">
+                        Cuéntanos tu proyecto y descubre cómo la inteligencia artificial puede llevarlo al siguiente nivel.
+                    </p>
+                    
+                    <div class="contact-methods">
+                        <!-- Contact methods will be loaded via JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contact-form">
+                        <!-- Form fields will be loaded via JavaScript -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Footer content will be loaded via JavaScript -->
+            </div>
+            
+            <!-- Certifications -->
+            <div class="certifications">
+                <h4 class="certifications-title">Certificaciones y Tecnologías</h4>
+                <div class="certifications-grid">
+                    <!-- Certifications will be loaded via JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p class="copyright">
+                    © 2025 LAURA Digital Agency. Todos los derechos reservados.
+                </p>
+                <div class="ai-status">
+                    <div class="status-dot"></div>
+                    <span>IA operativa 24/7</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/components.js"></script>
+    <script src="./assets/js/animations.js"></script>
+    <script src="./assets/js/forms.js"></script>
+    <script src="./assets/js/main.js"></script>
+    
+    <!-- Optimized Debug Script -->
+    <script>
+        // Production-ready initialization
+        console.log('🚀 LAURA Digital Agency - Loading...');
+        
+        // Check if page loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOM Content Loaded');
+            
+            // Wait for components to load
+            setTimeout(function() {
+                // Verify functionality
+                const serviceButtons = document.querySelectorAll('.service-cta');
+                const plansContainer = document.getElementById('service-plans-container');
+                
+                if (serviceButtons.length > 0 && plansContainer) {
+                    console.log('✅ LAURA loaded successfully');
+                    console.log(`🎯 ${serviceButtons.length} interactive services ready`);
+                    
+                    // Add visual indicator that services are interactive
+                    serviceButtons.forEach(btn => {
+                        btn.setAttribute('title', 'Click para ver planes específicos');
+                    });
+                    
+                } else {
+                    console.warn('⚠️ Some components may not have loaded correctly');
+                }
+                
+                // Performance check
+                const loadTime = performance.now();
+                if (loadTime < 3000) {
+                    console.log(`⚡ Fast load: ${Math.round(loadTime)}ms`);
+                } else {
+                    console.log(`🐌 Slow load: ${Math.round(loadTime)}ms`);
+                }
+                
+            }, 2000);
+        });
+        
+        // Clean error handling
+        window.addEventListener('error', function(e) {
+            console.error('❌ Error:', e.message);
+        });
+        
+        // Ensure loading spinner is removed
+        setTimeout(function() {
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner && !spinner.classList.contains('hidden')) {
+                spinner.classList.add('hidden');
+                document.body.classList.add('loaded');
+                console.log('📱 Page ready for interaction');
+            }
+        }, 4000);
+        
+        // Add smooth transitions when plans appear
+        window.addEventListener('load', function() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .service-plans-container:not(.hidden) {
+                    animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                
+                @keyframes slideInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(40px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+    
+    <!-- Analytics (add your tracking code here) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
+</body>
+</html>
