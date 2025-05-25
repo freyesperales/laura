@@ -157,67 +157,508 @@ Versión: 1.0.0
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero section">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <i class="fas fa-robot"></i>
-                        <span>Potenciado por IA</span>
-                    </div>
-                    
-                    <h1 class="hero-title">
-                        Transformamos tu <span class="gradient-text">negocio digital</span> con inteligencia artificial
-                    </h1>
-                    
-                    <p class="hero-subtitle">
-                        Desarrollamos soluciones web, protegemos tu seguridad digital y amplificamos tu marca con tecnología de vanguardia y procesos optimizados por IA.
-                    </p>
-                    
-                    <div class="hero-actions">
-                        <a href="#contacto" class="btn-primary">
-                            <i class="fas fa-rocket"></i>
-                            <span>Comenzar proyecto</span>
-                        </a>
-                        <a href="#casos" class="btn-secondary">
-                            <i class="fas fa-play"></i>
-                            <span>Ver casos de éxito</span>
-                        </a>
-                    </div>
-                    
-                    <!-- Stats -->
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-number" data-target="95">0%</div>
-                            <p class="stat-label">Clientes satisfechos</p>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" data-target="150">0+</div>
-                            <p class="stat-label">Proyectos completados</p>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" data-target="24">24/7</div>
-                            <p class="stat-label">Soporte técnico</p>
-                        </div>
-                    </div>
+ <!-- HERO SECTION - DARK MODE CON FONDO ANIMADO -->
+<section id="inicio" class="hero section hero-dark">
+    <!-- Fondo animado -->
+    <div class="hero-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+    
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge hero-badge-dark">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9.75 21c0-3.75 1.5-7.5 3.75-7.5s3.75 3.75 3.75 7.5"/>
+                        <path d="M12 3v3"/>
+                        <path d="m16 7-1 1"/>
+                        <path d="m8 7 1 1"/>
+                    </svg>
+                    <span>Potenciado por IA</span>
                 </div>
                 
-                <div class="hero-visual">
-                    <div class="hero-image">
-                        <img src="https://via.placeholder.com/500x400/667eea/ffffff?text=LAURA+AI+Dashboard" 
-                             alt="LAURA AI Dashboard" 
-                             class="floating"
-                             loading="eager"
-                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDUwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiM2NjdlZWEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkxBVVJBIERhc2hib2FyZDwvdGV4dD48L3N2Zz4='">
-                        <div class="ai-indicator">
-                            <i class="fas fa-brain"></i>
-                        </div>
+                <h1 class="hero-title hero-title-dark">
+                    Transformamos tu <span class="gradient-text-red">negocio digital</span> con inteligencia artificial.
+                </h1>
+                
+                <p class="hero-subtitle hero-subtitle-dark">
+                    Desarrollamos soluciones web, protegemos tu seguridad digital y amplificamos tu marca con tecnología de vanguardia y procesos optimizados por IA.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#contacto" class="btn-primary-dark">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="m2 17 10 5 10-5"/>
+                            <path d="m2 12 10 5 10-5"/>
+                        </svg>
+                        <span>Comenzar proyecto</span>
+                    </a>
+                    <button class="btn-secondary-dark btn-coming-soon" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                        <span>Analizar SEO de tu web</span>
+                        <div class="coming-soon-ribbon">Pronto</div>
+                    </button>
+                </div>
+                
+                <!-- Stats mejoradas -->
+                <div class="hero-stats hero-stats-dark">
+                    <div class="stat">
+                        <div class="stat-number" data-target="100">0+</div>
+                        <p class="stat-label">Sitios desarrollados</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="15">15x</div>
+                        <p class="stat-label">ROAS promedio</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <p class="stat-label">Soporte técnico</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="hero-image hero-image-dark">
+                    <img src="https://via.placeholder.com/500x400/2a2d3a/e21e5c?text=LAURA+AI+Dashboard" 
+                         alt="LAURA AI Dashboard" 
+                         class="floating"
+                         loading="eager">
+                    <div class="ai-indicator ai-indicator-dark">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.75 21c0-3.75 1.5-7.5 3.75-7.5s3.75 3.75 3.75 7.5"/>
+                            <path d="M12 3v3"/>
+                            <path d="m16 7-1 1"/>
+                            <path d="m8 7 1 1"/>
+                        </svg>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <!-- Indicador de Scroll -->
+<div class="scroll-indicator">
+    <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+    </div>
+    <div class="scroll-text">Scroll para explorar</div>
+</div>
+
+<style>
+/* AGREGAR al CSS */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+    animation: bounce 2s infinite;
+}
+
+.scroll-mouse {
+    width: 24px;
+    height: 40px;
+    border: 2px solid var(--dark-text-secondary);
+    border-radius: 12px;
+    position: relative;
+    background: transparent;
+}
+
+.scroll-wheel {
+    width: 3px;
+    height: 8px;
+    background: var(--color-accent);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 1.5s infinite;
+}
+
+.scroll-text {
+    font-size: 0.75rem;
+    color: var(--dark-text-muted);
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.8;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+@keyframes scroll-wheel {
+    0% {
+        opacity: 0;
+        top: 8px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 24px;
+    }
+}
+
+/* Ocultar en móvil */
+@media (max-width: 768px) {
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* Ocultar cuando se hace scroll */
+.scroll-indicator.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+</style>
+
+<script>
+// AGREGAR al final de main.js o como script inline
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    if (scrollIndicator) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        });
+    }
+});
+</script>
+</section>
+
+<!-- BURBUJA DE WHATSAPP -->
+<div class="whatsapp-bubble">
+    <a href="https://wa.me/56999968482?text=¡Hola!%20Visité%20su%20página%20web%20y%20me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20digitales.%20¿Podrían%20ayudarme%20con%20información%20sobre%20cómo%20pueden%20transformar%20mi%20negocio?" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="whatsapp-btn"
+       title="Chatea con nosotros por WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.569-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.905 3.488"/>
+        </svg>
+    </a>
+</div>
+
+<style>
+/* TEMA DARK MODE ELEGANTE */
+:root {
+  /* Colores dark theme */
+  --dark-bg-primary: #1a1d23;
+  --dark-bg-secondary: #2a2d3a;
+  --dark-bg-tertiary: #363942;
+  --dark-text-primary: #f8f9fa;
+  --dark-text-secondary: #adb5bd;
+  --dark-text-muted: #6c757d;
+  --color-accent: #e21e5c;
+  --color-accent-light: #ff4081;
+  --color-bone: #f5f5dc;
+  --color-graphite: #41444b;
+}
+
+/* Body y elementos base */
+body {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+/* Hero Section Dark */
+.hero-dark {
+  background: var(--dark-bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fondo animado */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 6s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(226, 30, 92, 0.3) 0%, transparent 70%);
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+  top: 60%;
+  right: 20%;
+  animation-delay: 2s;
+}
+
+.orb-3 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.2) 0%, transparent 70%);
+  bottom: 20%;
+  left: 60%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+/* Hero Content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge-dark {
+  background: rgba(226, 30, 92, 0.1);
+  color: var(--color-accent);
+  border: 1px solid rgba(226, 30, 92, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.hero-title-dark {
+  color: var(--dark-text-primary);
+}
+
+.gradient-text-red {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle-dark {
+  color: var(--dark-text-secondary);
+}
+
+/* Botones dark */
+.btn-primary-dark {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 8px 25px rgba(226, 30, 92, 0.3);
+}
+
+.btn-primary-dark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(226, 30, 92, 0.4);
+}
+
+.btn-secondary-dark {
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+  border: 2px solid var(--dark-bg-tertiary);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary-dark:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-coming-soon {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.coming-soon-ribbon {
+  position: absolute;
+  top: 6px;
+  right: -30px;
+  background: var(--color-accent);
+  color: white;
+  padding: 2px 35px;
+  font-size: 10px;
+  font-weight: 700;
+  transform: rotate(45deg);
+  font-family: inherit;
+}
+
+/* Stats dark */
+.hero-stats-dark {
+  border-top: 1px solid var(--dark-bg-tertiary);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.hero-stats-dark .stat-number {
+  color: var(--color-accent);
+}
+
+.hero-stats-dark .stat-label {
+  color: var(--dark-text-secondary);
+}
+
+/* Hero image dark */
+.hero-image-dark img {
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.ai-indicator-dark {
+  background: var(--dark-bg-secondary);
+  color: var(--color-accent);
+  border: 2px solid var(--dark-bg-tertiary);
+  backdrop-filter: blur(10px);
+}
+
+/* WhatsApp Bubble */
+.whatsapp-bubble {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.whatsapp-btn {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse-whatsapp 2s infinite;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes pulse-whatsapp {
+  0% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 10px rgba(37, 211, 102, 0.1);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .orb-1, .orb-2, .orb-3 {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .whatsapp-bubble {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .whatsapp-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .btn-primary-dark,
+  .btn-secondary-dark {
+    justify-content: center;
+  }
+}
+
+/* Secciones alternas dark */
+.section-alt {
+  background-color: var(--dark-bg-secondary);
+}
+
+/* Texto general */
+.section-title {
+  color: var(--dark-text-primary);
+}
+
+.section-subtitle {
+  color: var(--dark-text-secondary);
+}
+
+/* Cards dark */
+.card {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+}
+</style>
 
     <!-- Services Section -->
     <section id="servicios" class="section section-alt">
@@ -313,23 +754,121 @@ Versión: 1.0.0
         </div>
     </section>
 
-    <!-- Pricing Plans Section -->
-    <section id="planes" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    Planes diseñados para <span class="gradient-text">tu crecimiento</span>
-                </h2>
-                <p class="section-subtitle">
-                    Desde emprendedores hasta empresas establecidas, tenemos la solución perfecta para tu etapa de crecimiento
-                </p>
+<!-- Pricing Plans Section - VERSIÓN FINAL FUNCIONAL -->
+<section id="planes" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                Planes diseñados para <span class="gradient-text">tu crecimiento</span>
+            </h2>
+            <p class="section-subtitle">
+                Desde emprendedores hasta empresas establecidas, tenemos la solución perfecta para tu etapa de crecimiento
+            </p>
+        </div>
+        
+        <div class="pricing-grid-new">
+            <!-- Plan Starter -->
+            <div class="pricing-card-new starter-card">
+                <div class="card-header-new">
+                    <div class="plan-icon-new starter-icon">
+                        🚀
+                    </div>
+                    <h3 class="plan-name-new">Starter</h3>
+                    <p class="plan-subtitle-new">Para emprendedores</p>
+                    <div class="plan-price-new">Desde 35 UF</div>
+                </div>
+                
+                <div class="card-features-new">
+                    <ul class="features-list-new">
+                        <li class="feature-new">✅ Landing page optimizada</li>
+                        <li class="feature-new">✅ Seguridad básica</li>
+                        <li class="feature-new">✅ Marketing inicial</li>
+                        <li class="feature-new">✅ Consultoría estratégica</li>
+                    </ul>
+                </div>
+                
+                <div class="card-footer-new">
+                    <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20plan%20*Starter*%20desde%2035%20UF.%20Me%20gustaría%20conocer%20más%20detalles%20sobre%20qué%20incluye%20para%20emprendedores%20y%20cómo%20pueden%20ayudarme%20a%20comenzar%20mi%20proyecto%20digital." 
+                       target="_blank" 
+                       class="cta-btn-new secondary-btn-new">
+                        💬 Empezar proyecto
+                    </a>
+                </div>
             </div>
-            
-            <div class="pricing-grid">
-                <!-- Pricing cards will be loaded via JavaScript -->
+
+            <!-- Plan Growth - POPULAR -->
+            <div class="pricing-card-new growth-card popular-card-new">
+                <div class="popular-badge-new">⭐ Más Popular</div>
+                
+                <div class="card-header-new">
+                    <div class="plan-icon-new growth-icon">
+                        📈
+                    </div>
+                    <h3 class="plan-name-new">Growth</h3>
+                    <p class="plan-subtitle-new">Para PYMEs en crecimiento</p>
+                    <div class="plan-price-new">Desde 95 UF</div>
+                </div>
+                
+                <div class="card-features-new">
+                    <ul class="features-list-new">
+                        <li class="feature-new">✅ Sitio web completo + E-commerce</li>
+                        <li class="feature-new">✅ Seguridad avanzada</li>
+                        <li class="feature-new">✅ Marketing multicanal</li>
+                        <li class="feature-new">✅ Transformación digital</li>
+                    </ul>
+                </div>
+                
+                <div class="card-footer-new">
+                    <a href="https://wa.me/56999968482?text=¡Hola!%20Estoy%20interesado%20en%20el%20plan%20*Growth*%20desde%2095%20UF.%20Mi%20empresa%20está%20en%20crecimiento%20y%20necesito%20una%20solución%20integral%20que%20incluya%20sitio%20web%20completo,%20e-commerce%20y%20marketing%20multicanal.%20¿Podemos%20conversar%20sobre%20los%20detalles?" 
+                       target="_blank" 
+                       class="cta-btn-new primary-btn-new">
+                        💬 Acelerar crecimiento
+                    </a>
+                </div>
+            </div>
+
+            <!-- Plan Enterprise -->
+            <div class="pricing-card-new enterprise-card">
+                <div class="card-header-new">
+                    <div class="plan-icon-new enterprise-icon">
+                        🏢
+                    </div>
+                    <h3 class="plan-name-new">Enterprise</h3>
+                    <p class="plan-subtitle-new">Para empresas líderes</p>
+                    <div class="plan-price-new">Personalizado</div>
+                </div>
+                
+                <div class="card-features-new">
+                    <ul class="features-list-new">
+                        <li class="feature-new">✅ Desarrollo personalizado</li>
+                        <li class="feature-new">✅ Seguridad empresarial</li>
+                        <li class="feature-new">✅ Marketing con IA avanzada</li>
+                        <li class="feature-new">✅ Soporte dedicado 24/7</li>
+                    </ul>
+                </div>
+                
+                <div class="card-footer-new">
+                    <a href="https://wa.me/56999968482?text=¡Hola!%20Represento%20una%20empresa%20establecida%20y%20me%20interesa%20el%20plan%20*Enterprise*%20personalizado.%20Necesitamos%20una%20solución%20empresarial%20completa%20con%20desarrollo%20personalizado,%20seguridad%20avanzada%20y%20soporte%2024/7.%20¿Podemos%20agendar%20una%20reunión%20para%20discutir%20nuestras%20necesidades%20específicas?" 
+                       target="_blank" 
+                       class="cta-btn-new secondary-btn-new">
+                        💬 Contactar
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+
+        <!-- CTA Section -->
+        <div class="custom-solution-cta">
+            <h3>¿No encuentras lo que buscas?</h3>
+            <p>Cada empresa es única. Conversemos sobre tus necesidades específicas y creemos una solución personalizada.</p>
+            <a href="https://wa.me/56999968482?text=¡Hola!%20Necesito%20una%20solución%20personalizada%20para%20mi%20empresa.%20Me%20gustaría%20conversar%20sobre%20mis%20necesidades%20específicas%20y%20cómo%20LAURA%20puede%20ayudarme.%20¿Podemos%20agendar%20una%20reunión?" 
+               target="_blank" 
+               class="whatsapp-cta-main">
+                💬 Conversemos por WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Clients Section -->
     <section id="clientes" class="section section-alt">
@@ -445,6 +984,7 @@ Versión: 1.0.0
     <script src="./assets/js/animations.js"></script>
     <script src="./assets/js/forms.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/pricing-whatsapp.js"></script>
     
     <!-- Optimized Debug Script -->
     <script>
@@ -521,9 +1061,11 @@ Versión: 1.0.0
             `;
             document.head.appendChild(style);
         });
-    </script>
-    
-    <!-- Analytics (add your tracking code here) -->
+    </script> 
+<div class="whatsapp-bubble">
+    <!-- Código de la burbuja proporcionado -->
+</div>
+<!-- Analytics (add your tracking code here) -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
 </body>
 </html>

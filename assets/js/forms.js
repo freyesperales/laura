@@ -1,7 +1,7 @@
 /**
  * LAURA DIGITAL AGENCY - Forms Module
  * Handles form validation, submission, and user interactions
- * Version: 1.0.0
+ * Version: 1.0.0 - FIXED
  */
 
 window.LAURA_Forms = {
@@ -20,16 +20,20 @@ window.LAURA_Forms = {
     if (this.state.isInitialized) return;
     
     try {
-      this.setupContactForm();
-      this.setupFormValidation();
-      this.setupFormInteractions();
-      this.setupNewsletterForms();
+      // Wait a bit for DOM to be fully ready
+      setTimeout(() => {
+        this.setupContactForm();
+        this.setupFormValidation();
+        this.setupFormInteractions();
+        this.setupNewsletterForms();
+        
+        this.state.isInitialized = true;
+        
+        if (getConfig('dev.enableConsoleMessages')) {
+          console.log('✅ Forms module initialized successfully');
+        }
+      }, 500);
       
-      this.state.isInitialized = true;
-      
-      if (getConfig('dev.enableConsoleMessages')) {
-        console.log('✅ Forms module initialized successfully');
-      }
     } catch (error) {
       console.error('❌ Error initializing forms:', error);
     }
@@ -40,7 +44,16 @@ window.LAURA_Forms = {
    */
   setupContactForm() {
     const form = document.getElementById('contact-form');
-    if (!form) return;
+    if (!form) {
+      console.log('❌ Contact form not found, will retry...');
+      // Retry after a delay
+      setTimeout(() => {
+        this.setupContactForm();
+      }, 1000);
+      return;
+    }
+
+    console.log('✅ Contact form found, setting up...');
 
     // Store form reference
     this.state.forms.set('contact', form);
@@ -54,8 +67,10 @@ window.LAURA_Forms = {
     // Setup real-time validation
     this.setupRealTimeValidation(form);
 
-    // Setup form grid layout
-    this.setupFormGrid(form);
+    // Add form styles
+    this.addFormStyles();
+
+    console.log('✅ Contact form setup complete');
   },
 
   /**
@@ -63,6 +78,8 @@ window.LAURA_Forms = {
    */
   async handleContactFormSubmission(form) {
     try {
+      console.log('📝 Form submission started');
+
       // Validate form
       const validation = this.validateForm(form);
       if (!validation.isValid) {
@@ -75,7 +92,14 @@ window.LAURA_Forms = {
       
       // Show loading state
       const submitBtn = form.querySelector('.form-submit');
-      const removeLoading = window.LAURA_Animations.addLoadingAnimation(submitBtn, 'Enviando...');
+      const originalContent = submitBtn.innerHTML;
+      
+      submitBtn.innerHTML = `
+        <div class="loading-animation">
+          <div class="loading-spinner"></div>
+          <span>Enviando...</span>
+        </div>
+      `;
       
       // Disable form
       this.setFormDisabled(form, true);
@@ -92,6 +116,9 @@ window.LAURA_Forms = {
       } else {
         this.showErrorMessage(form, result.message || 'Error al enviar el formulario');
       }
+      
+      // Restore button
+      submitBtn.innerHTML = originalContent;
       
     } catch (error) {
       console.error('Form submission error:', error);
@@ -312,80 +339,6 @@ window.LAURA_Forms = {
   },
 
   /**
-   * Setup form grid layout
-   */
-  setupFormGrid(form) {
-    // Add CSS for form grid
-    if (!document.getElementById('form-grid-styles')) {
-      const styles = document.createElement('style');
-      styles.id = 'form-grid-styles';
-      styles.textContent = `
-        .contact-form {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-6);
-        }
-        
-        @media (min-width: 768px) {
-          .contact-form {
-            grid-template-columns: 1fr 1fr;
-          }
-          
-          .form-group:nth-child(3),
-          .form-group:nth-child(4),
-          .form-group:nth-child(5),
-          .form-group:nth-child(6),
-          .form-group:nth-child(7) {
-            grid-column: 1 / -1;
-          }
-        }
-        
-        .form-group {
-          display: flex;
-          flex-direction: column;
-        }
-        
-        .field-error {
-          color: var(--error);
-          font-size: var(--text-sm);
-          margin-top: var(--space-1);
-        }
-        
-        .form-input.error,
-        .form-textarea.error,
-        .form-select.error {
-          border-color: var(--error);
-        }
-        
-        .form-success {
-          background-color: #f0fdf4;
-          border: 1px solid #10b981;
-          color: #065f46;
-          padding: var(--space-4);
-          border-radius: var(--radius-lg);
-          margin-bottom: var(--space-6);
-          display: flex;
-          align-items: center;
-          gap: var(--space-2);
-        }
-        
-        .form-error {
-          background-color: #fef2f2;
-          border: 1px solid #ef4444;
-          color: #991b1b;
-          padding: var(--space-4);
-          border-radius: var(--radius-lg);
-          margin-bottom: var(--space-6);
-          display: flex;
-          align-items: center;
-          gap: var(--space-2);
-        }
-      `;
-      document.head.appendChild(styles);
-    }
-  },
-
-  /**
    * Setup newsletter forms
    */
   setupNewsletterForms() {
@@ -411,7 +364,14 @@ window.LAURA_Forms = {
 
     try {
       const submitBtn = form.querySelector('button[type="submit"]');
-      const removeLoading = window.LAURA_Animations.addLoadingAnimation(submitBtn, 'Suscribiendo...');
+      const originalContent = submitBtn.innerHTML;
+      
+      submitBtn.innerHTML = `
+        <div class="loading-animation">
+          <div class="loading-spinner"></div>
+          <span>Suscribiendo...</span>
+        </div>
+      `;
 
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -421,6 +381,8 @@ window.LAURA_Forms = {
 
       // Track subscription
       this.trackFormSubmission('newsletter', { email });
+
+      submitBtn.innerHTML = originalContent;
 
     } catch (error) {
       this.showErrorMessage(form, 'Error al suscribirse. Intenta nuevamente.');
@@ -525,9 +487,9 @@ window.LAURA_Forms = {
   formatPhoneNumber(input) {
     let value = input.value.replace(/\D/g, '');
     
-    if (value.startsWith('34')) {
-      // Spanish format
-      value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '+$1 $2 $3 $4');
+    if (value.startsWith('56')) {
+      // Chilean format
+      value = value.replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '+$1 $2 $3 $4');
     } else if (value.length >= 9) {
       // Generic format
       value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
@@ -595,6 +557,109 @@ window.LAURA_Forms = {
     if (firstErrorField) {
       firstErrorField.focus();
     }
+  },
+
+  /**
+   * Add form styles
+   */
+  addFormStyles() {
+    if (document.getElementById('forms-styles')) return;
+    
+    const styles = document.createElement('style');
+    styles.id = 'forms-styles';
+    styles.textContent = `
+      .contact-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+      }
+      
+      @media (min-width: 768px) {
+        .contact-form {
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+        
+        .contact-form .form-group:nth-child(3),
+        .contact-form .form-group:nth-child(4),
+        .contact-form .form-group:nth-child(5),
+        .contact-form .form-group:nth-child(6),
+        .contact-form .form-group:nth-child(7) {
+          grid-column: 1 / -1;
+        }
+      }
+      
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .form-group-half {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .field-error {
+        color: var(--error, #ef4444);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+      
+      .form-input.error,
+      .form-textarea.error,
+      .form-select.error {
+        border-color: var(--error, #ef4444);
+      }
+      
+      .form-success {
+        background-color: #f0fdf4;
+        border: 1px solid #10b981;
+        color: #065f46;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        grid-column: 1 / -1;
+      }
+      
+      .form-error {
+        background-color: #fef2f2;
+        border: 1px solid #ef4444;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        grid-column: 1 / -1;
+      }
+      
+      .loading-animation {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+      
+      .loading-spinner {
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid transparent;
+        border-top: 2px solid currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(styles);
   },
 
   /**

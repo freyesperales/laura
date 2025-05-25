@@ -1,7 +1,7 @@
 /**
  * LAURA DIGITAL AGENCY - Components Module
  * Dynamic component generation for scalable architecture
- * Version: 1.0.0
+ * Version: 1.0.0 - FIXED
  */
 
 window.LAURA_Components = {
@@ -12,21 +12,11 @@ window.LAURA_Components = {
   renderServices() {
     const container = document.querySelector('.services-grid');
     if (!container) {
-      console.log('❌ Services container not found - looking for alternatives');
-      
-      // Try alternative selectors
-      const altContainer = document.querySelector('#servicios .grid, #servicios .services-grid, .services-container');
-      if (altContainer) {
-        console.log('✅ Found alternative services container');
-        this.updateServicesContainer(altContainer);
-        return;
-      } else {
-        console.log('❌ No services container found at all');
-        return;
-      }
+      console.log('❌ Services container not found');
+      return;
     }
 
-    console.log('🔧 Updating services container with interactive buttons');
+    console.log('🔧 Rendering services');
     this.updateServicesContainer(container);
   },
   
@@ -36,9 +26,6 @@ window.LAURA_Components = {
   updateServicesContainer(container) {
     const services = getConfig('services', []);
     console.log('🔧 Rendering services:', services.length);
-    
-    // First, let's see what's currently in the container
-    console.log('Current container HTML:', container.innerHTML.substring(0, 200) + '...');
     
     container.innerHTML = services.map(service => `
       <div class="card hover-lift fade-in service-card" data-service="${service.id}">
@@ -66,8 +53,7 @@ window.LAURA_Components = {
       </div>
     `).join('');
 
-    console.log('✅ Services updated with new CTAs and KPIs');
-    console.log('New CTAs:', services.map(s => s.cta));
+    console.log('✅ Services updated');
     
     // Make sure the functions are globally available
     this.ensureGlobalFunctions();
@@ -261,145 +247,6 @@ Me gustaría conocer más detalles sobre:
   },
   
   /**
-   * Ensure continuous service functions are available
-   */
-  ensureContinuousServiceFunctions() {
-    if (!window.selectContinuousService) {
-      window.selectContinuousService = (serviceId, serviceName) => {
-        console.log('🔄 Continuous service selected:', serviceId, serviceName);
-        this.selectContinuousService(serviceId, serviceName);
-      };
-      console.log('🔧 Global selectContinuousService function created');
-    }
-  },
-  
-  /**
-   * Handle continuous service selection
-   */
-  selectContinuousService(serviceId, serviceName) {
-    console.log('🔄 Selecting continuous service:', serviceName);
-    
-    // Pre-fill contact form
-    const form = document.getElementById('contact-form') || document.querySelector('form[name="contact"], .contact-form form, #contacto form');
-    if (form) {
-      this.fillContinuousServiceForm(form, serviceId, serviceName);
-    }
-    
-    // Scroll to contact form
-    this.scrollToContact();
-    
-    // Track selection
-    this.trackContinuousServiceSelection(serviceId, serviceName);
-  },
-  
-  /**
-   * Fill form for continuous service
-   */
-  fillContinuousServiceForm(form, serviceId, serviceName) {
-    console.log('📝 Filling form for continuous service:', serviceName);
-    
-    // Try to find and update service select
-    const serviceSelects = [
-      form.querySelector('select[name="service"]'),
-      form.querySelector('select[name="servicio"]'),
-      form.querySelector('select#service'),
-      form.querySelector('select#servicio')
-    ].filter(Boolean);
-    
-    if (serviceSelects.length > 0) {
-      const serviceSelect = serviceSelects[0];
-      
-      // Add continuous service option if it doesn't exist
-      const continuousOption = Array.from(serviceSelect.options).find(option => 
-        option.value === 'continuous' || option.textContent.toLowerCase().includes('continuo')
-      );
-      
-      if (!continuousOption) {
-        const newOption = document.createElement('option');
-        newOption.value = 'continuous';
-        newOption.textContent = 'Servicio Continuo';
-        serviceSelect.appendChild(newOption);
-      }
-      
-      serviceSelect.value = 'continuous';
-      console.log('✅ Service set to continuous');
-    }
-    
-    // Fill message textarea
-    const textareas = [
-      form.querySelector('textarea[name="message"]'),
-      form.querySelector('textarea[name="mensaje"]'),
-      form.querySelector('textarea#message'),
-      form.querySelector('textarea#mensaje'),
-      form.querySelector('textarea')
-    ].filter(Boolean);
-    
-    if (textareas.length > 0) {
-      const messageTextarea = textareas[0];
-      
-      if (!messageTextarea.value.trim()) {
-        const continuousServices = getConfig('continuousServices', []);
-        const selectedService = continuousServices.find(s => s.id === serviceId);
-        
-        let message = `Hola! Estoy interesado en el plan de servicio continuo ${serviceName}.
-
-Precio: ${selectedService?.price || 'A consultar'}`;
-
-        if (selectedService?.commitment) {
-          message += `\nCompromiso: ${selectedService.commitment}`;
-        }
-
-        message += `\n\nMe gustaría saber:
-- Cuándo podríamos comenzar
-- Detalles del proceso de trabajo
-- Formas de pago disponibles
-- Si hay período de prueba
-
-¡Gracias!`;
-        
-        messageTextarea.value = message;
-        console.log('✅ Continuous service message pre-filled');
-        
-        // Visual feedback
-        messageTextarea.style.borderColor = '#667eea';
-        messageTextarea.style.boxShadow = '0 0 8px rgba(102, 126, 234, 0.3)';
-        
-        setTimeout(() => {
-          messageTextarea.style.borderColor = '';
-          messageTextarea.style.boxShadow = '';
-        }, 2000);
-      }
-    }
-    
-    // Show success notification
-    this.showNotification(`Formulario actualizado con ${serviceName}`, 'success');
-  },
-  
-  /**
-   * Track continuous service selection
-   */
-  trackContinuousServiceSelection(serviceId, serviceName) {
-    if (window.LAURA_Forms && typeof window.LAURA_Forms.trackFormSubmission === 'function') {
-      window.LAURA_Forms.trackFormSubmission('continuous_service_selection', {
-        serviceId: serviceId,
-        serviceName: serviceName,
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    // Google Analytics tracking if available
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'continuous_service_selected', {
-        'service_id': serviceId,
-        'service_name': serviceName,
-        'event_category': 'continuous_services'
-      });
-    }
-    
-    console.log('📊 Continuous service selection tracked:', serviceId);
-  },
-  
-  /**
    * Scroll to contact section
    */
   scrollToContact() {
@@ -521,7 +368,7 @@ Precio: ${selectedService?.price || 'A consultar'}`;
     const container = document.querySelector('.blog-grid');
     if (!container) return;
 
-    // Featured articles (you can move this to config.js later)
+    // Featured articles
     const featuredArticles = [
       {
         id: 'ia-transformacion-digital-2025',
@@ -738,7 +585,10 @@ Precio: ${selectedService?.price || 'A consultar'}`;
    */
   renderContactForm() {
     const container = document.querySelector('.contact-form');
-    if (!container) return;
+    if (!container) {
+      console.log('❌ Contact form container not found');
+      return;
+    }
 
     const formConfig = getConfig('contactForm', {});
     const fields = formConfig.fields || [];
@@ -753,6 +603,8 @@ Precio: ${selectedService?.price || 'A consultar'}`;
       </div>
       <p class="form-privacy">${formConfig.privacyText || ''}</p>
     `;
+    
+    console.log('✅ Contact form rendered');
   },
 
   /**
@@ -896,6 +748,30 @@ Precio: ${selectedService?.price || 'A consultar'}`;
              onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA4MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNDAiIGZpbGw9IiMzNzQxNTEiLz48dGV4dCB4PSI0MCIgeT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj4ke2NlcnQubmFtZX08L3RleHQ+PC9zdmc+'">
       </div>
     `).join('');
+  },
+
+  /**
+   * Track plan selection
+   */
+  trackPlanSelection(planId, planName) {
+    if (window.LAURA_Forms && typeof window.LAURA_Forms.trackFormSubmission === 'function') {
+      window.LAURA_Forms.trackFormSubmission('plan_selection', {
+        planId: planId,
+        planName: planName,
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    // Google Analytics tracking if available
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'plan_selected', {
+        'plan_id': planId,
+        'plan_name': planName,
+        'event_category': 'pricing'
+      });
+    }
+    
+    console.log('📊 Plan selection tracked:', planId);
   },
 
   /**
@@ -1475,6 +1351,58 @@ Precio: ${selectedService?.price || 'A consultar'}`;
         align-items: center;
         gap: var(--space-2);
         padding: var(--space-4) var(--space-8);
+      }
+    `;
+    document.head.appendChild(styles);
+  },
+
+  /**
+   * Add general styles for missing elements
+   */
+  addPricingStyles() {
+    if (document.getElementById('pricing-styles')) return;
+    
+    const styles = document.createElement('style');
+    styles.id = 'pricing-styles';
+    styles.textContent = `
+      .popular-badge {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-full);
+        font-size: var(--text-sm);
+        font-weight: var(--font-weight-bold);
+        box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+      }
+      
+      .feature-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: var(--text-lg);
+        margin-bottom: var(--space-4);
+      }
+      
+      .benefit-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
+        border-radius: var(--radius-xl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: var(--text-2xl);
+        margin-bottom: var(--space-6);
       }
     `;
     document.head.appendChild(styles);

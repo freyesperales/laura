@@ -1,7 +1,7 @@
 /**
  * LAURA DIGITAL AGENCY - Configuration File
  * Centralized configuration for easy content management
- * Version: 1.0.0
+ * Version: 1.0.0 - PRECIOS EN UF CHILE
  */
 
 window.LAURA_CONFIG = {
@@ -9,21 +9,21 @@ window.LAURA_CONFIG = {
   company: {
     name: 'LAURA',
     fullName: 'LAURA Digital Agency',
-    tagline: 'Transformamos tu negocio digital con inteligencia artificial',
+    tagline: 'Transformamos tu negocio digital con inteligencia artificial y un toque humano',
     description: 'Agencia digital especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
-    email: 'hola@laura.digital',
-    phone: '+34 900 123 456',
-    address: 'Madrid, España',
-    website: 'https://laura.digital',
+    email: 'francisco@laura.lat',
+    phone: '+56 9 9996 8482',
+    address: 'Santiago, Chile',
+    website: 'https://laura.lat',
     socialMedia: {
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/frppr/',
       twitter: '#',
       instagram: '#',
       youtube: '#'
     }
   },
 
-  // Services Configuration with specific plans
+  // Services Configuration with specific plans (PRECIOS EN UF)
   services: [
     {
       id: 'web-development',
@@ -41,7 +41,7 @@ window.LAURA_CONFIG = {
           id: 'web-spark',
           name: 'SPARK Web',
           subtitle: 'Landing page profesional',
-          price: '€1,200',
+          price: '10 UF',
           popular: false,
           features: [
             'Landing page optimizada (5 secciones)',
@@ -57,7 +57,7 @@ window.LAURA_CONFIG = {
           id: 'web-fusion',
           name: 'FUSION Web',
           subtitle: 'Sitio web completo',
-          price: '€3,500',
+          price: '30 UF',
           popular: true,
           features: [
             'Sitio web corporativo (hasta 15 páginas)',
@@ -66,14 +66,14 @@ window.LAURA_CONFIG = {
             'Integración con redes sociales',
             'SEO técnico implementado'
           ],
-          deliverables: 'Entrega en 15 días',
+          deliverables: 'Entrega en 20 días',
           cta: 'Construir mi sitio'
         },
         {
           id: 'web-quantum',
           name: 'QUANTUM Web',
           subtitle: 'Desarrollo personalizado',
-          price: '€8,000+',
+          price: '60 UF',
           popular: false,
           features: [
             'Desarrollo web personalizado',
@@ -82,7 +82,7 @@ window.LAURA_CONFIG = {
             'Dashboard analytics personalizado',
             'Arquitectura escalable empresarial'
           ],
-          deliverables: 'Entrega en 30 días',
+          deliverables: 'Entrega en 45 días',
           cta: 'Solicitar cotización'
         }
       ]
@@ -103,7 +103,7 @@ window.LAURA_CONFIG = {
           id: 'security-shield',
           name: 'SHIELD Security',
           subtitle: 'Protección básica',
-          price: '€800',
+          price: '10 UF',
           popular: false,
           features: [
             'Auditoría básica de vulnerabilidades',
@@ -112,14 +112,14 @@ window.LAURA_CONFIG = {
             'Certificado SSL premium',
             'Guía de buenas prácticas'
           ],
-          deliverables: 'Setup en 3 días',
+          deliverables: 'Setup en 7 días',
           cta: 'Asegurar básico'
         },
         {
           id: 'security-fortress',
           name: 'FORTRESS Security',
           subtitle: 'Protección avanzada',
-          price: '€2,500',
+          price: '50 UF',
           popular: true,
           features: [
             'Auditoría completa de seguridad',
@@ -128,14 +128,14 @@ window.LAURA_CONFIG = {
             'Plan de respuesta a incidentes',
             'Capacitación del equipo'
           ],
-          deliverables: 'Implementación en 10 días',
+          deliverables: 'Implementación en 30 días',
           cta: 'Fortalecer seguridad'
         },
         {
           id: 'pyme-segura',
           name: 'PYME SEGURA',
           subtitle: 'Programa integral exclusivo',
-          price: '€4,500',
+          price: '80 UF',
           popular: false,
           features: [
             'Auditoría integral + resolución',
@@ -144,7 +144,7 @@ window.LAURA_CONFIG = {
             'Respuesta inmediata a incidentes',
             'Compliance empresarial'
           ],
-          deliverables: 'Programa completo en 4 semanas',
+          deliverables: 'Programa completo en 8 semanas',
           cta: 'Unirse a PYME Segura'
         }
       ]
@@ -165,11 +165,11 @@ window.LAURA_CONFIG = {
           id: 'marketing-launch',
           name: 'LAUNCH Marketing',
           subtitle: 'Despegue digital',
-          price: '€800/mes',
+          price: '20 UF/mes',
           popular: false,
           features: [
             'Sesión fotográfica (4 horas/mes)',
-            'Contenido para RRSS (20 posts/mes)',
+            'Contenido para RRSS (15 posts/mes)',
             'Gestión de 2 plataformas sociales',
             'Community management básico',
             'Reportes mensuales básicos'
@@ -181,14 +181,14 @@ window.LAURA_CONFIG = {
           id: 'marketing-amplify',
           name: 'AMPLIFY Marketing',
           subtitle: 'Crecimiento acelerado',
-          price: '€1,500/mes',
+          price: '30 UF/mes',
           popular: true,
           features: [
-            'Sesión mensual (6 horas) + videos',
+            'Sesión audiovisual de 12 horas + videos',
             'Gestión de 4 plataformas sociales',
             'Estrategia de contenido personalizada',
-            'Ads management profesional',
-            'Dashboard de métricas en tiempo real'
+            'Estrategia SEO Básica',
+            'Dashboard de métricas personalizado'
           ],
           deliverables: 'Estrategia en 48h',
           cta: 'Amplificar resultados'
@@ -197,13 +197,13 @@ window.LAURA_CONFIG = {
           id: 'marketing-dominate',
           name: 'DOMINATE Marketing',
           subtitle: 'Liderazgo total',
-          price: '€3,000/mes',
+          price: '40 UF/mes',
           popular: false,
           features: [
-            'Producción audiovisual profesional',
+            'Producción audiovisual y fotográfica profesional',
             'IA personalizada para contenido',
             'Influencer marketing management',
-            'Growth hacking avanzado',
+            'Estrategia SEO avanzada',
             'Estrategia omnicanal completa'
           ],
           deliverables: 'Lanzamiento en 1 semana',
@@ -227,7 +227,7 @@ window.LAURA_CONFIG = {
           id: 'consulting-insights',
           name: 'INSIGHTS Consulting',
           subtitle: 'Diagnóstico estratégico',
-          price: '€1,500',
+          price: '42 UF',
           popular: false,
           features: [
             'Auditoría digital inicial completa',
@@ -243,7 +243,7 @@ window.LAURA_CONFIG = {
           id: 'consulting-strategy',
           name: 'STRATEGY Consulting',
           subtitle: 'Implementación guiada',
-          price: '€4,500',
+          price: '125 UF',
           popular: true,
           features: [
             'Consultoría estratégica integral',
@@ -259,7 +259,7 @@ window.LAURA_CONFIG = {
           id: 'consulting-transformation',
           name: 'TRANSFORMATION Consulting',
           subtitle: 'Cambio organizacional',
-          price: '€12,000+',
+          price: '330 UF+',
           popular: false,
           features: [
             'Transformación digital completa',
@@ -313,13 +313,13 @@ window.LAURA_CONFIG = {
     }
   ],
 
-  // Pricing Plans
+  // Pricing Plans (PRECIOS EN UF)
   pricingPlans: [
     {
       id: 'starter',
       name: 'Starter',
       subtitle: 'Para emprendedores',
-      price: 'Desde €1,200',
+      price: 'Desde 10 UF',
       popular: false,
       features: [
         'Landing page optimizada',
@@ -334,7 +334,7 @@ window.LAURA_CONFIG = {
       id: 'growth',
       name: 'Growth',
       subtitle: 'Para PYMEs en crecimiento',
-      price: 'Desde €3,500',
+      price: 'Desde 20 UF',
       popular: true,
       features: [
         'Sitio web completo + E-commerce',
@@ -366,10 +366,10 @@ window.LAURA_CONFIG = {
   testimonials: [
     {
       id: 1,
-      name: 'María González',
-      position: 'CEO',
-      company: 'TechStart',
-      avatar: './assets/images/testimonials/maria.jpg',
+      name: 'Claudia Marambio',
+      position: 'Subgerente de tiendas abc',
+      company: 'ABC',
+      avatar: 'https://via.placeholder.com/50x50/667eea/ffffff?text=MG',
       rating: 5,
       quote: 'LAURA transformó completamente nuestro negocio digital. Su enfoque con IA nos permitió automatizar procesos y triplicar nuestras ventas online.'
     },
@@ -378,16 +378,16 @@ window.LAURA_CONFIG = {
       name: 'Juan Pérez',
       position: 'Director',
       company: 'InnovaCorp',
-      avatar: './assets/images/testimonials/juan.jpg',
+      avatar: 'https://via.placeholder.com/50x50/764ba2/ffffff?text=JP',
       rating: 5,
       quote: 'La seguridad de nuestros datos era crítica. El programa PYME Segura nos dio la tranquilidad que necesitábamos para crecer sin preocupaciones.'
     },
     {
       id: 3,
-      name: 'Ana Martín',
-      position: 'CMO',
-      company: 'GrowthCo',
-      avatar: './assets/images/testimonials/ana.jpg',
+      name: 'Francisco Flores',
+      position: 'CEO',
+      company: 'Degu Medios',
+      avatar: 'https://via.placeholder.com/50x50/10b981/ffffff?text=AM',
       rating: 5,
       quote: 'Su estrategia de marketing digital con IA nos ayudó a reducir costos de adquisición en un 60% mientras aumentábamos conversiones.'
     }
@@ -395,27 +395,27 @@ window.LAURA_CONFIG = {
 
   // Client Logos
   clientLogos: [
-    { name: 'Cliente 1', logo: './assets/images/clients/client-1.png' },
-    { name: 'Cliente 2', logo: './assets/images/clients/client-2.png' },
-    { name: 'Cliente 3', logo: './assets/images/clients/client-3.png' },
-    { name: 'Cliente 4', logo: './assets/images/clients/client-4.png' },
-    { name: 'Cliente 5', logo: './assets/images/clients/client-5.png' },
-    { name: 'Cliente 6', logo: './assets/images/clients/client-6.png' }
+    { name: 'Cliente 1', logo: 'https://via.placeholder.com/120x60/f8fafc/667eea?text=Cliente+1' },
+    { name: 'Cliente 2', logo: 'https://via.placeholder.com/120x60/f8fafc/764ba2?text=Cliente+2' },
+    { name: 'Cliente 3', logo: 'https://via.placeholder.com/120x60/f8fafc/10b981?text=Cliente+3' },
+    { name: 'Cliente 4', logo: 'https://via.placeholder.com/120x60/f8fafc/8b5cf6?text=Cliente+4' },
+    { name: 'Cliente 5', logo: 'https://via.placeholder.com/120x60/f8fafc/f59e0b?text=Cliente+5' },
+    { name: 'Cliente 6', logo: 'https://via.placeholder.com/120x60/f8fafc/ef4444?text=Cliente+6' }
   ],
 
-  // Contact Methods
+  // Contact Methods (CHILE)
   contactMethods: [
     {
       icon: 'fas fa-phone',
       title: 'Hablemos por teléfono',
-      value: '+34 900 123 456',
-      link: 'tel:+34900123456'
+      value: '+56 9 9996 8482',
+      link: 'wa.me/+56999968482'
     },
     {
       icon: 'fas fa-envelope',
       title: 'Escríbenos un email',
-      value: 'hola@laura.digital',
-      link: 'mailto:hola@laura.digital'
+      value: 'francisco@laura.lat',
+      link: 'mailto:francisco@laura.lat'
     },
     {
       icon: 'fas fa-clock',
@@ -483,10 +483,10 @@ window.LAURA_CONFIG = {
         gridColumn: 'full',
         options: [
           { value: '', label: 'Selecciona un rango' },
-          { value: '1-5k', label: '€1,000 - €5,000' },
-          { value: '5-15k', label: '€5,000 - €15,000' },
-          { value: '15-50k', label: '€15,000 - €50,000' },
-          { value: '50k+', label: '€50,000+' }
+          { value: '20-50uf', label: '20 - 50 UF' },
+          { value: '50-100uf', label: '50 - 100 UF' },
+          { value: '100-200uf', label: '100 - 200 UF' },
+          { value: '200uf+', label: '200 UF+' }
         ]
       }
     ],
@@ -525,7 +525,7 @@ window.LAURA_CONFIG = {
           links: [
             { text: 'Sobre Nosotros', url: '#nosotros' },
             { text: 'Casos de Éxito', url: '#clientes' },
-            { text: 'Blog', url: '/blog' },
+            { text: 'Blog', url: './blog.html' },
             { text: 'Contacto', url: '#contacto' },
             { text: 'Política de Privacidad', url: '/privacy' }
           ]
@@ -536,12 +536,12 @@ window.LAURA_CONFIG = {
 
   // Certifications
   certifications: [
-    { name: 'ISO 27001', logo: './assets/images/certifications/iso-27001.png' },
-    { name: 'Google Partner', logo: './assets/images/certifications/google-partner.png' },
-    { name: 'AWS', logo: './assets/images/certifications/aws.png' },
-    { name: 'OpenAI', logo: './assets/images/certifications/openai.png' },
-    { name: 'Microsoft', logo: './assets/images/certifications/microsoft.png' },
-    { name: 'Shopify', logo: './assets/images/certifications/shopify.png' }
+    { name: 'ISO 27001', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=ISO+27001' },
+    { name: 'Google Partner', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Google' },
+    { name: 'AWS', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=AWS' },
+    { name: 'OpenAI', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=OpenAI' },
+    { name: 'Microsoft', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Microsoft' },
+    { name: 'Shopify', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Shopify' }
   ],
 
   // Hero Stats
@@ -564,32 +564,32 @@ window.LAURA_CONFIG = {
     lazyLoadOffset: 100,
     debounceDelay: 250,
     preloadImages: [
-      './assets/images/hero-dashboard.jpg',
-      './assets/images/team-ai.jpg'
+      'https://via.placeholder.com/500x400/667eea/ffffff?text=LAURA+AI+Dashboard',
+      'https://via.placeholder.com/600x500/f8fafc/667eea?text=Equipo+LAURA'
     ]
   },
 
   // SEO Configuration
   seo: {
-    title: 'LAURA - Agencia Digital IA | Desarrollo Web, Ciberseguridad y Marketing Digital',
-    description: 'Agencia digital especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
-    keywords: 'agencia digital, desarrollo web, ciberseguridad, marketing digital, inteligencia artificial, consultoría digital, PYME, automatización',
-    ogImage: './assets/images/og-image.jpg',
+    title: 'LAURA - Agencia Digital IA | Desarrollo Web, Ciberseguridad y Marketing Digital Chile',
+    description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
+    keywords: 'agencia digital chile, desarrollo web santiago, ciberseguridad, marketing digital, inteligencia artificial, consultoría digital, PYME chile, automatización',
+    ogImage: 'https://via.placeholder.com/1200x630/667eea/ffffff?text=LAURA+Digital+Agency+Chile',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'LAURA Digital Agency',
       url: 'https://laura.digital',
-      logo: './assets/images/logo.png',
-      description: 'Agencia digital especializada en desarrollo web, ciberseguridad, marketing digital y consultoría.',
+      logo: 'https://via.placeholder.com/200x100/667eea/ffffff?text=LAURA',
+      description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría.',
       address: {
         '@type': 'PostalAddress',
-        addressCountry: 'ES',
-        addressLocality: 'Madrid'
+        addressCountry: 'CL',
+        addressLocality: 'Santiago'
       },
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+34900123456',
+        telephone: '+56999968482',
         contactType: 'customer service'
       }
     }
@@ -597,7 +597,7 @@ window.LAURA_CONFIG = {
 
   // Development Settings
   dev: {
-    enableConsoleMessages: false,
+    enableConsoleMessages: true,
     enablePerformanceMonitoring: true,
     enableErrorTracking: true
   }
@@ -612,3 +612,128 @@ window.getConfig = function(path, defaultValue = null) {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.LAURA_CONFIG;
 }
+
+window.renderSVGIcon = function(iconType, className = 'icon-svg') {
+  const icons = {
+    'code-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="4" y="6" width="16" height="12" rx="2"/>
+        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="11" r="1"/>
+        <circle cx="15" cy="11" r="1"/>
+        <path d="M9 14h6"/>
+        <path d="M7 18v2"/>
+        <path d="M17 18v2"/>
+      </svg>
+    `,
+    'shield-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="4" width="12" height="14" rx="2"/>
+        <path d="M6 4V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="10" cy="9" r="1"/>
+        <circle cx="14" cy="9" r="1"/>
+        <path d="M10 13h4"/>
+        <rect x="8" y="15" width="8" height="2" rx="1"/>
+      </svg>
+    `,
+    'trending-up-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="5" y="6" width="14" height="12" rx="2"/>
+        <path d="M5 6V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="10" r="1"/>
+        <circle cx="15" cy="10" r="1"/>
+        <path d="M12 14v2"/>
+        <path d="M10 14h4"/>
+        <path d="M7 18h10"/>
+      </svg>
+    `,
+    'lightbulb-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="5" width="12" height="13" rx="2"/>
+        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="10" cy="9" r="1"/>
+        <circle cx="14" cy="9" r="1"/>
+        <path d="M9 13h6"/>
+        <rect x="8" y="16" width="8" height="2" rx="1"/>
+      </svg>
+    `,
+    'cpu-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="7" y="6" width="10" height="12" rx="2"/>
+        <path d="M7 6V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
+        <circle cx="10" cy="10" r="1"/>
+        <circle cx="14" cy="10" r="1"/>
+        <rect x="9" y="13" width="6" height="1"/>
+        <path d="M6 12h1"/>
+        <path d="M17 12h1"/>
+        <path d="M12 18v1"/>
+      </svg>
+    `,
+    'heart-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="6" width="12" height="12" rx="2"/>
+        <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="10" r="1"/>
+        <circle cx="15" cy="10" r="1"/>
+        <path d="M9 14c0-1 1-2 3-2s3 1 3 2"/>
+      </svg>
+    `,
+    'bar-chart-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="5" width="12" height="13" rx="2"/>
+        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="9" r="1"/>
+        <circle cx="15" cy="9" r="1"/>
+        <rect x="8" y="12" width="2" height="4"/>
+        <rect x="11" y="11" width="2" height="5"/>
+        <rect x="14" y="13" width="2" height="3"/>
+      </svg>
+    `,
+    'zap-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="6" width="12" height="12" rx="2"/>
+        <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="10" r="1"/>
+        <circle cx="15" cy="10" r="1"/>
+        <path d="M12 13l-2 2h4l-2-2z"/>
+        <rect x="10" y="16" width="4" height="1"/>
+      </svg>
+    `,
+    'award-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="5" width="12" height="13" rx="2"/>
+        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
+        <circle cx="9" cy="9" r="1"/>
+        <circle cx="15" cy="9" r="1"/>
+        <circle cx="12" cy="13" r="2"/>
+        <path d="M10 16h4"/>
+      </svg>
+    `,
+    'users-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="4" y="6" width="7" height="12" rx="1"/>
+        <rect x="13" y="6" width="7" height="12" rx="1"/>
+        <circle cx="7.5" cy="10" r="1"/>
+        <circle cx="16.5" cy="10" r="1"/>
+        <path d="M6 14h3"/>
+        <path d="M15 14h3"/>
+        <path d="M4 6V4a2 2 0 0 1 2-2h3"/>
+        <path d="M20 6V4a2 2 0 0 1-2-2h-3"/>
+      </svg>
+    `,
+    'brain-svg': `
+      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="6" y="4" width="12" height="16" rx="3"/>
+        <circle cx="10" cy="9" r="1"/>
+        <circle cx="14" cy="9" r="1"/>
+        <path d="M9 13h6"/>
+        <path d="M12 16v2"/>
+        <path d="M8 18h8"/>
+        <path d="M6 8h2"/>
+        <path d="M16 8h2"/>
+      </svg>
+    `
+  };
+  
+  return icons[iconType] || icons['brain-svg'];
+};
