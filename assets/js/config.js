@@ -574,13 +574,13 @@ window.LAURA_CONFIG = {
     title: 'LAURA - Agencia Digital IA | Desarrollo Web, Ciberseguridad y Marketing Digital Chile',
     description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
     keywords: 'agencia digital chile, desarrollo web santiago, ciberseguridad, marketing digital, inteligencia artificial, consultoría digital, PYME chile, automatización',
-    ogImage: 'https://via.placeholder.com/1200x630/667eea/ffffff?text=LAURA+Digital+Agency+Chile',
+    ogImage: '.\assets\img\LOGO-AGENCIA-LAURA.webp',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'LAURA Digital Agency',
       url: 'https://laura.digital',
-      logo: 'https://via.placeholder.com/200x100/667eea/ffffff?text=LAURA',
+      logo: '.\assets\img\LOGO-AGENCIA-LAURA.webp',
       description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría.',
       address: {
         '@type': 'PostalAddress',

@@ -470,8 +470,3 @@ if (document.readyState === 'loading') {
   window.LAURA_Animations.init();
 }
 
-// AGREGAR o REEMPLAZAR en animations.js
-
-/**
- * Animate counter from 0 to target value - CORREGIDO
- */
