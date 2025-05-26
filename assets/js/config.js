@@ -35,7 +35,7 @@ window.LAURA_CONFIG = {
         'E-commerce personalizado',
         'Aplicaciones web escalables'
       ],
-      cta: 'Explorar opciones',
+      cta: 'Hacer una web',
       plans: [
         {
           id: 'web-spark',
@@ -342,7 +342,7 @@ window.LAURA_CONFIG = {
         'Marketing multicanal',
         'Transformación digital'
       ],
-      cta: 'Acelerar crecimiento',
+      cta: 'Crecer',
       ctaType: 'primary'
     },
     {

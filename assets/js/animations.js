@@ -158,34 +158,76 @@ window.LAURA_Animations = {
    */
   animateCounter(element) {
     const targetText = element.textContent.trim();
-    const targetNumber = parseInt(targetText);
+    let targetNumber = 0;
+    let suffix = '';
+    let prefix = '';
     
-    if (isNaN(targetNumber)) return;
-
-    const stats = getConfig('heroStats', []);
-    const statData = stats.find(stat => stat.target === targetNumber);
+    // Extraer número y sufijos/prefijos
+    const match = targetText.match(/^(\d+)(.*)$/);
+    if (match) {
+        targetNumber = parseInt(match[1]);
+        suffix = match[2] || '';
+    } else {
+        // Manejar casos especiales como "15x"
+        const specialMatch = targetText.match(/^(\d+)x$/);
+        if (specialMatch) {
+            targetNumber = parseInt(specialMatch[1]);
+            suffix = 'x';
+        } else {
+            // Si no hay número, salir
+            return;
+        }
+    }
     
-    if (!statData) return;
+    if (isNaN(targetNumber) || targetNumber === 0) return;
 
     let current = 0;
-    const duration = getConfig('animations.counterDuration', 2000);
+    const duration = 2000; // 2 segundos
     const increment = targetNumber / (duration / 16); // 60fps
     
     const updateCounter = () => {
-      current += increment;
-      
-      if (current >= targetNumber) {
-        current = targetNumber;
-        element.textContent = targetNumber + statData.suffix;
-        return;
-      }
-      
-      element.textContent = Math.ceil(current) + statData.suffix;
-      requestAnimationFrame(updateCounter);
+        current += increment;
+        
+        if (current >= targetNumber) {
+            current = targetNumber;
+            element.textContent = prefix + targetNumber + suffix;
+            return;
+        }
+        
+        element.textContent = prefix + Math.ceil(current) + suffix;
+        requestAnimationFrame(updateCounter);
     };
     
+    // Iniciar animación
+    element.textContent = prefix + '0' + suffix;
     requestAnimationFrame(updateCounter);
-  },
+},
+
+/**
+ * REEMPLAZAR setupCounterAnimations en animations.js (aproximadamente línea 100)
+ */
+setupCounterAnimations() {
+    if (!window.IntersectionObserver) return;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !this.state.counters.has(entry.target)) {
+                this.animateCounter(entry.target);
+                this.state.counters.add(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    // Observar todos los elementos con números animados
+    document.querySelectorAll('.stat-number').forEach(el => {
+        // Guardar el valor original
+        el.setAttribute('data-target', el.textContent);
+        counterObserver.observe(el);
+    });
+
+    this.state.observers.push(counterObserver);
+},
 
   /**
    * Setup hover effects

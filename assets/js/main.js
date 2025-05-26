@@ -1042,3 +1042,5 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('beforeunload', () => {
   // Cleanup if necessary
 });
+
+

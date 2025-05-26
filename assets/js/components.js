@@ -863,365 +863,369 @@ Me gustaría conocer más detalles sobre:
     const styles = document.createElement('style');
     styles.id = 'professional-pricing-styles';
     styles.textContent = `
-      .service-plans-container {
-        margin-top: var(--space-16);
-        padding: var(--space-16) 0;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border-radius: var(--radius-2xl);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .service-plans-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-500) 0%, var(--secondary-500) 50%, var(--accent-500) 100%);
-      }
-      
-      .service-plans-header {
-        text-align: center;
-        margin-bottom: var(--space-12);
-        position: relative;
-        z-index: 2;
-      }
-      
-      .service-plans-title {
-        font-size: var(--text-3xl);
-        font-weight: var(--font-weight-bold);
-        margin-bottom: var(--space-4);
-        color: var(--gray-800);
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      
-      .service-plans-subtitle {
-        font-size: var(--text-lg);
-        color: var(--gray-600);
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      
-      .service-plans-grid {
-        display: grid;
-        gap: var(--space-6);
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 var(--space-4);
-      }
-      
-      @media (min-width: 768px) {
-        .service-plans-grid {
-          grid-template-columns: repeat(3, 1fr);
-          gap: var(--space-8);
-        }
-      }
-      
-      .pricing-card {
-        background: white;
-        border-radius: var(--radius-2xl);
-        padding: 0;
-        position: relative;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 2px solid transparent;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-        transform: translateY(0);
-      }
-      
-      .pricing-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        border-color: var(--primary-200);
-      }
-      
-      .pricing-card.popular {
-        transform: scale(1.05) translateY(-10px);
-        border-color: var(--primary-500);
-        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.25);
-        z-index: 10;
-      }
-      
-      .pricing-card.popular:hover {
-        transform: scale(1.05) translateY(-15px);
-        box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
-      }
-      
-      .popular-ribbon {
-        position: absolute;
-        top: 1rem;
-        right: -2rem;
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-        color: white;
-        padding: 0.5rem 3rem;
-        font-size: var(--text-sm);
-        font-weight: var(--font-weight-bold);
-        transform: rotate(45deg);
-        box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
-        z-index: 5;
-      }
-      
-      .pricing-header {
-        text-align: center;
-        padding: var(--space-8) var(--space-6) var(--space-6);
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        position: relative;
-      }
-      
-      .plan-icon {
-        width: 4rem;
-        height: 4rem;
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        border-radius: var(--radius-full);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto var(--space-4);
-        color: white;
-        font-size: var(--text-2xl);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-      }
-      
-      .popular .plan-icon {
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-        box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-      }
-      
-      .plan-name {
-        font-size: var(--text-2xl);
-        font-weight: var(--font-weight-bold);
-        margin-bottom: var(--space-2);
-        color: var(--gray-800);
-      }
-      
-      .plan-subtitle {
-        color: var(--gray-600);
-        margin-bottom: var(--space-4);
-        font-size: var(--text-base);
-      }
-      
-      .plan-price {
-        margin-bottom: var(--space-2);
-      }
-      
-      .price-amount {
-        font-size: var(--text-4xl);
-        font-weight: var(--font-weight-extrabold);
-        color: var(--gray-800);
-        display: block;
-        line-height: 1;
-      }
-      
-      .price-note {
-        background: var(--primary-100);
-        color: var(--primary-700);
-        padding: var(--space-1) var(--space-3);
-        border-radius: var(--radius-full);
-        font-size: var(--text-xs);
-        font-weight: var(--font-weight-semibold);
-        display: inline-block;
-        margin-top: var(--space-2);
-      }
-      
-      .popular .price-note {
-        background: rgba(255, 107, 107, 0.1);
-        color: #c53030;
-      }
-      
-      .pricing-features {
-        padding: var(--space-6);
-        flex-grow: 1;
-      }
-      
-      .features-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .feature-item {
-        display: flex;
-        align-items: flex-start;
-        gap: var(--space-3);
-        margin-bottom: var(--space-4);
-        font-size: var(--text-base);
-        line-height: 1.6;
-      }
-      
-      .feature-item:last-child {
-        margin-bottom: 0;
-      }
-      
-      .feature-check {
-        color: var(--success);
-        font-size: var(--text-sm);
-        margin-top: 2px;
-        flex-shrink: 0;
-        width: 1rem;
-        height: 1rem;
-        background: #f0fdf4;
-        border-radius: var(--radius-full);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .pricing-footer {
-        padding: var(--space-6);
-        border-top: 1px solid var(--gray-100);
-      }
-      
-      .plan-cta-btn {
-        width: 100%;
-        padding: var(--space-4) var(--space-6);
-        border: none;
-        border-radius: var(--radius-xl);
-        font-size: var(--text-base);
-        font-weight: var(--font-weight-semibold);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: var(--space-2);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .plan-cta-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
-      }
-      
-      .plan-cta-btn:hover::before {
-        left: 100%;
-      }
-      
-      .cta-standard {
-        background: linear-gradient(135deg, var(--gray-600) 0%, var(--gray-700) 100%);
-        color: white;
-        border: 2px solid transparent;
-      }
-      
-      .cta-standard:hover {
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-      }
-      
-      .cta-popular {
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-        color: white;
-        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-      }
-      
-      .cta-popular:hover {
-        background: linear-gradient(135deg, #ff5252 0%, #e53e3e 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
-      }
-      
-      .service-plans-actions {
-        text-align: center;
-        margin-top: var(--space-12);
-        padding-top: var(--space-8);
-        border-top: 1px solid var(--gray-200);
-      }
-      
-      .btn-custom-contact {
-        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-        color: white;
-        border: none;
-        padding: var(--space-4) var(--space-8);
-        border-radius: var(--radius-2xl);
-        font-size: var(--text-lg);
-        font-weight: var(--font-weight-semibold);
-        display: inline-flex;
-        align-items: center;
-        gap: var(--space-3);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-      }
-      
-      .btn-custom-contact:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.5);
-        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-      }
-      
-      .btn-custom-contact:active {
-        transform: translateY(-1px);
-      }
-      
-      .btn-custom-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: var(--radius-full);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: var(--text-base);
-      }
-      
-      /* Responsive improvements */
-      @media (max-width: 767px) {
-        .pricing-card.popular {
-          transform: none;
-          margin-bottom: var(--space-4);
-        }
-        
-        .pricing-card.popular:hover {
-          transform: translateY(-5px);
-        }
-        
-        .service-plans-grid {
-          gap: var(--space-6);
-        }
-        
-        .plan-price .price-amount {
-          font-size: var(--text-3xl);
-        }
-      }
-      
-      /* Animation keyframes */
-      @keyframes slideInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      
-      .pricing-card {
-        animation: slideInUp 0.6s ease-out;
-      }
-      
-      .pricing-card:nth-child(2) {
-        animation-delay: 0.1s;
-      }
-      
-      .pricing-card:nth-child(3) {
-        animation-delay: 0.2s;
-      }
-    `;
+  .service-plans-container {
+    margin-top: var(--space-16);
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, var(--dark-bg-secondary) 0%, var(--dark-bg-tertiary) 100%);
+    border-radius: var(--radius-2xl);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .service-plans-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-light) 50%, var(--color-accent) 100%);
+  }
+  
+  .service-plans-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .service-plans-title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+    color: var(--dark-text-primary);
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .service-plans-subtitle {
+    font-size: var(--text-lg);
+    color: var(--dark-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .service-plans-grid {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+  }
+  
+  @media (min-width: 768px) {
+    .service-plans-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+  }
+  
+  .pricing-card {
+    background: var(--dark-bg-card);
+    border-radius: var(--radius-2xl);
+    padding: 0;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+    border: 2px solid var(--dark-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    transform: translateY(0);
+  }
+  
+  .pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
+    border-color: var(--color-accent);
+  }
+  
+  .pricing-card.popular {
+    transform: scale(1.05) translateY(-10px);
+    border-color: var(--color-accent);
+    box-shadow: 0 25px 50px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+    z-index: 10;
+  }
+  
+  .pricing-card.popular:hover {
+    transform: scale(1.05) translateY(-15px);
+    box-shadow: 0 30px 60px rgba(226, 30, 92, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .popular-ribbon {
+    position: absolute;
+    top: 1rem;
+    right: -2rem;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    color: white;
+    padding: 0.5rem 3rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-bold);
+    transform: rotate(45deg);
+    box-shadow: 0 4px 8px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+    z-index: 5;
+  }
+  
+  .pricing-header {
+    text-align: center;
+    padding: var(--space-8) var(--space-6) var(--space-6);
+    background: linear-gradient(135deg, var(--dark-bg-secondary) 0%, var(--dark-bg-tertiary) 100%);
+    position: relative;
+  }
+  
+  .plan-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    color: white;
+    font-size: var(--text-2xl);
+    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .popular .plan-icon {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .plan-name {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-2);
+    color: var(--dark-text-primary);
+  }
+  
+  .plan-subtitle {
+    color: var(--dark-text-secondary);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+  }
+  
+  .plan-price {
+    margin-bottom: var(--space-2);
+  }
+  
+  .price-amount {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--dark-text-primary);
+    display: block;
+    line-height: 1;
+  }
+  
+  .price-note {
+    background: rgba(226, 30, 92, 0.1);
+    color: var(--color-accent);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    display: inline-block;
+    margin-top: var(--space-2);
+    border: 1px solid rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .popular .price-note {
+    background: rgba(226, 30, 92, 0.1);
+    color: var(--color-accent);
+  }
+  
+  .pricing-features {
+    padding: var(--space-6);
+    flex-grow: 1;
+  }
+  
+  .features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--dark-text-secondary);
+  }
+  
+  .feature-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .feature-check {
+    color: var(--success);
+    font-size: var(--text-sm);
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pricing-footer {
+    padding: var(--space-6);
+    border-top: 1px solid var(--dark-border);
+  }
+  
+  .plan-cta-btn {
+    width: 100%;
+    padding: var(--space-4) var(--space-6);
+    border: none;
+    border-radius: var(--radius-xl);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .plan-cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .plan-cta-btn:hover::before {
+    left: 100%;
+  }
+  
+  .cta-standard {
+    background: var(--dark-bg-secondary);
+    color: var(--dark-text-primary);
+    border: 2px solid var(--dark-border);
+  }
+  
+  .cta-standard:hover {
+    background: var(--color-accent);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .cta-popular {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(226, 30, 92, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .cta-popular:hover {
+    background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(226, 30, 92, 0.5); /* Valor original, se asocia al darkmode por el contexto. */
+  }
+  
+  .service-plans-actions {
+    text-align: center;
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--dark-border);
+  }
+  
+  .btn-custom-contact {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    border: none;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-2xl);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  }
+  
+  .btn-custom-contact:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.5);
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  }
+  
+  .btn-custom-contact:active {
+    transform: translateY(-1px);
+  }
+  
+  .btn-custom-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-base);
+  }
+  
+  /* Responsive improvements */
+  @media (max-width: 767px) {
+    .pricing-card.popular {
+      transform: none;
+      margin-bottom: var(--space-4);
+    }
+    
+    .pricing-card.popular:hover {
+      transform: translateY(-5px);
+    }
+    
+    .service-plans-grid {
+      gap: var(--space-6);
+    }
+    
+    .plan-price .price-amount {
+      font-size: var(--text-3xl);
+    }
+  }
+  
+  /* Animation keyframes */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .pricing-card {
+    animation: slideInUp 0.6s ease-out;
+  }
+  
+  .pricing-card:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .pricing-card:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+`;
+document.head.appendChild(styles);;
     document.head.appendChild(styles);
   },
 
@@ -1492,5 +1496,323 @@ window.scrollToContact = function() {
   }
 };
 
+// Componente de código animado
+window.LAURA_Components.createCodeAnimation = function() {
+    // New chatbot code content
+    const codeContent = `// Asistente Virtual Inteligente para Negocios
+import { ChatbotAI } from '@laura/ai-chatbot';
+import { CustomerEngagement } from '@laura/biz-tools';
+
+class BusinessChatbot {
+  constructor() {
+    this.ai = new ChatbotAI({
+      model: 'business-chat-v3',
+      language: 'es',
+      sentimentAnalysis: true
+    });
+    this.engagement = new CustomerEngagement();
+  }
+
+  async handleUserQuery(query, userContext) {
+    // Procesar la intención del usuario con IA
+    const intent = await this.ai.analyzeIntent(query);
+    const response = await this.ai.generateResponse(intent, userContext);
+    
+    // Ejecutar acciones de negocio
+    if (intent.type === 'product_inquiry') {
+      this.engagement.provideProductInfo(response.data.product);
+    } else if (intent.type === 'support_request') {
+      this.engagement.createSupportTicket(userContext.id, response.data.details);
+    }
+    
+    // Enviar respuesta al usuario
+    return {
+      message: response.text,
+      action: response.action || 'display_message'
+    };
+  }
+
+  async proactiveEngagement(visitorData) {
+    // Identificar oportunidades para interactuar
+    if (visitorData.timeOnPage > 60 && visitorData.scrollDepth > 0.5) {
+      const suggestedTopic = await this.ai.suggestTopic(visitorData.history);
+      return this.engagement.triggerProactiveChat(visitorData.id, suggestedTopic);
+    }
+    return null;
+  }
+}
+
+// Inicializar y lanzar el asistente
+const myChatbot = new BusinessChatbot();
+console.log('🚀 Asistente Virtual LAURA operativo!');`;
+
+    const lines = codeContent.split('\n');
+    let currentLine = 0;
+    let currentChar = 0;
+    
+    const codeHTML = `
+        <div class="code-animation-container">
+            <div class="code-window-wrapper">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-controls">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                        </div>
+                        <div class="code-title">business-chatbot.js</div>
+                    </div>
+                    <div class="code-body">
+                        <pre class="code-content"><code id="animated-code" class="language-javascript"></code></pre>
+                        <div class="code-cursor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Estilos para el componente
+    const styles = `
+        <style>
+        .code-animation-container {
+            width: 100%;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding-bottom: 50px; /* Slightly increased padding-bottom for a larger, softer shadow */
+        }
+        
+        .code-window-wrapper {
+            width: 95%;
+            max-width: 1000px;
+            height: calc(100% - 50px); /* Adjusted height to account for increased padding-bottom */
+            position: relative;
+            box-sizing: border-box;
+        }
+
+.code-window {
+    width: 100%;
+    height: 100%;
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    /* Refined shadow for more even distribution */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Changed values for a softer, more uniform shadow */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+}
+        
+        .code-header {
+            background: #2d2d2d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #3e3e3e;
+            box-sizing: border-box;
+        }
+        
+        .code-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3e3e3e;
+        }
+        
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27c93f; }
+        
+        .code-title {
+            color: #999;
+            font-size: 14px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        
+        .code-body {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        
+        .code-content {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            color: #d4d4d4;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            width: 100%;
+            height: 100%; 
+            display: block;
+            box-sizing: border-box;
+        }
+        
+        .code-cursor {
+            position: absolute;
+            width: 2px;
+            height: 18px;
+            background: #569cd6;
+            animation: blink 1s infinite;
+            display: none;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Syntax highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+        .operator { color: #d4d4d4; }
+        .class-name { color: #4ec9b0; }
+        .property { color: #9cdcfe; }
+        .punctuation { color: #d4d4d4; }
+        
+        @media (max-width: 768px) {
+            .code-animation-container {
+                height: 420px;
+                padding-bottom: 30px;
+            }
+            
+            .code-window-wrapper {
+                width: 95%;
+                height: calc(100% - 30px);
+            }
+
+            .code-window {
+                width: 95%;
+            }
+            
+            .code-content {
+                font-size: 12px;
+            }
+        }
+        </style>
+    `;
+    
+    // Function to apply syntax highlighting
+    function highlightSyntax(code) {
+        return code
+            .replace(/\b(import|from|class|constructor|async|await|const|let|var|function|return|if|else|switch|case|default|new|this)\b/g, '<span class="keyword">$1</span>')
+            .replace(/('.*?'|".*?"|`.*?`)/g, '<span class="string">$1</span>')
+            .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>')
+            .replace(/\b(ChatbotAI|CustomerEngagement|BusinessChatbot)\b/g, '<span class="class-name">$1</span>')
+            .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>')
+            .replace(/\b(ai|engagement|model|language|sentimentAnalysis|query|userContext|intent|response|text|action|product|id|details|visitorData|timeOnPage|scrollDepth|suggestedTopic|history)\b/g, '<span class="property">$1</span>')
+            .replace(/\b(handleUserQuery|analyzeIntent|generateResponse|provideProductInfo|createSupportTicket|proactiveEngagement|suggestTopic|triggerProactiveChat)\b/g, '<span class="function">$1</span>');
+    }
+    
+    // Function to animate the code
+    function animateCode() {
+        const codeElement = document.getElementById('animated-code');
+        const codeBody = document.querySelector('.code-body');
+        if (!codeElement || !codeBody) return;
+        
+        let displayedCode = '';
+        let currentLineIndex = 0;
+        let currentChar = 0;
+        
+        function typeNextChar() {
+            if (currentLineIndex >= lines.length) {
+                setTimeout(() => {
+                    currentLineIndex = 0;
+                    currentChar = 0;
+                    displayedCode = '';
+                    codeElement.innerHTML = '';
+                    typeNextChar();
+                }, 3000);
+                return;
+            }
+            
+            const line = lines[currentLineIndex];
+            
+            if (currentChar < line.length) {
+                displayedCode += line[currentChar];
+                currentChar++;
+            } else {
+                displayedCode += '\n';
+                currentLineIndex++;
+                currentChar = 0;
+            }
+            
+            codeElement.innerHTML = highlightSyntax(displayedCode);
+            
+            const lineHeight = parseFloat(getComputedStyle(codeElement).lineHeight);
+            const maxVisibleLines = Math.floor(codeBody.clientHeight / lineHeight);
+            
+            if (currentLineIndex >= maxVisibleLines) {
+                codeBody.scrollTop = (currentLineIndex - maxVisibleLines + 1) * lineHeight;
+            }
+
+            const delay = Math.random() * 50 + 20;
+            setTimeout(typeNextChar, delay);
+        }
+        
+        typeNextChar();
+    }
+    
+    return {
+        html: codeHTML,
+        styles: styles,
+        init: animateCode
+    };
+};
+
+// Actualizar la sección "Qué es LAURA" para usar el código animado
+window.LAURA_Components.updateAboutSection = function() {
+    const aboutVisual = document.querySelector('.about-visual');
+    if (!aboutVisual) return;
+    
+    const codeAnimation = this.createCodeAnimation();
+    
+    // Agregar estilos
+    if (!document.getElementById('code-animation-styles')) {
+        const styleElement = document.createElement('div');
+        styleElement.id = 'code-animation-styles';
+        styleElement.innerHTML = codeAnimation.styles;
+        document.head.appendChild(styleElement);
+    }
+    
+    // Reemplazar contenido
+    aboutVisual.innerHTML = codeAnimation.html;
+    
+    // Iniciar animación
+    setTimeout(() => {
+        codeAnimation.init();
+    }, 500);
+};
+
+// Llamar a la actualización cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.LAURA_Components.updateAboutSection();
+    });
+} else {
+    window.LAURA_Components.updateAboutSection();
+}
+
 // Auto-initialize components
 window.LAURA_Components.init();
+
