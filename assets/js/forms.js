@@ -133,57 +133,37 @@ window.LAURA_Forms = {
    * Submit contact form data (replace with actual API call)
    */
   async submitContactForm(formData) {
-    // Simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simulate successful submission
-        resolve({ success: true, message: 'Formulario enviado correctamente' });
-        
-        // For development, log the form data
-        if (getConfig('dev.enableConsoleMessages')) {
-          console.log('📧 Form submitted:', formData);
+    // --- INICIO DE LA MODIFICACIÓN ---
+    try {
+      const response = await fetch('./php/enviar_contacto.php', { // O la ruta correcta a tu script PHP
+        method: 'POST',
+        body: JSON.stringify(formData), // Enviamos los datos como JSON
+        headers: {
+          'Content-Type': 'application/json'
         }
-      }, 2000);
-    });
-  },
+      });
 
-  /**
-   * Setup form validation
-   */
-  setupFormValidation() {
-    // Email validation
-    this.state.validators.set('email', {
-      validate: (value) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value);
-      },
-      message: 'Por favor, introduce un email válido'
-    });
+      if (!response.ok) {
+        // Si el servidor responde con un error (status no es 2xx)
+        let errorMessage = 'Error del servidor. Intenta más tarde.';
+        try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+            // No se pudo parsear el JSON de error, usar mensaje genérico
+        }
+        console.error('Server error:', response.status, response.statusText);
+        return { success: false, message: errorMessage };
+      }
 
-    // Phone validation
-    this.state.validators.set('phone', {
-      validate: (value) => {
-        const phoneRegex = /^[+]?[\d\s\-\(\)]{9,}$/;
-        return phoneRegex.test(value);
-      },
-      message: 'Por favor, introduce un teléfono válido'
-    });
+      const result = await response.json();
+      return result; // El script PHP debería devolver { success: true/false, message: "..." }
 
-    // Required field validation
-    this.state.validators.set('required', {
-      validate: (value) => {
-        return value && value.trim().length > 0;
-      },
-      message: 'Este campo es obligatorio'
-    });
-
-    // Minimum length validation
-    this.state.validators.set('minLength', {
-      validate: (value, minLength) => {
-        return value && value.trim().length >= minLength;
-      },
-      message: (minLength) => `Mínimo ${minLength} caracteres`
-    });
+    } catch (error) {
+      console.error('Error en la petición fetch:', error);
+      return { success: false, message: 'Error de conexión. Por favor, revisa tu red e intenta nuevamente.' };
+    }
+    // --- FIN DE LA MODIFICACIÓN ---
   },
 
   /**
