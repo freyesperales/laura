@@ -23,266 +23,251 @@ window.LAURA_CONFIG = {
     }
   },
 
-  // Services Configuration with specific plans (PRECIOS EN UF)
-  services: [
+// Reemplaza TODO el arreglo 'services' en tu archivo /assets/js/config.js
+
+services: [
     {
       id: 'web-development',
-      title: 'Creamos tu Presencia Digital',
+      title: 'Desarrollo Web a Medida',
       icon: 'fas fa-code',
-      description: 'Sitios web y aplicaciones que convierten visitantes en clientes, optimizados con IA para máximo rendimiento.',
+      description: 'Construimos la plataforma digital que tu negocio necesita para crecer, desde landing pages que convierten hasta sistemas complejos.',
       features: [
         'Diseño UI/UX centrado en el usuario',
-        'Desarrollo con tecnologías modernas',
-        'E-commerce personalizado y escalable',
-        'Optimización de velocidad (Core Web Vitals)',
-        'Panel de administración intuitivo'
+        'Desarrollo con tecnologías modernas y rápidas',
+        'E-commerce y soluciones de pago integradas',
+        'Optimización para máxima velocidad (Core Web Vitals)',
+        'Panel de administración 100% intuitivo'
       ],
-      cta: 'Ver Planes Web',
+      cta: 'Ver Planes de Desarrollo',
       plans: [
         {
           id: 'web-spark',
-          name: 'Landing Page',
-          subtitle: 'Landing page profesional',
-          price: '10 UF',
+          name: 'Plan Landing Page',
+          subtitle: 'La página de ventas perfecta',
+          price: '$197 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Landing page optimizada (5 secciones)',
-            'Diseño responsive mobile-first',
-            'Formulario de contacto integrado',
-            'SSL e integración de analytics',
-            'Performance score >85'
+            'Landing page de hasta 5 secciones',
+            'Diseño 100% responsive y moderno',
+            'Formulario de contacto y conexión a WhatsApp',
+            'Configuración de Google Analytics',
+            'Entrega en 7 días hábiles'
           ],
-          deliverables: 'Entrega en 7 días',
-          cta: 'Crear mi landing'
+          cta: 'Contratar Landing Page'
         },
         {
           id: 'web-fusion',
-          name: 'ID Digital',
-          subtitle: 'Sitio web completo',
-          price: '30 UF',
+          name: 'Plan Sitio Web Profesional',
+          subtitle: 'Tu presencia digital completa',
+          price: '$497 USD', // PRECIO AJUSTADO
           popular: true,
           features: [
-            'Sitio web corporativo (hasta 15 páginas)',
-            'E-commerce básico (hasta 50 productos)',
-            'Panel de administración intuitivo',
-            'Integración con redes sociales',
-            'SEO técnico implementado'
+            '<strong>Todo lo del Plan Landing Page, y además:</strong>',
+            'Sitio web de hasta 10 páginas',
+            'Integración con Blog o Portafolio',
+            'Panel para autogestionar contenido',
+            'SEO técnico inicial para Google'
           ],
-          deliverables: 'Entrega en 20 días',
-          cta: 'Construir mi sitio'
+          cta: 'Contratar Sitio Web'
         },
         {
           id: 'web-quantum',
-          name: 'Desarrollo Web',
-          subtitle: 'Desarrollo personalizado',
-          price: '60 UF',
+          name: 'Plan Desarrollo a Medida',
+          subtitle: 'Soluciones web complejas',
+          price: 'Desde $997 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Desarrollo web personalizado',
-            'E-commerce avanzado (productos ilimitados)',
-            'Integraciones con APIs externas',
-            'Dashboard analytics personalizado',
-            'Arquitectura escalable empresarial'
+            '<strong>Todo lo del Plan Profesional, y además:</strong>',
+            'Funcionalidades E-commerce avanzadas',
+            'Integraciones con sistemas externos (API)',
+            'Área de clientes o membresías',
+            'Arquitectura pensada para escalar'
           ],
-          deliverables: 'Entrega en 45 días',
-          cta: 'Solicitar cotización'
+          cta: 'Cotizar Desarrollo a Medida'
         }
       ]
     },
     {
       id: 'cybersecurity',
-      title: 'Protegemos tu Futuro Digital',
+      title: 'Ciberseguridad para PYMES',
       icon: 'fas fa-shield-alt',
-      description: 'Seguridad digital empresarial con monitoreo 24/7 y nuestro programa exclusivo PYME Segura.',
+      description: 'Protegemos tus operaciones y la confianza de tus clientes con soluciones de seguridad prácticas y efectivas.',
       features: [
-        'Auditorías de vulnerabilidades (Pentesting/White Hacking)',
-        'Implementación de Sistemas de Seguridad Web',
-        'Monitoreo continuo de amenazas',
-        'Planes de respuesta a incidentes',
+        'Auditorías de vulnerabilidades (Pentesting)',
+        'Implementación de Firewalls y Sistemas de Detección',
+        'Monitoreo continuo de amenazas 24/7',
+        'Planes de respuesta rápida ante incidentes',
         'Capacitación en ciberseguridad para equipos'
       ],
       cta: 'Ver Planes de Seguridad',
       plans: [
         {
           id: 'security-shield',
-          name: 'Seguridad Inicial',
-          subtitle: 'Protección básica',
-          price: '10 UF',
+          name: 'Plan Seguridad Esencial',
+          subtitle: 'El blindaje indispensable',
+          price: '$97 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Auditoría básica de vulnerabilidades',
-            'Implementación de firewall básico',
-            'Configuración de backups seguros',
-            'Certificado SSL premium',
-            'Guía de buenas prácticas'
+            'Análisis de vulnerabilidades inicial',
+            'Configuración de Firewall de Aplicaciones (WAF)',
+            'Instalación de Certificado SSL Premium',
+            'Guía de políticas de seguridad'
           ],
-          deliverables: 'Setup en 7 días',
-          cta: 'Asegurar básico'
+          cta: 'Contratar Seguridad Esencial'
         },
         {
           id: 'security-fortress',
-          name: 'Seguridad Avanzada',
-          subtitle: 'Protección avanzada',
-          price: '50 UF',
+          name: 'Plan Seguridad Gestionada',
+          subtitle: 'Protección proactiva y continua',
+          price: '$397 USD', // PRECIO AJUSTADO
           popular: true,
           features: [
-            'Plan de Protección Básica',
-            'Auditoría completa de seguridad',
-            'WAF avanzado implementado',
-            'Monitoreo de amenazas 24/7',
-            'Plan de respuesta a incidentes',
-            'Capacitación del equipo'
+            '<strong>Todo lo del Plan Esencial, y además:</strong>',
+            'Monitoreo de seguridad 24/7',
+            'Reportes mensuales de estado de seguridad',
+            'Soporte para incidentes menores',
+            'Actualizaciones de seguridad periódicas'
           ],
-          deliverables: 'Implementación en 30 días',
-          cta: 'Fortalecer seguridad'
+          cta: 'Contratar Seguridad Gestionada'
         },
         {
           id: 'pyme-segura',
-          name: 'PYME SEGURA',
-          subtitle: 'Programa integral exclusivo',
-          price: '80 UF',
+          name: 'Programa CISO Virtual',
+          subtitle: 'Tu Director de Seguridad externo',
+          price: 'Desde $997 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Auditoría integral + resolución',
-            'Certificado de seguridad digital',
-            'Seguimiento trimestral por 12 meses',
-            'Respuesta inmediata a incidentes',
-            'Compliance empresarial'
+            '<strong>Todo lo del Plan Gestionado, y además:</strong>',
+            'Rol de CISO (Director de Seguridad) externo',
+            'Pentesting trimestral con reporte ejecutivo',
+            'Plan y simulacros de respuesta a incidentes',
+            'Asesoría en cumplimiento normativo (Compliance)'
           ],
-          deliverables: 'Programa completo en 8 semanas',
-          cta: 'Unirse a PYME Segura'
+          cta: 'Contratar CISO Virtual'
         }
       ]
     },
     {
       id: 'digital-marketing',
-      title: 'Amplificamos tu Marca',
+      title: 'Marketing Digital Inteligente',
       icon: 'fas fa-chart-line',
-      description: 'Marketing digital con IA que encuentra tu audiencia perfecta y maximiza tu ROI automáticamente.',
+      description: 'Atraemos a los clientes correctos y aumentamos tus ventas con estrategias de marketing basadas en datos e IA.',
       features: [
         'Estrategia de Contenidos y SEO',
-        'Gestión de Redes Sociales con IA',
-        'Campañas de Publicidad (SEM/Social Ads)',
-        'Email Marketing y Automatización',
-        'Analítica y reportes de rendimiento'
+        'Gestión Profesional de Redes Sociales',
+        'Campañas de Publicidad en Google y Meta Ads',
+        'Email Marketing y flujos automatizados',
+        'Reportes de rendimiento claros y accionables'
       ],
       cta: 'Ver Planes de Marketing',
       plans: [
         {
           id: 'marketing-launch',
-          name: 'LAUNCH Marketing',
-          subtitle: 'Despegue digital',
-          price: '20 UF/mes',
+          name: 'Plan Básico de Contenidos',
+          subtitle: 'Visibilidad constante en redes',
+          price: '$197 USD/mes', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Sesión fotográfica (4 horas/mes)',
-            'Contenido para RRSS (15 posts/mes)',
-            'Gestión de 2 plataformas sociales',
-            'Community management básico',
-            'Reportes mensuales básicos'
+            'Gestión de 2 redes sociales',
+            '12 publicaciones mensuales',
+            'Diseño gráfico para posts',
+            'Reporte de alcance y engagement'
           ],
-          deliverables: 'Inicio inmediato',
-          cta: 'Lanzar marca'
+          cta: 'Contratar Plan Básico'
         },
         {
           id: 'marketing-amplify',
-          name: 'AMPLIFY Marketing',
-          subtitle: 'Crecimiento acelerado',
-          price: '30 UF/mes',
+          name: 'Plan de Crecimiento Digital',
+          subtitle: 'Atraer y convertir clientes',
+          price: '$397 USD/mes', // PRECIO AJUSTADO
           popular: true,
           features: [
-            'Sesión audiovisual de 12 horas + videos',
-            'Gestión de 4 plataformas sociales',
-            'Estrategia de contenido personalizada',
-            'Estrategia SEO Básica',
-            'Dashboard de métricas personalizado'
+            '<strong>Todo lo del Plan Básico, y además:</strong>',
+            'Gestión de campañas de publicidad (hasta $500 de inversión)',
+            'Estrategia y optimización SEO On-Page',
+            'Un artículo de blog mensual (optimizado)',
+            'Dashboard de resultados en tiempo real'
           ],
-          deliverables: 'Estrategia en 48h',
-          cta: 'Amplificar resultados'
+          cta: 'Contratar Plan Crecimiento'
         },
         {
           id: 'marketing-dominate',
-          name: 'DOMINATE Marketing',
-          subtitle: 'Liderazgo total',
-          price: '40 UF/mes',
+          name: 'Plan de Liderazgo de Mercado',
+          subtitle: 'Estrategia integral y dominante',
+          price: '$797 USD/mes', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Producción audiovisual y fotográfica profesional',
-            'IA personalizada para contenido',
-            'Influencer marketing management',
-            'Estrategia SEO avanzada',
-            'Estrategia omnicanal completa'
+            '<strong>Todo lo del Plan Crecimiento, y además:</strong>',
+            'Estrategia de marketing 360°',
+            'Gestión de campañas avanzadas (inversión ilimitada)',
+            'Email marketing y automatización',
+            'Reunión estratégica mensual'
           ],
-          deliverables: 'Lanzamiento en 1 semana',
-          cta: 'Dominar mercado'
+          cta: 'Contratar Plan Liderazgo'
         }
       ]
     },
     {
       id: 'consulting',
-      title: 'Estrategia que Funciona',
+      title: 'Consultoría Estratégica',
       icon: 'fas fa-lightbulb',
-      description: 'Consultoría digital personalizada que transforma tu visión en resultados medibles y sostenibles.',
+      description: 'Te damos la claridad y la hoja de ruta que necesitas para tomar las mejores decisiones y llevar tu negocio al siguiente nivel.',
       features: [
         'Diagnóstico y Roadmap de Transformación Digital',
         'Optimización de procesos con tecnología',
         'Implementación de IA en tu negocio',
         'Análisis de datos para toma de decisiones',
-        'Asesoría en innovación y nuevos modelos'
+        'Asesoría en innovación y nuevos modelos de negocio'
       ],
-      cta: 'Ver Planes de Consultoría',
+      cta: 'Ver Opciones de Consultoría',
       plans: [
         {
           id: 'consulting-insights',
-          name: 'INSIGHTS Consulting',
-          subtitle: 'Diagnóstico estratégico',
-          price: '42 UF',
+          name: 'Sesión de Diagnóstico',
+          subtitle: 'Claridad y próximos pasos',
+          price: '$297 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Auditoría digital inicial completa',
-            'Análisis de competencia detallado',
-            'Roadmap estratégico de 6 meses',
-            '2 sesiones de seguimiento',
-            'Recomendaciones priorizadas'
+            'Sesión de 2 horas con un estratega senior',
+            'Análisis de tu situación actual y competencia',
+            'Identificación de 3 oportunidades clave',
+            'Entrega de un plan de acción inmediato'
           ],
-          deliverables: 'Informe en 10 días',
-          cta: 'Obtener insights'
+          cta: 'Agendar Diagnóstico'
         },
         {
           id: 'consulting-strategy',
-          name: 'STRATEGY Consulting',
-          subtitle: 'Implementación guiada',
-          price: '125 UF',
+          name: 'Proyecto de Estrategia Digital',
+          subtitle: 'Tu hoja de ruta para crecer',
+          price: '$997 USD', // PRECIO AJUSTADO
           popular: true,
           features: [
-            'Consultoría estratégica integral',
-            'Metodologías ágiles implementadas',
-            'Plan de transformación digital',
-            'Acompañamiento mensual (6 meses)',
-            'Optimización continua de procesos'
+            '<strong>Todo lo de la Sesión de Diagnóstico, y además:</strong>',
+            'Análisis de mercado y audiencia a fondo',
+            'Definición de KPIs y métricas de éxito',
+            'Documento de estrategia digital completo',
+            'Plan de implementación a 6 meses'
           ],
-          deliverables: 'Plan ejecutivo en 2 semanas',
-          cta: 'Transformar estrategia'
+          cta: 'Crear mi Estrategia'
         },
         {
           id: 'consulting-transformation',
-          name: 'TRANSFORMATION Consulting',
-          subtitle: 'Cambio organizacional',
-          price: '330 UF+',
+          name: 'Asesoría de Transformación',
+          subtitle: 'Tu socio estratégico mensual',
+          price: 'Desde $2,997 USD', // PRECIO AJUSTADO
           popular: false,
           features: [
-            'Transformación digital completa',
-            'Change management profesional',
-            'Tecnologías disruptivas implementadas',
-            'Capacitación ejecutiva y operativa',
-            'Acompañamiento por 12 meses'
+            '<strong>Todo lo del Proyecto de Estrategia, y además:</strong>',
+            'Acompañamiento en la implementación',
+            'Reuniones de seguimiento semanales',
+            'Optimización continua de la estrategia',
+            'Acceso prioritario a nuestro equipo de expertos'
           ],
-          deliverables: 'Transformación en 90 días',
-          cta: 'Revolucionar empresa'
+          cta: 'Contratar Asesoría'
         }
       ]
     }
-  ],
+],
 
   // Features for About Section
   features: [
@@ -322,55 +307,117 @@ window.LAURA_CONFIG = {
     }
   ],
 
-  // Pricing Plans (PRECIOS EN UF)
-  pricingPlans: [
+  // Reemplaza el objeto 'pricingPlans' en tu archivo /assets/js/config.js
+
+// En /assets/js/config.js, asegúrate de que este sea tu arreglo 'pricingPlans'
+
+pricingPlans: [
     {
       id: 'starter',
-      name: 'Starter',
-      subtitle: 'Para emprendedores',
-      price: 'Desde 10 UF',
+      name: 'Plan Emprende',
+      subtitle: 'Para startups y primeros pasos digitales',
+      price: '$197 USD',
       popular: false,
       features: [
-        'Landing page optimizada',
-        'Seguridad básica',
-        'Marketing inicial',
-        'Consultoría estratégica'
+        'Landing page de alto impacto',
+        'Diseño profesional y moderno',
+        'Optimización para SEO inicial',
+        'Integración con Analytics y WhatsApp'
       ],
-      cta: 'Empezar proyecto',
-      ctaType: 'secondary'
+      cta: 'Comenzar Proyecto',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Me interesa el *Plan Emprende* de $197 USD para lanzar mi proyecto. ¿Podemos conversar?'
     },
     {
       id: 'growth',
-      name: 'Growth',
-      subtitle: 'Para PYMEs en crecimiento',
-      price: 'Desde 20 UF',
+      name: 'Plan Consolida',
+      subtitle: 'La solución completa para PYMEs',
+      price: '$497 USD',
       popular: true,
       features: [
-        'Sitio web completo + E-commerce',
-        'Seguridad avanzada',
-        'Marketing multicanal',
-        'Transformación digital'
+        'Sitio web completo y autogestionable',
+        'Blog o portafolio integrado',
+        'Funcionalidades E-commerce',
+        'Asesoría en transformación digital'
       ],
-      cta: 'Crecer',
-      ctaType: 'primary'
+      cta: 'Acelerar Crecimiento',
+      ctaType: 'primary',
+      whatsappMessage: '¡Hola! Me interesa el *Plan Consolida* de $497 USD. Busco una solución web completa para mi PYME.'
     },
     {
       id: 'enterprise',
-      name: 'Enterprise',
-      subtitle: 'Para empresas líderes',
+      name: 'Plan Lidera',
+      subtitle: 'Soluciones a medida para empresas',
       price: 'Personalizado',
       popular: false,
       features: [
-        'Desarrollo personalizado',
-        'Seguridad empresarial',
-        'Marketing con IA avanzada',
+        'Desarrollo de software y aplicaciones web',
+        'Integración con sistemas (API, ERP, CRM)',
+        'Ciberseguridad de grado empresarial',
+        'Consultoría y soporte prioritario 24/7'
+      ],
+      cta: 'Contactar para Cotización',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Represento a una empresa y me interesa el *Plan Lidera*. Necesitamos una solución personalizada.'
+    }
+],
+// En /assets/js/config.js, AÑADE este nuevo arreglo.
+
+monthlyPlans: [
+    {
+      id: 'monthly-starter',
+      name: 'Soporte Esencial',
+      icon: '🚀',
+      subtitle: 'Para mantener tu web segura y actualizada',
+      price: '$97 USD/mes', // Precio mensual competitivo
+      popular: false,
+      features: [
+        'Actualizaciones de seguridad semanales',
+        'Copias de seguridad diarias',
+        'Monitoreo de rendimiento básico',
+        'Soporte técnico vía email'
+      ],
+      cta: 'Contratar Soporte',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Me interesa el plan de Soporte Esencial de $97 USD/mes para mantener mi sitio web.'
+    },
+    {
+      id: 'monthly-growth',
+      name: 'Crecimiento Continuo',
+      icon: '📈',
+      subtitle: 'Para optimizar y crecer cada mes',
+      price: '$297 USD/mes', // Precio mensual competitivo
+      popular: true,
+      features: [
+        '<strong>Todo lo del Soporte Esencial, y además:</strong>',
+        'Optimización SEO On-Page continua',
+        'Un artículo de blog o landing page al mes',
+        'Reporte de métricas y recomendaciones',
+        'Reunión estratégica trimestral'
+      ],
+      cta: 'Impulsar Crecimiento',
+      ctaType: 'primary',
+      whatsappMessage: '¡Hola! Me interesa el plan de Crecimiento Continuo de $297 USD/mes para optimizar mi negocio.'
+    },
+    {
+      id: 'monthly-enterprise',
+      name: 'Socio Estratégico',
+      icon: '🤝',
+      subtitle: 'Tu equipo técnico y estratégico externo',
+      price: 'Personalizado',
+      popular: false,
+      features: [
+        '<strong>Todo lo de Crecimiento Continuo, y además:</strong>',
+        'Desarrollo y mejoras a solicitud',
+        'Consultoría estratégica proactiva',
+        'Acceso prioritario a nuestro equipo',
         'Soporte dedicado 24/7'
       ],
-      cta: 'Contactar',
-      ctaType: 'secondary'
+      cta: 'Agendar Reunión',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Me interesa su servicio de Socio Estratégico. Necesitamos un partner tecnológico a largo plazo.'
     }
-  ],
-
+],
   // Client Testimonials
   testimonials: [
     {
@@ -491,12 +538,12 @@ window.LAURA_CONFIG = {
         required: false,
         gridColumn: 'full',
         options: [
-          { value: '', label: 'Selecciona un rango' },
-          { value: '20-50uf', label: '20 - 50 UF' },
-          { value: '50-100uf', label: '50 - 100 UF' },
-          { value: '100-200uf', label: '100 - 200 UF' },
-          { value: '200uf+', label: '200 UF+' }
-        ]
+            { value: '', label: 'Selecciona un rango' },
+            { value: 'under-1000', label: 'Menos de $1,000 USD' },
+            { value: '1000-3000', label: '$1,000 - $3,000 USD' },
+            { value: '3000-7000', label: '$3,000 - $7,000 USD' },
+            { value: '7000+', label: 'Más de $7,000 USD' }
+          ]
       }
     ],
     submitText: 'Transformar mi negocio',

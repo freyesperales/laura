@@ -25,6 +25,13 @@ Estructura:
 ========================================= */
 :root {
   /* Colors */
+  --background-primary: #FFFFFF;
+  --background-secondary: #F8FAFC;
+  --text-primary: #1A202C;
+  --text-secondary: #4A5568;
+  --accent-primary: #E11D48; /* Mantener el magenta */
+  --accent-secondary: #0EA5E9; /* Azul tecnológico */
+
   --primary-50: #eef2ff;
   --primary-100: #e0e7ff;
   --primary-500: #667eea;
@@ -33,10 +40,27 @@ Estructura:
   --secondary-500: #764ba2;
   --accent-500: #6946e5;
 
+  --color-accent: #e21e5c;        /* Tu color principal, un magenta vibrante */
+  --color-accent-light: #ff4081; /* Una versión más clara para hover */
+  --color-accent-dark: #c91847;  /* Una versión más oscura para clics */
   --color-accent-primary: #e21e5c; /* Magenta principal (se mantiene) */
   --color-accent-primary-light: #ff4081; /* Versión clara del magenta */
   --color-accent-secondary: #0EA5E9; /* Cian/Azul tech (Tailwind Sky 500) */
   --color-accent-secondary-light: #38BDF8; /* Versión clara del cian */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #f9fafb; /* Un gris casi imperceptible para las secciones alternas */
+  --bg-card: #FFFFFF;
+  
+  --text-primary: #121217;        /* Negro suave para la máxima legibilidad */
+  --text-secondary: #5a5a66;      /* Gris oscuro para subtítulos y texto de apoyo */
+  --text-muted: #8b8b99;          /* Gris claro para metadatos o texto menos importante */
+
+  --border-color: #e5e5e9;        /* Borde neutro y limpio */
+  --shadow-color: rgba(18, 18, 23, 0.05); /* Sombra muy discreta */
+
+  /* --- Tipografía --- */
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', serif;
 
   --primary-color: #e21e5c;
   --secondary-color-purple: #702FFF; /* O #5F27CD si prefieres más profundo */
@@ -45,17 +69,20 @@ Estructura:
   --light-gray: #f4f4f4; /* Ejemplo */
   --dark-gray: #a9a9a9; /* Ejemplo */
 
-  /* Colores dark theme */
-  --dark-bg-primary: #1a1d23;
-  --dark-bg-secondary: #2a2d3a;
-  --dark-bg-tertiary: #363942;
-  --dark-bg-card: #2d3038;
-  --dark-text-primary: #F1F5F9; /* Blanco pizarra (Tailwind Slate 100) */
-  --dark-text-secondary: #94A3B8; /* Gris pizarra (Tailwind Slate 400) */
-  --dark-text-muted: #64748B; /* Gris pizarra oscuro (Tailwind Slate 500) */
-  --color-accent: #e21e5c;
-  --color-accent-light: #ff4081;
-  --color-accent-dark: #c91847;
+  /* --- Colores Tema Claro (NUEVO) --- */
+--dark-bg-primary: #FFFFFF;                     /* Fondo principal ahora blanco */
+--dark-bg-secondary: #f8f9fa;                   /* Fondo secundario un gris muy suave */
+--dark-bg-card: #FFFFFF;                       /* Fondo de las tarjetas blanco */
+--dark-text-primary: #1f2937;                   /* Texto principal oscuro (casi negro) */
+--dark-text-secondary: #6b7280;                 /* Texto secundario gris oscuro */
+--dark-text-muted: #9ca3af;                     /* Texto "apagado" un gris más claro */
+--dark-border: #e5e7eb;                        /* Borde gris claro */
+--dark-shadow: rgba(0, 0, 0, 0.05);            /* Sombra muy sutil */
+
+/* --- Colores de Acento (Se mantienen) --- */
+--color-accent: #e21e5c;
+--color-accent-light: #ff4081;
+--color-accent-dark: #c91847;
   --color-bone: #f5f5dc;
   --color-graphite: #41444b;
   --dark-border: #334155; /* Borde sutil (Tailwind Slate 700) */
@@ -80,13 +107,8 @@ Estructura:
   --info: #3b82f6;
   
   /* Typography */
-  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Poppins', sans-serif; /* Nueva fuente para títulos */
   
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -163,16 +185,38 @@ html {
 }
 
 body {
-  font-family: var(--font-family-base);
-  font-weight: var(--font-weight-normal);
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-weight: 400; /* Regular para el cuerpo */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   color: var(--dark-text-primary); 
-  background-color: var(--dark-bg-primary); /* <-- Asegúrate que esta línea esté presente */
+  background-color: var(--dark-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+    font-family: var(--font-body);
+  color: var(--text-secondary);
 }
 
+h1, h2 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700; /* Bold */
+  line-height: 1.2;
+}
+h3, .service-title, .benefit-title {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 600; /* Semi-Bold */
+}
+
+h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-weight: 600; /* Subtítulos un poco más finos */
+}
 body::before {
   content: "";
   position: fixed; /* Fija el ruido para que cubra toda la ventana visible */
@@ -241,7 +285,7 @@ select {
 /* Estilo para las secciones pares (2, 4, 6...) */
 .section-alt {
   padding: var(--space-20) 0;
-  background-color: var(--dark-bg-secondary);
+  background-color: var(--bg-secondary);
 }
 
 
@@ -345,7 +389,7 @@ select {
 
 /* Cards */
 .card {
-  background: rgba(45, 48, 56, 0.95);
+  background: var(--background-primary);
   border-radius: var(--radius-2xl);
   padding: var(--space-8);
   box-shadow: 0 8px 25px var(--dark-shadow);
@@ -499,14 +543,17 @@ select {
   right: 0;
   z-index: var(--z-fixed);
   backdrop-filter: blur(20px);
-  background: rgba(26, 29, 35, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid var(--dark-border);
   transition: var(--transition-base);
 }
 
 .navbar.scrolled {
-  background: var(--dark-bg-primary);
-  box-shadow: 0 4px 20px var(--dark-shadow);
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  backdrop-filter: blur(10px); /* Efecto "glass" moderno */
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px var(--dark-shadow);
+  border-bottom: 1px solid var(--dark-border);
 }
 
 .nav-content {
@@ -670,13 +717,16 @@ select {
 }
 
 .hero-title-dark { /* From main.css */
-  color: var(--dark-text-primary);
-  font-size: var(--text-5xl);
-      line-height: normal!important;
-      padding-bottom: 20px;
-   /* font-size, weight, line-height, margin from main.css general .hero-title */
+    font-weight: 800; /* Extra-Bold */
+    letter-spacing: -0.03em;
+    font-size: calc(2rem + 2.5vw); /* Tamaño dinámico */
+    line-height: 1.1;
 }
-
+@media (min-width: 1024px) {
+  .hero-title-dark {
+    font-size: 4.5rem; /* Tamaño fijo en pantallas grandes */
+  }
+}
 .gradient-text-red { /* From main.css */
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
   -webkit-background-clip: text;
@@ -685,6 +735,7 @@ select {
 }
 
 .hero-subtitle-dark { /* From main.css */
+  font-weight: 500; /* Un peso medio para el subtítulo */
   color: var(--dark-text-secondary);
   padding-bottom: 30px;
   /* font-size, margin, line-height from main.css general .hero-subtitle */
@@ -1692,32 +1743,32 @@ select {
   cursor: pointer;
 }
 
-.primary-btn-new { /* For WhatsApp */
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+.primary-btn-new, .whatsapp-cta-main {
+  /* Reemplaza los gradientes verdes por el color de acento de la marca */
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
   color: white;
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 8px 25px rgba(226, 30, 92, 0.3);
 }
 
-.primary-btn-new:hover {
-  background: linear-gradient(135deg, #22c55e 0%, #16a085 100%);
+.primary-btn-new:hover, .whatsapp-cta-main:hover {
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
   transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 15px 35px rgba(226, 30, 92, 0.4);
 }
 
-.secondary-btn-new { /* For WhatsApp */
-  background: var(--dark-bg-card); /* Was white */
-  color: #25d366;
-  border: 2px solid #25d366;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.1);
+.secondary-btn-new {
+  background: var(--bg-card);
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 15px rgba(226, 30, 92, 0.1);
 }
 
 .secondary-btn-new:hover {
-  background: #25d366;
+  background: var(--color-accent);
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 12px 30px rgba(226, 30, 92, 0.2);
 }
-
 .custom-solution-cta {
   text-align: center;
   margin-top: 4rem;
@@ -2076,30 +2127,51 @@ select {
 
   .hero { /* Adjust hero for mobile */
     min-height: 100vh; /* Or adjust as needed */
-    padding-top: 4rem; /* from critical */
+    padding-top: 0; /* from critical */
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .hero-content { /* Center hero text content */
-    display: block; /* Override grid for stacking */
-    text-align: center;
-    padding: 2rem 0; /* Adjust padding */
-    width: 100%;
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr; /* Apilado por defecto */
+  align-items: center;
+  gap: var(--space-12);
+}
+@media (min-width: 1024px) {
+  .hero-content {
+    /* En desktop, 2 columnas: texto a la izquierda, imagen a la derecha */
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-16);
   }
-  
-  .hero-text { /* Container for text elements */
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  
-  .hero-badge-dark {
-    display: inline-flex; /* keeps it inline but allows flex props */
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
-  }
+}  
+.hero-text {
+  text-align: left;
+  display: flex; /* Activa Flexbox */
+  flex-direction: column; /* Apila los elementos verticalmente */
+  justify-content: center; /* Centra el contenido verticalmente en su espacio */
+  align-items: flex-start; /* Alinea todos los elementos hijos al inicio (izquierda) */
+  height: 100%; /* Ocupa toda la altura disponible */
+}
+
+.hero-actions {
+  display: flex; /* Asegura que los botones y sus hijos se manejen con flex */
+  flex-direction: row; /* Botones en fila */
+  flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si no caben */
+  justify-content: flex-start; /* Alinea los botones a la izquierda */
+  gap: 1rem; /* Espacio entre botones */
+}
+
+.hero-certifications {
+  width: 100%; /* Asegura que el contenedor de logos ocupe todo el ancho */
+  margin-top: 2rem;
+  text-align: left; /* Refuerza la alineación del texto del título */
+}
+
+.certs-logos {
+    justify-content: flex-start; /* Alinea los logos a la izquierda */
+}
   
   .hero-title-dark {
     font-size: 2.5rem; /* Or var(--text-4xl) potentially */
@@ -2503,6 +2575,8 @@ background: radial-gradient(circle at 30% 30%, hsla(339, 79%, 57%, 0.3) 0px, tra
   position: relative;
   z-index: 2; 
 }
+
+
 
 /* ====================================================== */
 /* NUEVA PANTALLA DE CARGA (IMPLEMENTACIÓN LIMPIA)       */
@@ -2972,4 +3046,133 @@ background: radial-gradient(circle at 30% 30%, hsla(339, 79%, 57%, 0.3) 0px, tra
 
 .btn-primary:hover::before {
   left: 100%;
+}
+
+.cert-logos img, .cert-logos a img {
+    height: 38px; /* Un poco más grande */
+    object-fit: contain;
+    opacity: 0.6;
+    filter: grayscale(100%); /* Efecto elegante en blanco y negro */
+    transition: all 0.3s ease;
+}
+
+.cert-logos a:hover img, .cert-logos img:hover {
+    opacity: 1;
+    filter: grayscale(0%); /* El color aparece al pasar el ratón */
+}
+.hero-certifications {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.certs-title {
+ text-align: left; /* Alinea el título de las certificaciones a la izquierda */
+}
+
+.certs-logos {
+  display: flex; /* Usa flexbox para los logos */
+  flex-wrap: wrap; /* Permite que se ajusten en varias líneas */
+  justify-content: flex-start; /* << LA CLAVE: Alinea los logos al inicio (izquierda) */
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cert-logo {
+    height: 40px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.certs-logos a:hover .cert-logo, .cert-logo:hover {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .hero-certifications {
+        margin-top: 2.5rem;
+    }
+    .certs-logos {
+        gap: 1rem;
+    }
+    .cert-logo {
+        height: 35px;
+    }
+}
+
+
+.hero {
+  padding-top: 8rem; /* Más espacio superior para que el contenido no quede pegado al header */
+  padding-bottom: 6rem;
+  display: flex;
+  align-items: center; /* Centrado vertical */
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr; /* Una columna por defecto (móvil) */
+  align-items: center;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1.1fr 0.9fr; /* Da un poco más de espacio al texto */
+    gap: 4rem;
+  }
+}
+
+.hero-text {
+  text-align: left;
+}
+
+/* Contenedor de los logos */
+.hero-certifications {
+    margin-top: 3rem;
+    max-width: 500px; /* Limita el ancho para que los logos se reordenen si es necesario */
+}
+
+.certs-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.certs-logos {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los logos pasen a la siguiente línea */
+    align-items: center;
+    justify-content: flex-start; /* Alinea los logos a la izquierda */
+    gap: 1.5rem; /* Espacio entre logos */
+}
+
+.certs-logos a, .certs-logos img {
+    height: 35px; /* Tamaño consistente y más pequeño */
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.8);
+    transition: all 0.3s ease;
+}
+
+.certs-logos a:hover, .certs-logos img:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+/* Ajuste para el indicador de scroll */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.8;
+    z-index: 3; /* Asegura que esté sobre cualquier fondo */
 }
