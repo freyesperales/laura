@@ -471,7 +471,16 @@ window.LAURA_CONFIG = {
     { name: 'HubSpot Solutions Partner', logo: './assets/img/hubspot-partner-badge.png' },
     { name: 'Potenciado por Gemini', logo: './assets/img/gemini-partner-badge.png' }
   ],
-
+techStack: [
+    { name: 'Google Analytics & Ads', logo: './assets/img/google-logo.png' },
+    { name: 'Power BI', logo: './assets/img/powerbi-logo.png' },
+    { name: 'Asana', logo: './assets/img/asana-logo.png' },
+    { name: 'Claude AI', logo: './assets/img/claude-logo.png' },
+    { name: 'Firebase', logo: './assets/img/firebase-logo.png' },
+    { name: 'cPanel', logo: './assets/img/cpanel-logo.png' },
+    { name: 'GTmetrix', logo: './assets/img/gtmetrix-logo.png' },
+    { name: 'Meta Business', logo: './assets/img/meta-logo.png' }
+],
   // Testimonials - ENFOQUE GLOBAL
   testimonials: [
     {

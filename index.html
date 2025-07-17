@@ -155,10 +155,10 @@
     </style>
     
     <!-- Main CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css?=v1">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -197,41 +197,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section con Animaciones Originales -->
+    <!-- Hero Section -->
     <section id="inicio" class="hero">
-        <!-- Background Animado Original -->
+        <!-- Background Animado -->
         <div class="hero-background">
-            <div class="ondas-container">
-                <!-- Ondas SVG Animadas Originales -->
-                <div class="onda-wrapper">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M40,60 Q80,20 120,60 Q160,100 120,140 Q80,180 40,140 Q0,100 40,60 Z" />
-                    </svg>
-                </div>
-                <div class="onda-wrapper">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50,70 Q90,30 130,70 Q170,110 130,150 Q90,190 50,150 Q10,110 50,70 Z" />
-                    </svg>
-                </div>
-                <div class="onda-wrapper">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M45,65 Q85,25 125,65 Q165,105 125,145 Q85,185 45,145 Q5,105 45,65 Z" />
-                    </svg>
-                </div>
-                <div class="onda-wrapper">
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35,55 Q75,15 115,55 Q155,95 115,135 Q75,175 35,135 Q-5,95 35,55 Z" />
-                    </svg>
-                </div>
-                
-                <!-- Puntos parpadeantes originales -->
-                <div class="blinking-dot" style="--dx: 20%; --dy: 30%; --dd: 0s;"></div>
-                <div class="blinking-dot" style="--dx: 80%; --dy: 20%; --dd: 0.5s;"></div>
-                <div class="blinking-dot" style="--dx: 60%; --dy: 70%; --dd: 1s;"></div>
-                <div class="blinking-dot" style="--dx: 15%; --dy: 80%; --dd: 1.5s;"></div>
-                <div class="blinking-dot" style="--dx: 85%; --dy: 60%; --dd: 2s;"></div>
-            </div>
-            
             <!-- Blob animado original -->
             <div class="animated-blob"></div>
         </div>
@@ -245,7 +214,7 @@
                     </div>
                     
                     <h1 class="hero-title">
-                        Transformamos tu <span class="gradient-text typewriter-cursor" id="typewriter">negocio</span><br>
+                        Transformamos tu <br><span class="gradient-text typewriter-cursor" id="typewriter">negocio</span><br>
                         con tecnología e inteligencia artificial
                     </h1>
                     
@@ -304,9 +273,6 @@
                              alt="LAURA protegiendo negocios digitales" 
                              class="floating"
                              loading="eager">
-                        <div class="ai-indicator">
-                            <i class="fas fa-robot ai-pulse"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -525,274 +491,203 @@
             </div>
         </div>
     </section>
-
-    <!-- Planes Section con Tabs Originales -->
-    <section id="planes" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-star"></i>
-                    <span>Planes y Servicios</span>
+<!-- Methodology Section -->
+<section id="metodologia" class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-cogs"></i>
+                <span>Nuestra Metodología</span>
+            </div>
+            <h2 class="section-title">
+                Proceso basado en <span class="gradient-text">datos y resultados</span>
+            </h2>
+            <p class="section-subtitle">
+                Aplicamos el <strong>método científico</strong> al marketing, desarrollo y ciberseguridad. 
+                Cada decisión se basa en métricas y mejora continua.
+            </p>
+        </div>
+        
+        <div class="methodology-steps">
+            <div class="step-card fade-in">
+                <div class="step-number">01</div>
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
                 </div>
-                <h2 class="section-title">
-                    Soluciones flexibles para <span class="gradient-text">cada necesidad</span>
-                </h2>
-                <p class="section-subtitle">
-                    <strong>Planes mensuales recurrentes</strong> para crecimiento sostenido y 
-                    <strong>proyectos únicos</strong> para lanzamientos y transformaciones específicas.
-                </p>
+                <h3>Análisis Digital Completo</h3>
+                <p>Establecemos el punto de partida con auditoría técnica, análisis competitivo y diagnóstico de situación actual.</p>
+                <ul class="step-details">
+                    <li>Auditoría técnica completa</li>
+                    <li>Análisis de la competencia</li>
+                    <li>Identificación de oportunidades</li>
+                </ul>
             </div>
             
-            <!-- Tabs para alternar entre Planes Mensuales y Proyectos -->
-            <div class="plans-tabs">
-                <button class="tab-btn active" data-tab="monthly">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Planes Mensuales</span>
-                </button>
-                <button class="tab-btn" data-tab="projects">
-                    <i class="fas fa-project-diagram"></i>
-                    <span>Proyectos Únicos</span>
-                </button>
+            <div class="step-card fade-in">
+                <div class="step-number">02</div>
+                <div class="step-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Objetivos & KPIs</h3>
+                <p>Definimos objetivos de negocio específicos y métricas clave que nos permitirán medir el éxito del proyecto.</p>
+                <ul class="step-details">
+                    <li>Objetivos SMART definidos</li>
+                    <li>KPIs relevantes y medibles</li>
+                    <li>Benchmarks de la industria</li>
+                </ul>
             </div>
             
-            <!-- Planes Mensuales -->
-            <div class="tab-content active" id="monthly-plans">
-                <div class="plans-description">
-                    <h3>🔄 Planes Mensuales Recurrentes</h3>
-                    <p><strong>Perfecto para empresas que necesitan soporte continuo</strong> y crecimiento sostenido. Cancela cuando quieras.</p>
+            <div class="step-card fade-in">
+                <div class="step-number">03</div>
+                <div class="step-icon">
+                    <i class="fas fa-rocket"></i>
                 </div>
-                
-                <div class="pricing-grid">
-                    <!-- Marketing Digital Mensual -->
-                    <div class="pricing-card">
-                        <div class="card-header">
-                            <div class="plan-icon">📈</div>
-                            <h3 class="plan-name">Marketing Pro</h3>
-                            <p class="plan-subtitle">Marketing digital que genera leads</p>
-                            <div class="plan-price">$497 USD/mes</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Gestión completa de Google Ads</li>
-                                <li>✅ Social Media Management (2 redes)</li>
-                                <li>✅ 1 artículo de blog mensual optimizado</li>
-                                <li>✅ Email marketing automatizado</li>
-                                <li>✅ Reportes mensuales detallados</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20plan%20Marketing%20Pro%20de%20$497%20USD/mes.%20¿Podemos%20conversar?" 
-                               target="_blank" 
-                               class="cta-btn secondary">
-                               💬 Comenzar Ahora
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Desarrollo Web Mensual -->
-                    <div class="pricing-card popular">
-                        <div class="popular-badge">Más Popular</div>
-                        <div class="card-header">
-                            <div class="plan-icon">💻</div>
-                            <h3 class="plan-name">Web & Support</h3>
-                            <p class="plan-subtitle">Mantenimiento y optimización web</p>
-                            <div class="plan-price">$297 USD/mes</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Mantenimiento completo del sitio</li>
-                                <li>✅ Actualizaciones de seguridad semanales</li>
-                                <li>✅ Backups diarios automatizados</li>
-                                <li>✅ Optimización continua de velocidad</li>
-                                <li>✅ Soporte técnico prioritario</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20plan%20Web%20%26%20Support%20de%20$297%20USD/mes.%20¿Podemos%20conversar?" 
-                               target="_blank" 
-                               class="cta-btn primary">
-                               💬 Comenzar Ahora
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Ciberseguridad Mensual -->
-                    <div class="pricing-card">
-                        <div class="card-header">
-                            <div class="plan-icon">🛡️</div>
-                            <h3 class="plan-name">Security Shield</h3>
-                            <p class="plan-subtitle">Protección empresarial 24/7</p>
-                            <div class="plan-price">$397 USD/mes</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Monitoreo de seguridad 24/7</li>
-                                <li>✅ Firewall y protección avanzada</li>
-                                <li>✅ Auditorías mensuales de vulnerabilidades</li>
-                                <li>✅ Respuesta rápida ante incidentes</li>
-                                <li>✅ Reportes de seguridad ejecutivos</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20plan%20Security%20Shield%20de%20$397%20USD/mes.%20¿Podemos%20conversar?" 
-                               target="_blank" 
-                               class="cta-btn secondary">
-                               💬 Comenzar Ahora
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <h3>Implementación</h3>
+                <p>Ejecutamos el plan con metodología ágil, entregas incrementales y comunicación constante del progreso.</p>
+                <ul class="step-details">
+                    <li>Metodología ágil</li>
+                    <li>Entregas incrementales</li>
+                    <li>Comunicación transparente</li>
+                </ul>
             </div>
             
-            <!-- Proyectos Únicos -->
-            <div class="tab-content" id="project-plans">
-                <div class="plans-description">
-                    <h3>🎯 Proyectos Únicos y Consultoría</h3>
-                    <p><strong>Ideal para lanzamientos, reestructuraciones o proyectos específicos</strong> con resultados definidos.</p>
+            <div class="step-card fade-in">
+                <div class="step-number">04</div>
+                <div class="step-icon">
+                    <i class="fas fa-chart-bar"></i>
                 </div>
-                
-                <div class="pricing-grid">
-                    <!-- Starter Project -->
-                    <div class="pricing-card">
-                        <div class="card-header">
-                            <div class="plan-icon">🚀</div>
-                            <h3 class="plan-name">Plan Starter</h3>
-                            <p class="plan-subtitle">Para emprendedores y nuevos negocios</p>
-                            <div class="plan-price">$497 USD</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Landing page optimizada para conversión</li>
-                                <li>✅ Diseño responsive profesional</li>
-                                <li>✅ Formularios de contacto integrados</li>
-                                <li>✅ SEO básico y Google Analytics</li>
-                                <li>✅ Entrega en 7 días hábiles</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20Plan%20Starter%20de%20$497%20USD.%20¿Podemos%20conversar?" 
-                               target="_blank" 
-                               class="cta-btn secondary">
-                               💬 Comenzar Proyecto
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Growth Project -->
-                    <div class="pricing-card popular">
-                        <div class="popular-badge">Más Solicitado</div>
-                        <div class="card-header">
-                            <div class="plan-icon">📈</div>
-                            <h3 class="plan-name">Plan Growth</h3>
-                            <p class="plan-subtitle">Para PYMEs en expansión</p>
-                            <div class="plan-price">$997 USD</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Todo del Plan Starter</li>
-                                <li>✅ Sitio web completo (hasta 10 páginas)</li>
-                                <li>✅ E-commerce básico integrado</li>
-                                <li>✅ Panel de administración intuitivo</li>
-                                <li>✅ 3 meses de soporte incluidos</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Me%20interesa%20el%20Plan%20Growth%20de%20$997%20USD.%20¿Podemos%20conversar?" 
-                               target="_blank" 
-                               class="cta-btn primary">
-                               💬 Comenzar Proyecto
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Enterprise Project -->
-                    <div class="pricing-card">
-                        <div class="card-header">
-                            <div class="plan-icon">🏢</div>
-                            <h3 class="plan-name">Plan Enterprise</h3>
-                            <p class="plan-subtitle">Para empresas líderes</p>
-                            <div class="plan-price">Personalizado</div>
-                        </div>
-                        
-                        <div class="card-features">
-                            <ul class="features-list">
-                                <li>✅ Todo del Plan Growth</li>
-                                <li>✅ Desarrollo completamente personalizado</li>
-                                <li>✅ Integraciones complejas (CRM, ERP, APIs)</li>
-                                <li>✅ Ciberseguridad de grado empresarial</li>
-                                <li>✅ Soporte prioritario y consultoría estratégica</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="card-footer">
-                            <a href="https://wa.me/56999968482?text=¡Hola!%20Represento%20una%20empresa%20y%20me%20interesa%20el%20Plan%20Enterprise.%20¿Podemos%20agendar%20una%20reunión?" 
-                               target="_blank" 
-                               class="cta-btn secondary">
-                               💬 Agendar Reunión
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to Action Personalizado Original -->
-            <div class="custom-solution-cta">
-                <h3>¿No encuentras lo que buscas?</h3>
-                <p><strong>Cada empresa es única.</strong> Conversemos sobre tus necesidades específicas y creemos una solución perfecta para ti.</p>
-                <a href="https://wa.me/56999968482?text=¡Hola!%20Necesito%20una%20solución%20personalizada%20para%20mi%20empresa.%20¿Podemos%20conversar?" 
-                   target="_blank" 
-                   class="whatsapp-cta-main">
-                    💬 Personalizar mi Proyecto
-                </a>
+                <h3>Medición & Optimización</h3>
+                <p>Monitoreamos resultados constantemente, analizamos datos y optimizamos estrategias para maximizar el ROI.</p>
+                <ul class="step-details">
+                    <li>Monitoreo en tiempo real</li>
+                    <li>Reportes ejecutivos periódicos</li>
+                    <li>Optimización continua</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Team Section -->
-    <section id="team" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    ¿Quién está detrás de <span class="gradient-text">LAURA?</span>
-                </h2>
-                <p class="section-subtitle">
-                    Un equipo global especializado que combina <strong>experiencia técnica con visión estratégica</strong> 
-                    para transformar negocios en todo el mundo.
-                </p>
+    <!-- Planes Section con Tabs -->
+ <!-- Planes Section con Sistema de Filtros -->
+<section id="planes" class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-star"></i>
+                <span>Planes y Servicios</span>
+            </div>
+            <h2 class="section-title">
+                Soluciones adaptadas a <span class="gradient-text">tu necesidad</span>
+            </h2>
+            <p class="section-subtitle">
+                Cada área de especialización con <strong>3 niveles de profundidad</strong>: 
+                desde consultoría puntual hasta transformación completa.
+            </p>
+        </div>
+        
+        <!-- Filtros por especialidad -->
+        <div class="specialty-filters">
+            <button class="filter-btn active" data-specialty="marketing">
+                <i class="fas fa-chart-line"></i>
+                <span>Marketing Digital</span>
+            </button>
+            <button class="filter-btn" data-specialty="development">
+                <i class="fas fa-code"></i>
+                <span>Desarrollo Web</span>
+            </button>
+            <button class="filter-btn" data-specialty="security">
+                <i class="fas fa-shield-alt"></i>
+                <span>Ciberseguridad</span>
+            </button>
+        </div>
+        
+        <!-- Contenedor de planes dinámicos -->
+        <div id="filtered-plans" class="filtered-plans-container">
+            <!-- Los planes se cargan dinámicamente aquí -->
+        </div>
+    </div>
+</section>
+
+    <!-- Enhanced Team Section -->
+<section id="team" class="section team-section-enhanced">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                El cerebro detrás de <span class="gradient-text">LAURA</span>
+            </h2>
+            <p class="section-subtitle">
+                Más de una década transformando ideas en soluciones digitales que funcionan
+            </p>
+        </div>
+        
+        <div class="founder-showcase">
+            <div class="founder-visual">
+                <div class="founder-image-enhanced">
+                    <img src="./assets/img/frp.webp" alt="Francisco Reyes P, Fundador de LAURA Digital Agency" class="founder-photo">
+                    <div class="founder-badge">
+                        <i class="fas fa-rocket"></i>
+                        <span>10+ años</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-pills">
+                    <span class="pill">IA & Automatización</span>
+                    <span class="pill">Marketing Digital</span>
+                    <span class="pill">Ciberseguridad</span>
+                    <span class="pill">Desarrollo Web</span>
+                </div>
             </div>
             
-            <div class="founder-profile">
-                <div class="founder-image-container">
-                    <img src="./assets/img/frp.webp" alt="Francisco Reyes P, Fundador de LAURA Digital Agency" class="founder-image">
+            <div class="founder-content">
+                <div class="founder-header">
+                    <h3 class="founder-name">Francisco Reyes P.</h3>
+                    <p class="founder-title">Founder & Digital Transformation Specialist</p>
                 </div>
-                <div class="founder-details">
-                    <h2 class="founder-name">Francisco Reyes P.</h2>
-                    <p class="founder-title">Founder & CEO | Especialista en Transformación Digital</p>
-                    <div class="founder-experience">
-                        <h4>Mi Trayectoria:</h4>
-                        <p><strong>Emprendedor especializado en transformación digital</strong> con más de una década creando e implementando soluciones innovadoras para empresas globales. Mi experiencia combina creatividad estratégica con sólidos conocimientos en desarrollo web, ciberseguridad e inteligencia artificial.</p>
-                        
-                        <p>Mi <strong>trayectoria evolutiva desde el Marketing Digital hasta la Ciberseguridad</strong> me permite diseñar soluciones integrales que equilibran innovación, seguridad y rentabilidad. He desarrollado múltiples soluciones para optimizar procesos tanto externos como internos a través de IA y automatización.</p>
-                        
-                        <p><strong>Mi enfoque actual combina protección digital, automatización inteligente y optimización de procesos</strong> para potenciar el crecimiento sostenible de negocios en cualquier parte del mundo.</p>
+                
+                <div class="founder-story">
+                    <p class="story-highlight">
+                        "Mi misión es democratizar el acceso a tecnología avanzada para que cualquier empresa, 
+                        sin importar su tamaño, pueda competir globalmente."
+                    </p>
+                    
+                    <p>
+                        Comencé especializándome en <strong>Marketing Digital</strong>, donde descubrí el poder 
+                        de los datos para transformar negocios. Esta pasión por los resultados medibles me llevó 
+                        a profundizar en <strong>desarrollo web</strong> y posteriormente en <strong>ciberseguridad</strong>.
+                    </p>
+                    
+                    <p>
+                        Hoy combino estas tres disciplinas con <strong>inteligencia artificial</strong> para crear 
+                        soluciones que no solo funcionan, sino que se optimizan constantemente.
+                    </p>
+                </div>
+                
+                <div class="founder-achievements">
+                    <div class="achievement">
+                        <div class="achievement-number">150+</div>
+                        <div class="achievement-label">Proyectos Exitosos</div>
                     </div>
-                    <div class="founder-contact-cta">
-                        <a href="#contacto" class="btn btn-primary">Hablemos de tu Proyecto</a>
+                    <div class="achievement">
+                        <div class="achievement-number">25+</div>
+                        <div class="achievement-label">Países Atendidos</div>
                     </div>
+                    <div class="achievement">
+                        <div class="achievement-number">95%</div>
+                        <div class="achievement-label">Satisfacción Cliente</div>
+                    </div>
+                </div>
+                
+                <div class="founder-cta">
+                    <a href="#contacto" class="btn-primary">
+                        <i class="fas fa-comments"></i>
+                        <span>Conversemos sobre tu proyecto</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contacto" class="section">
@@ -954,23 +849,33 @@
             </div>
             
             <!-- Certificaciones Originales -->
-            <div class="certifications">
-                <h4 class="certifications-title">Tecnologías y Certificaciones</h4>
-                <div class="certifications-grid">
-                    <div class="certification-item">
-                        <img src="./assets/img/google-partner-badge.png" alt="Google Partner Certificado">
+            <!-- Tech Stack -->
+            <div class="tech-stack">
+                <h4 class="tech-stack-title">Herramientas que Utilizamos</h4>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">
+                        <img src="./assets/img/google-logo.png" alt="Google Analytics & Ads">
                     </div>
-                    <div class="certification-item">
-                        <img src="./assets/img/meta-partner-badge.png" alt="Meta Business Partner">
+                    <div class="tech-item">
+                        <img src="./assets/img/powerbi-logo.png" alt="Power BI">
                     </div>
-                    <div class="certification-item">
-                        <img src="./assets/img/shopify-partner-badge.png" alt="Shopify Partner">
+                    <div class="tech-item">
+                        <img src="./assets/img/asana-logo.png" alt="Asana">
                     </div>
-                    <div class="certification-item">
-                        <img src="./assets/img/hubspot-partner-badge.png" alt="HubSpot Solutions Partner">
+                    <div class="tech-item">
+                        <img src="./assets/img/claude-logo.png" alt="Claude AI">
                     </div>
-                    <div class="certification-item">
-                        <img src="./assets/img/gemini-partner-badge.png" alt="Potenciado por Gemini AI">
+                    <div class="tech-item">
+                        <img src="./assets/img/firebase-logo.png" alt="Firebase">
+                    </div>
+                    <div class="tech-item">
+                        <img src="./assets/img/cpanel-logo.png" alt="cPanel">
+                    </div>
+                    <div class="tech-item">
+                        <img src="./assets/img/gtmetrix-logo.png" alt="GTmetrix">
+                    </div>
+                    <div class="tech-item">
+                        <img src="./assets/img/meta-logo.png" alt="Meta Business">
                     </div>
                 </div>
             </div>
@@ -1006,72 +911,118 @@
     
     <!-- Typewriter Effect -->
     <script>
-        class TypewriterEffect {
-            constructor(element, words, options = {}) {
-                this.element = element;
-                this.words = words;
-                this.currentWordIndex = 0;
-                this.currentText = '';
-                this.isDeleting = false;
-                this.typeSpeed = options.typeSpeed || 120;
-                this.deleteSpeed = options.deleteSpeed || 80;
-                this.pauseTime = options.pauseTime || 2500;
-                this.init();
-            }
-            
-            init() { this.type(); }
-            
-            type() {
-                const currentWord = this.words[this.currentWordIndex];
-                
-                if (this.isDeleting) {
-                    this.currentText = currentWord.substring(0, this.currentText.length - 1);
-                } else {
-                    this.currentText = currentWord.substring(0, this.currentText.length + 1);
-                }
-                
-                this.element.textContent = this.currentText;
-                
-                let timeout = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
-                
-                if (!this.isDeleting && this.currentText === currentWord) {
-                    timeout = this.pauseTime;
-                    this.isDeleting = true;
-                } else if (this.isDeleting && this.currentText === '') {
-                    this.isDeleting = false;
-                    this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
-                }
-                
-                setTimeout(() => this.type(), timeout);
-            }
+        // Typewriter Effect Corregido
+class TypewriterEffect {
+    constructor(element, words, options = {}) {
+        this.element = element;
+        this.words = words;
+        this.currentWordIndex = 0;
+        this.currentText = '';
+        this.isDeleting = false;
+        this.typeSpeed = options.typeSpeed || 120;
+        this.deleteSpeed = options.deleteSpeed || 60;
+        this.pauseTime = options.pauseTime || 2000;
+        this.deleteDelay = options.deleteDelay || 500;
+        this.isRunning = false;
+        this.timeoutId = null;
+        
+        this.init();
+    }
+    
+    init() { 
+        if (this.element) {
+            this.element.classList.add('typewriter-active');
+            this.start();
         }
+    }
+    
+    start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
+        this.type();
+    }
+    
+    stop() {
+        this.isRunning = false;
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+    }
+    
+    type() {
+        if (!this.isRunning) return;
+        
+        const currentWord = this.words[this.currentWordIndex];
+        
+        if (this.isDeleting) {
+            // Borrando caracteres
+            this.currentText = currentWord.substring(0, this.currentText.length - 1);
+        } else {
+            // Escribiendo caracteres
+            this.currentText = currentWord.substring(0, this.currentText.length + 1);
+        }
+        
+        this.element.textContent = this.currentText;
+        
+        let timeout = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+        
+        // Lógica de control de estados
+        if (!this.isDeleting && this.currentText === currentWord) {
+            // Terminó de escribir la palabra completa
+            timeout = this.pauseTime;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.currentText === '') {
+            // Terminó de borrar la palabra
+            this.isDeleting = false;
+            this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
+            timeout = this.deleteDelay;
+        }
+        
+        // Programar siguiente iteración
+        this.timeoutId = setTimeout(() => {
+            this.type();
+        }, timeout);
+    }
+}
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const typewriterElement = document.getElementById('typewriter');
-            
-            if (typewriterElement) {
-                const words = ['negocio', 'empresa', 'proyecto', 'idea', 'startup', 'visión', 'marca'];
-                new TypewriterEffect(typewriterElement, words);
-            }
-
-            // Setup tabs functionality
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const targetTab = btn.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs and contents
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    btn.classList.add('active');
-                    document.getElementById(`${targetTab}-plans`).classList.add('active');
-                });
-            });
+// Inicialización segura
+document.addEventListener('DOMContentLoaded', function() {
+    const typewriterElement = document.getElementById('typewriter');
+    
+    if (typewriterElement) {
+        // Limpiar cualquier instancia previa
+        typewriterElement.classList.remove('typewriter-active');
+        
+        // Crear nueva instancia
+        const words = ['negocio', 'empresa', 'proyecto', 'startup', 'marca', 'visión'];
+        window.typewriterInstance = new TypewriterEffect(typewriterElement, words, {
+            typeSpeed: 100,
+            deleteSpeed: 50,
+            pauseTime: 1800,
+            deleteDelay: 800
         });
+    }
+    
+    // Setup tabs functionality...
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.getAttribute('data-tab');
+            
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const targetContent = document.getElementById(`${targetTab}-plans`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+});
 
         // Global function for service plans
         function showServicePlans(serviceId) {
