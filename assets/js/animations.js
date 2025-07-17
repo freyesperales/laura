@@ -1,7 +1,7 @@
 /**
  * LAURA DIGITAL AGENCY - Animations Module
  * Handles all animations and interactive effects
- * Version: 1.0.0
+ * Version: 2.2.0 - Restored + Enhanced
  */
 
 window.LAURA_Animations = {
@@ -86,6 +86,7 @@ window.LAURA_Animations = {
         requestAnimationFrame(() => {
           this.updateNavbarOnScroll();
           this.updateParallaxElements();
+          this.updateScrollIndicator();
           ticking = false;
         });
         ticking = true;
@@ -121,12 +122,26 @@ window.LAURA_Animations = {
     parallaxElements.forEach(element => {
       const rect = element.getBoundingClientRect();
       const elementTop = rect.top + scrollY;
-      const rate = (scrollY - elementTop) * 0.1;
+      const rate = (scrollY - elementTop) * 0.05; // Reduced rate for smoother effect
       
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         element.style.transform = `translateY(${rate}px)`;
       }
     });
+  },
+
+  /**
+   * Update scroll indicator visibility
+   */
+  updateScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+      if (window.scrollY > 100) {
+        scrollIndicator.classList.add('hidden');
+      } else {
+        scrollIndicator.classList.remove('hidden');
+      }
+    }
   },
 
   /**
@@ -147,6 +162,9 @@ window.LAURA_Animations = {
 
     // Observe stat numbers
     document.querySelectorAll('.stat-number').forEach(el => {
+      // Store the original target value
+      const targetText = el.textContent.trim();
+      el.setAttribute('data-target', targetText);
       counterObserver.observe(el);
     });
 
@@ -157,77 +175,51 @@ window.LAURA_Animations = {
    * Animate counter from 0 to target value
    */
   animateCounter(element) {
-    const targetText = element.textContent.trim();
+    const targetText = element.getAttribute('data-target') || element.textContent.trim();
     let targetNumber = 0;
     let suffix = '';
     let prefix = '';
     
-    // Extraer número y sufijos/prefijos
+    // Extract number and suffixes/prefixes
     const match = targetText.match(/^(\d+)(.*)$/);
     if (match) {
-        targetNumber = parseInt(match[1]);
-        suffix = match[2] || '';
+      targetNumber = parseInt(match[1]);
+      suffix = match[2] || '';
     } else {
-        // Manejar casos especiales como "15x"
-        const specialMatch = targetText.match(/^(\d+)x$/);
-        if (specialMatch) {
-            targetNumber = parseInt(specialMatch[1]);
-            suffix = 'x';
-        } else {
-            // Si no hay número, salir
-            return;
-        }
+      // Handle special cases like "24/7"
+      const specialMatch = targetText.match(/^(\d+)(\/\d+|[a-zA-Z%+x]+)$/);
+      if (specialMatch) {
+        targetNumber = parseInt(specialMatch[1]);
+        suffix = specialMatch[2];
+      } else {
+        // If no number, exit
+        return;
+      }
     }
     
     if (isNaN(targetNumber) || targetNumber === 0) return;
 
     let current = 0;
-    const duration = 2000; // 2 segundos
+    const duration = 2000; // 2 seconds
     const increment = targetNumber / (duration / 16); // 60fps
     
     const updateCounter = () => {
-        current += increment;
-        
-        if (current >= targetNumber) {
-            current = targetNumber;
-            element.textContent = prefix + targetNumber + suffix;
-            return;
-        }
-        
-        element.textContent = prefix + Math.ceil(current) + suffix;
-        requestAnimationFrame(updateCounter);
+      current += increment;
+      
+      if (current >= targetNumber) {
+        current = targetNumber;
+        element.textContent = prefix + targetNumber + suffix;
+        return;
+      }
+      
+      element.textContent = prefix + Math.ceil(current) + suffix;
+      requestAnimationFrame(updateCounter);
     };
     
-    // Iniciar animación
+    // Start animation
     element.textContent = prefix + '0' + suffix;
     requestAnimationFrame(updateCounter);
-},
-
-/**
- * REEMPLAZAR setupCounterAnimations en animations.js (aproximadamente línea 100)
- */
-setupCounterAnimations() {
-    if (!window.IntersectionObserver) return;
-
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !this.state.counters.has(entry.target)) {
-                this.animateCounter(entry.target);
-                this.state.counters.add(entry.target);
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    // Observar todos los elementos con números animados
-    document.querySelectorAll('.stat-number').forEach(el => {
-        // Guardar el valor original
-        el.setAttribute('data-target', el.textContent);
-        counterObserver.observe(el);
-    });
-
-    this.state.observers.push(counterObserver);
-},
+  },
 
   /**
    * Setup hover effects
@@ -244,8 +236,8 @@ setupCounterAnimations() {
       });
     });
 
-    // Button hover effects
-    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
+    // Button hover effects with ripple
+    document.querySelectorAll('.btn-primary, .btn-secondary, .service-cta').forEach(button => {
       button.addEventListener('mouseenter', (e) => {
         this.createRippleEffect(e);
       });
@@ -295,7 +287,7 @@ setupCounterAnimations() {
             opacity: 0;
           }
         }
-        .btn-primary, .btn-secondary {
+        .btn-primary, .btn-secondary, .service-cta {
           position: relative;
           overflow: hidden;
         }
@@ -332,6 +324,9 @@ setupCounterAnimations() {
             top: targetPosition,
             behavior: 'smooth'
           });
+
+          // Update URL without jumping
+          history.pushState(null, null, targetId);
         }
       });
     });
@@ -349,7 +344,66 @@ setupCounterAnimations() {
     });
   },
 
+  /**
+   * Setup typewriter effect
+   */
+  setupTypewriterEffect() {
+    const typewriterElement = document.getElementById('typewriter');
+    if (!typewriterElement) return;
 
+    const words = [
+      'negocio', 'empresa', 'proyecto', 'idea', 
+      'startup', 'visión', 'marca', 'app'
+    ];
+
+    this.createTypewriterEffect(typewriterElement, words, {
+      typeSpeed: 120,
+      deleteSpeed: 80,
+      pauseTime: 2500,
+      deleteDelay: 800
+    });
+  },
+
+  /**
+   * Create typewriter effect
+   */
+  createTypewriterEffect(element, words, options = {}) {
+    let currentWordIndex = 0;
+    let currentText = '';
+    let isDeleting = false;
+    
+    const typeSpeed = options.typeSpeed || 120;
+    const deleteSpeed = options.deleteSpeed || 80;
+    const pauseTime = options.pauseTime || 2500;
+    const deleteDelay = options.deleteDelay || 800;
+
+    const type = () => {
+      const currentWord = words[currentWordIndex];
+      
+      if (isDeleting) {
+        currentText = currentWord.substring(0, currentText.length - 1);
+      } else {
+        currentText = currentWord.substring(0, currentText.length + 1);
+      }
+      
+      element.textContent = currentText;
+      
+      let timeout = isDeleting ? deleteSpeed : typeSpeed;
+      
+      if (!isDeleting && currentText === currentWord) {
+        timeout = pauseTime;
+        isDeleting = true;
+      } else if (isDeleting && currentText === '') {
+        isDeleting = false;
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+        timeout = deleteDelay;
+      }
+      
+      setTimeout(type, timeout);
+    };
+
+    type();
+  },
 
   /**
    * Animate element entrance
@@ -383,6 +437,77 @@ setupCounterAnimations() {
       
       element.addEventListener('animationend', handleAnimationEnd);
     });
+  },
+
+  /**
+   * Setup staggered animations for elements
+   */
+  setupStaggeredAnimations() {
+    const staggeredElements = document.querySelectorAll('.stagger-animation');
+    
+    staggeredElements.forEach((element, index) => {
+      element.style.animationDelay = `${index * 0.1}s`;
+    });
+  },
+
+  /**
+   * Setup loading animations
+   */
+  setupLoadingAnimations() {
+    // Hide loader after page is ready
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader-overlay');
+      if (loader) {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          document.body.classList.add('loaded');
+          
+          // Start entrance animations
+          this.triggerEntranceAnimations();
+        }, 500);
+      }
+    });
+  },
+
+  /**
+   * Trigger entrance animations
+   */
+  triggerEntranceAnimations() {
+    // Animate hero elements
+    const heroElements = document.querySelectorAll('.hero .fade-in');
+    heroElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add('visible');
+      }, index * 200);
+    });
+  },
+
+  /**
+   * Setup scroll progress indicator
+   */
+  setupScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+      z-index: 9999;
+      transition: width 0.1s ease;
+    `;
+    
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.offsetHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      
+      progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+    }, { passive: true });
   },
 
   /**
@@ -446,8 +571,13 @@ setupCounterAnimations() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     window.LAURA_Animations.init();
+    window.LAURA_Animations.setupTypewriterEffect();
+    window.LAURA_Animations.setupLoadingAnimations();
+    window.LAURA_Animations.setupScrollProgress();
   });
 } else {
   window.LAURA_Animations.init();
+  window.LAURA_Animations.setupTypewriterEffect();
+  window.LAURA_Animations.setupLoadingAnimations();
+  window.LAURA_Animations.setupScrollProgress();
 }
-

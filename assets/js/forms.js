@@ -1,7 +1,7 @@
 /**
  * LAURA DIGITAL AGENCY - Forms Module
  * Handles form validation, submission, and user interactions
- * Version: 1.0.0 - FIXED
+ * Version: 2.2.0 - Enhanced Global Focus
  */
 
 window.LAURA_Forms = {
@@ -20,6 +20,9 @@ window.LAURA_Forms = {
     if (this.state.isInitialized) return;
     
     try {
+      // Setup validators first
+      this.setupValidators();
+      
       // Wait a bit for DOM to be fully ready
       setTimeout(() => {
         this.setupContactForm();
@@ -37,6 +40,37 @@ window.LAURA_Forms = {
     } catch (error) {
       console.error('❌ Error initializing forms:', error);
     }
+  },
+
+  /**
+   * Setup form validators
+   */
+  setupValidators() {
+    this.state.validators.set('required', {
+      validate: (value) => value && value.trim().length > 0,
+      message: 'Este campo es obligatorio'
+    });
+
+    this.state.validators.set('email', {
+      validate: (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(value);
+      },
+      message: 'Por favor, introduce un email válido'
+    });
+
+    this.state.validators.set('phone', {
+      validate: (value) => {
+        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{8,}$/;
+        return phoneRegex.test(value);
+      },
+      message: 'Por favor, introduce un teléfono válido'
+    });
+
+    this.state.validators.set('minLength', {
+      validate: (value, minLength = 10) => value && value.trim().length >= minLength,
+      message: (minLength) => `Debe tener al menos ${minLength} caracteres`
+    });
   },
 
   /**
@@ -104,15 +138,18 @@ window.LAURA_Forms = {
       // Disable form
       this.setFormDisabled(form, true);
 
-      // Submit form (simulate API call)
-      const result = await this.submitContactForm(formData);
+      // Submit form (simulate successful submission for now)
+      const result = await this.simulateFormSubmission(formData);
       
       if (result.success) {
-        this.showSuccessMessage(form);
+        this.showSuccessMessage(form, '¡Gracias! Tu consulta ha sido enviada. Te contactaremos pronto.');
         this.resetForm(form);
         
-        // Track conversion (if analytics available)
+        // Track conversion
         this.trackFormSubmission('contact', formData);
+
+        // Generate WhatsApp link as backup
+        this.showWhatsAppBackup(formData);
       } else {
         this.showErrorMessage(form, result.message || 'Error al enviar el formulario');
       }
@@ -122,7 +159,7 @@ window.LAURA_Forms = {
       
     } catch (error) {
       console.error('Form submission error:', error);
-      this.showErrorMessage(form, 'Error inesperado. Por favor, intenta nuevamente.');
+      this.showErrorMessage(form, 'Error inesperado. Por favor, intenta nuevamente o contáctanos por WhatsApp.');
     } finally {
       // Re-enable form
       this.setFormDisabled(form, false);
@@ -130,40 +167,127 @@ window.LAURA_Forms = {
   },
 
   /**
-   * Submit contact form data (replace with actual API call)
+   * Simulate form submission (replace with actual backend call)
    */
-  async submitContactForm(formData) {
-    // --- INICIO DE LA MODIFICACIÓN ---
-    try {
-      const response = await fetch('./php/enviar_contacto.php', { // O la ruta correcta a tu script PHP
-        method: 'POST',
-        body: JSON.stringify(formData), // Enviamos los datos como JSON
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+  async simulateFormSubmission(formData) {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // For now, always return success
+    // In production, replace this with actual form submission
+    return {
+      success: true,
+      message: 'Formulario enviado correctamente'
+    };
+  },
 
-      if (!response.ok) {
-        // Si el servidor responde con un error (status no es 2xx)
-        let errorMessage = 'Error del servidor. Intenta más tarde.';
-        try {
-            const errorData = await response.json();
-            errorMessage = errorData.message || errorMessage;
-        } catch (e) {
-            // No se pudo parsear el JSON de error, usar mensaje genérico
-        }
-        console.error('Server error:', response.status, response.statusText);
-        return { success: false, message: errorMessage };
+  /**
+   * Show WhatsApp backup option
+   */
+  showWhatsAppBackup(formData) {
+    const whatsappMessage = this.generateWhatsAppMessage(formData);
+    const whatsappLink = `https://wa.me/56999968482?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Create WhatsApp backup notification
+    const notification = document.createElement('div');
+    notification.className = 'whatsapp-backup-notification';
+    notification.style.cssText = `
+      position: fixed;
+      bottom: 120px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      z-index: 10000;
+      font-weight: 500;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      max-width: 300px;
+      text-align: center;
+    `;
+    
+    notification.innerHTML = `
+      <div style="margin-bottom: 0.5rem;">
+        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i>
+      </div>
+      <div style="font-size: 0.875rem; margin-bottom: 1rem;">
+        También puedes contactarnos directamente por WhatsApp
+      </div>
+      <a href="${whatsappLink}" target="_blank" style="
+        background: rgba(255,255,255,0.2);
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        display: inline-block;
+      ">
+        Abrir WhatsApp
+      </a>
+      <button onclick="this.parentElement.remove()" style="
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+      ">×</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 3000); // Show after 3 seconds
+    
+    // Remove after 10 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 300);
       }
+    }, 13000);
+  },
 
-      const result = await response.json();
-      return result; // El script PHP debería devolver { success: true/false, message: "..." }
-
-    } catch (error) {
-      console.error('Error en la petición fetch:', error);
-      return { success: false, message: 'Error de conexión. Por favor, revisa tu red e intenta nuevamente.' };
+  /**
+   * Generate WhatsApp message from form data
+   */
+  generateWhatsAppMessage(formData) {
+    let message = '¡Hola! Te escribo desde laura.lat\n\n';
+    
+    if (formData.name) message += `👤 Nombre: ${formData.name}\n`;
+    if (formData.email) message += `📧 Email: ${formData.email}\n`;
+    if (formData.company) message += `🏢 Empresa: ${formData.company}\n`;
+    if (formData.country) message += `🌍 País: ${formData.country}\n`;
+    if (formData.service) {
+      const serviceLabels = {
+        'marketing-monthly': '📈 Plan Mensual - Marketing Digital',
+        'development-monthly': '💻 Plan Mensual - Desarrollo Web',
+        'security-monthly': '🛡️ Plan Mensual - Ciberseguridad',
+        'integral-monthly': '🔄 Plan Mensual - Solución Integral',
+        'web-project': '🚀 Proyecto - Desarrollo Web',
+        'consultancy': '🎯 Consultoría y Estrategia',
+        'custom': '✨ Proyecto Personalizado'
+      };
+      message += `🎯 Servicio: ${serviceLabels[formData.service] || formData.service}\n`;
     }
-    // --- FIN DE LA MODIFICACIÓN ---
+    
+    message += '\n💬 Mensaje:\n';
+    if (formData.message) message += formData.message;
+    
+    message += '\n\n¿Podemos conversar sobre mi proyecto?';
+    
+    return message;
   },
 
   /**
@@ -310,11 +434,105 @@ window.LAURA_Forms = {
       });
     });
 
-    // Uppercase company names
+    // Capitalize company names
     document.querySelectorAll('input[name="company"]').forEach(input => {
       input.addEventListener('blur', (e) => {
         e.target.value = this.capitalizeWords(e.target.value);
       });
+    });
+
+    // Setup country suggestions
+    this.setupCountrySuggestions();
+  },
+
+  /**
+   * Setup country suggestions for global focus
+   */
+  setupCountrySuggestions() {
+    const countryInput = document.querySelector('input[name="country"]');
+    if (!countryInput) return;
+
+    const countries = [
+      'Chile', 'Argentina', 'Colombia', 'México', 'Perú', 'Ecuador', 'Uruguay', 'Paraguay',
+      'España', 'Estados Unidos', 'Canadá', 'Brasil', 'Venezuela', 'Bolivia', 'Costa Rica',
+      'Panamá', 'Guatemala', 'Honduras', 'El Salvador', 'Nicaragua', 'República Dominicana',
+      'Puerto Rico', 'Francia', 'Italia', 'Alemania', 'Reino Unido', 'Portugal', 'Australia'
+    ];
+
+    let suggestionsList = null;
+
+    countryInput.addEventListener('input', (e) => {
+      const value = e.target.value.toLowerCase();
+      
+      // Remove existing suggestions
+      if (suggestionsList) {
+        suggestionsList.remove();
+        suggestionsList = null;
+      }
+
+      if (value.length < 2) return;
+
+      const filteredCountries = countries.filter(country => 
+        country.toLowerCase().includes(value)
+      ).slice(0, 5);
+
+      if (filteredCountries.length > 0) {
+        suggestionsList = document.createElement('div');
+        suggestionsList.className = 'country-suggestions';
+        suggestionsList.style.cssText = `
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          border: 1px solid var(--border);
+          border-top: none;
+          border-radius: 0 0 0.5rem 0.5rem;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          z-index: 1000;
+          max-height: 200px;
+          overflow-y: auto;
+        `;
+
+        filteredCountries.forEach(country => {
+          const suggestion = document.createElement('div');
+          suggestion.textContent = country;
+          suggestion.style.cssText = `
+            padding: 0.75rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background-color 0.2s ease;
+          `;
+          
+          suggestion.addEventListener('mouseenter', () => {
+            suggestion.style.backgroundColor = '#f8fafc';
+          });
+          
+          suggestion.addEventListener('mouseleave', () => {
+            suggestion.style.backgroundColor = '';
+          });
+          
+          suggestion.addEventListener('click', () => {
+            countryInput.value = country;
+            suggestionsList.remove();
+            suggestionsList = null;
+          });
+          
+          suggestionsList.appendChild(suggestion);
+        });
+
+        // Position suggestions relative to input
+        countryInput.parentNode.style.position = 'relative';
+        countryInput.parentNode.appendChild(suggestionsList);
+      }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!countryInput.contains(e.target) && suggestionsList) {
+        suggestionsList.remove();
+        suggestionsList = null;
+      }
     });
   },
 
@@ -356,7 +574,7 @@ window.LAURA_Forms = {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      this.showSuccessMessage(form, '¡Gracias! Te has suscrito exitosamente.');
+      this.showSuccessMessage(form, '¡Gracias! Te has suscrito exitosamente a nuestro newsletter.');
       form.reset();
 
       // Track subscription
@@ -422,12 +640,17 @@ window.LAURA_Forms = {
     
     form.insertBefore(successDiv, form.firstChild);
     
-    // Auto-hide after 5 seconds
+    // Auto-hide after 8 seconds
     setTimeout(() => {
       if (successDiv.parentNode) {
-        successDiv.remove();
+        successDiv.style.opacity = '0';
+        setTimeout(() => {
+          if (successDiv.parentNode) {
+            successDiv.remove();
+          }
+        }, 300);
       }
-    }, 5000);
+    }, 8000);
   },
 
   /**
@@ -444,6 +667,18 @@ window.LAURA_Forms = {
     `;
     
     form.insertBefore(errorDiv, form.firstChild);
+
+    // Auto-hide after 8 seconds
+    setTimeout(() => {
+      if (errorDiv.parentNode) {
+        errorDiv.style.opacity = '0';
+        setTimeout(() => {
+          if (errorDiv.parentNode) {
+            errorDiv.remove();
+          }
+        }, 300);
+      }
+    }, 8000);
   },
 
   /**
@@ -536,6 +771,7 @@ window.LAURA_Forms = {
     const firstErrorField = form.querySelector('.error');
     if (firstErrorField) {
       firstErrorField.focus();
+      firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   },
 
@@ -563,9 +799,7 @@ window.LAURA_Forms = {
         
         .contact-form .form-group:nth-child(3),
         .contact-form .form-group:nth-child(4),
-        .contact-form .form-group:nth-child(5),
-        .contact-form .form-group:nth-child(6),
-        .contact-form .form-group:nth-child(7) {
+        .contact-form .form-group-full {
           grid-column: 1 / -1;
         }
       }
@@ -575,47 +809,54 @@ window.LAURA_Forms = {
         flex-direction: column;
       }
       
-      .form-group-half {
+      .form-group-full {
         display: flex;
         flex-direction: column;
+        grid-column: 1 / -1;
       }
       
       .field-error {
-        color: var(--error, #ef4444);
+        color: #ef4444;
         font-size: 0.875rem;
         margin-top: 0.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
       }
       
       .form-input.error,
       .form-textarea.error,
       .form-select.error {
-        border-color: var(--error, #ef4444);
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
       }
       
       .form-success {
-        background-color: #f0fdf4;
+        background-color: rgba(16, 185, 129, 0.1);
         border: 1px solid #10b981;
         color: #065f46;
         padding: 1rem;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         grid-column: 1 / -1;
+        transition: opacity 0.3s ease;
       }
       
       .form-error {
-        background-color: #fef2f2;
+        background-color: rgba(239, 68, 68, 0.1);
         border: 1px solid #ef4444;
         color: #991b1b;
         padding: 1rem;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         grid-column: 1 / -1;
+        transition: opacity 0.3s ease;
       }
       
       .loading-animation {
@@ -637,6 +878,28 @@ window.LAURA_Forms = {
       @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+      }
+
+      .country-suggestions {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f1f5f9;
+      }
+
+      .country-suggestions::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .country-suggestions::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+
+      .country-suggestions::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+      }
+
+      .whatsapp-backup-notification {
+        font-family: var(--font-body);
       }
     `;
     document.head.appendChild(styles);

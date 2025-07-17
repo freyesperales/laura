@@ -1,18 +1,19 @@
 /**
  * LAURA DIGITAL AGENCY - Configuration File
- * Centralized configuration for easy content management
- * Version: 1.0.0 - PRECIOS EN UF CHILE
+ * Configuración centralizada restaurada y optimizada para UX global
+ * Version: 2.2.0 - Fully Restored + Global Focus
  */
 
 window.LAURA_CONFIG = {
-  // Company Information
+  // Company Information - Enfoque Global
   company: {
     name: 'LAURA',
     fullName: 'LAURA Digital Agency',
     tagline: 'Transformamos tu negocio digital con inteligencia artificial y un toque humano',
-    description: 'Agencia digital especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
+    description: 'Agencia digital global especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer negocios en todo el mundo.',
     email: 'francisco@laura.lat',
     phone: '+56 9 9996 8482',
+    whatsapp: '56999968482',
     address: 'Santiago, Chile',
     website: 'https://laura.lat',
     socialMedia: {
@@ -23,272 +24,289 @@ window.LAURA_CONFIG = {
     }
   },
 
-// Reemplaza TODO el arreglo 'services' en tu archivo /assets/js/config.js
-
-services: [
+  // Services - 3 ÁREAS PRINCIPALES RESTAURADAS
+  services: [
     {
-      id: 'web-development',
-      title: 'Desarrollo Web a Medida',
-      icon: 'fas fa-code',
-      description: 'Construimos la plataforma digital que tu negocio necesita para crecer, desde landing pages que convierten hasta sistemas complejos.',
-      features: [
-        'Diseño UI/UX centrado en el usuario',
-        'Desarrollo con tecnologías modernas y rápidas',
-        'E-commerce y soluciones de pago integradas',
-        'Optimización para máxima velocidad (Core Web Vitals)',
-        'Panel de administración 100% intuitivo'
-      ],
-      cta: 'Ver Planes de Desarrollo',
-      plans: [
-        {
-          id: 'web-spark',
-          name: 'Plan Landing Page',
-          subtitle: 'La página de ventas perfecta',
-          price: '$197 USD', // PRECIO AJUSTADO
-          popular: false,
-          features: [
-            'Landing page de hasta 5 secciones',
-            'Diseño 100% responsive y moderno',
-            'Formulario de contacto y conexión a WhatsApp',
-            'Configuración de Google Analytics',
-            'Entrega en 7 días hábiles'
-          ],
-          cta: 'Contratar Landing Page'
-        },
-        {
-          id: 'web-fusion',
-          name: 'Plan Sitio Web Profesional',
-          subtitle: 'Tu presencia digital completa',
-          price: '$497 USD', // PRECIO AJUSTADO
-          popular: true,
-          features: [
-            '<strong>Todo lo del Plan Landing Page, y además:</strong>',
-            'Sitio web de hasta 10 páginas',
-            'Integración con Blog o Portafolio',
-            'Panel para autogestionar contenido',
-            'SEO técnico inicial para Google'
-          ],
-          cta: 'Contratar Sitio Web'
-        },
-        {
-          id: 'web-quantum',
-          name: 'Plan Desarrollo a Medida',
-          subtitle: 'Soluciones web complejas',
-          price: 'Desde $997 USD', // PRECIO AJUSTADO
-          popular: false,
-          features: [
-            '<strong>Todo lo del Plan Profesional, y además:</strong>',
-            'Funcionalidades E-commerce avanzadas',
-            'Integraciones con sistemas externos (API)',
-            'Área de clientes o membresías',
-            'Arquitectura pensada para escalar'
-          ],
-          cta: 'Cotizar Desarrollo a Medida'
-        }
-      ]
-    },
-    {
-      id: 'cybersecurity',
-      title: 'Ciberseguridad para PYMES',
-      icon: 'fas fa-shield-alt',
-      description: 'Protegemos tus operaciones y la confianza de tus clientes con soluciones de seguridad prácticas y efectivas.',
-      features: [
-        'Auditorías de vulnerabilidades (Pentesting)',
-        'Implementación de Firewalls y Sistemas de Detección',
-        'Monitoreo continuo de amenazas 24/7',
-        'Planes de respuesta rápida ante incidentes',
-        'Capacitación en ciberseguridad para equipos'
-      ],
-      cta: 'Ver Planes de Seguridad',
-      plans: [
-        {
-          id: 'security-shield',
-          name: 'Plan Seguridad Esencial',
-          subtitle: 'El blindaje indispensable',
-          price: '$97 USD', // PRECIO AJUSTADO
-          popular: false,
-          features: [
-            'Análisis de vulnerabilidades inicial',
-            'Configuración de Firewall de Aplicaciones (WAF)',
-            'Instalación de Certificado SSL Premium',
-            'Guía de políticas de seguridad'
-          ],
-          cta: 'Contratar Seguridad Esencial'
-        },
-        {
-          id: 'security-fortress',
-          name: 'Plan Seguridad Gestionada',
-          subtitle: 'Protección proactiva y continua',
-          price: '$397 USD', // PRECIO AJUSTADO
-          popular: true,
-          features: [
-            '<strong>Todo lo del Plan Esencial, y además:</strong>',
-            'Monitoreo de seguridad 24/7',
-            'Reportes mensuales de estado de seguridad',
-            'Soporte para incidentes menores',
-            'Actualizaciones de seguridad periódicas'
-          ],
-          cta: 'Contratar Seguridad Gestionada'
-        },
-        {
-          id: 'pyme-segura',
-          name: 'Programa CISO Virtual',
-          subtitle: 'Tu Director de Seguridad externo',
-          price: 'Desde $997 USD', // PRECIO AJUSTADO
-          popular: false,
-          features: [
-            '<strong>Todo lo del Plan Gestionado, y además:</strong>',
-            'Rol de CISO (Director de Seguridad) externo',
-            'Pentesting trimestral con reporte ejecutivo',
-            'Plan y simulacros de respuesta a incidentes',
-            'Asesoría en cumplimiento normativo (Compliance)'
-          ],
-          cta: 'Contratar CISO Virtual'
-        }
-      ]
-    },
-    {
-      id: 'digital-marketing',
+      id: 'marketing',
       title: 'Marketing Digital Inteligente',
       icon: 'fas fa-chart-line',
-      description: 'Atraemos a los clientes correctos y aumentamos tus ventas con estrategias de marketing basadas en datos e IA.',
+      description: 'Atraemos a los clientes correctos y multiplicamos tus ventas con estrategias de marketing basadas en datos e inteligencia artificial que generan resultados medibles.',
       features: [
-        'Estrategia de Contenidos y SEO',
-        'Gestión Profesional de Redes Sociales',
-        'Campañas de Publicidad en Google y Meta Ads',
-        'Email Marketing y flujos automatizados',
-        'Reportes de rendimiento claros y accionables'
+        'Estrategia de Contenidos y SEO avanzado',
+        'Google Ads y Meta Ads optimizados con IA',
+        'Email Marketing y automatización inteligente',
+        'Social Media Management profesional',
+        'Analytics y reportes accionables'
+      ],
+      kpis: [
+        '300% aumento en leads calificados',
+        '60% reducción en costo por adquisición',
+        '5x retorno de inversión publicitaria'
       ],
       cta: 'Ver Planes de Marketing',
       plans: [
         {
-          id: 'marketing-launch',
-          name: 'Plan Básico de Contenidos',
+          id: 'marketing-starter',
+          name: 'Marketing Básico',
           subtitle: 'Visibilidad constante en redes',
-          price: '$197 USD/mes', // PRECIO AJUSTADO
+          price: '$297 USD/mes',
           popular: false,
           features: [
-            'Gestión de 2 redes sociales',
-            '12 publicaciones mensuales',
-            'Diseño gráfico para posts',
-            'Reporte de alcance y engagement'
+            'Gestión de 2 redes sociales principales',
+            '12 publicaciones mensuales optimizadas',
+            'Diseño gráfico profesional para posts',
+            'Reportes de alcance y engagement',
+            'Respuesta a comentarios y mensajes'
           ],
-          cta: 'Contratar Plan Básico'
+          cta: 'Comenzar Marketing'
         },
         {
-          id: 'marketing-amplify',
-          name: 'Plan de Crecimiento Digital',
-          subtitle: 'Atraer y convertir clientes',
-          price: '$397 USD/mes', // PRECIO AJUSTADO
+          id: 'marketing-pro',
+          name: 'Marketing Pro',
+          subtitle: 'Crecimiento acelerado con IA',
+          price: '$497 USD/mes',
           popular: true,
           features: [
             '<strong>Todo lo del Plan Básico, y además:</strong>',
-            'Gestión de campañas de publicidad (hasta $500 de inversión)',
-            'Estrategia y optimización SEO On-Page',
-            'Un artículo de blog mensual (optimizado)',
+            'Gestión completa de Google Ads',
+            'Campañas de Meta Ads (Facebook/Instagram)',
+            '1 artículo de blog mensual optimizado para SEO',
+            'Email marketing automatizado',
             'Dashboard de resultados en tiempo real'
           ],
-          cta: 'Contratar Plan Crecimiento'
+          cta: 'Acelerar Crecimiento'
         },
         {
-          id: 'marketing-dominate',
-          name: 'Plan de Liderazgo de Mercado',
-          subtitle: 'Estrategia integral y dominante',
-          price: '$797 USD/mes', // PRECIO AJUSTADO
+          id: 'marketing-enterprise',
+          name: 'Marketing Enterprise',
+          subtitle: 'Dominio total del mercado',
+          price: '$997 USD/mes',
           popular: false,
           features: [
-            '<strong>Todo lo del Plan Crecimiento, y además:</strong>',
-            'Estrategia de marketing 360°',
-            'Gestión de campañas avanzadas (inversión ilimitada)',
-            'Email marketing y automatización',
-            'Reunión estratégica mensual'
+            '<strong>Todo lo del Plan Pro, y además:</strong>',
+            'Estrategia de marketing 360° personalizada',
+            'Campañas avanzadas multicanal (ilimitado)',
+            'Automatización completa de ventas',
+            'Reunión estratégica semanal',
+            'Manager dedicado para tu cuenta'
           ],
-          cta: 'Contratar Plan Liderazgo'
+          cta: 'Dominar Mercado'
         }
       ]
     },
     {
-      id: 'consulting',
-      title: 'Consultoría Estratégica',
-      icon: 'fas fa-lightbulb',
-      description: 'Te damos la claridad y la hoja de ruta que necesitas para tomar las mejores decisiones y llevar tu negocio al siguiente nivel.',
+      id: 'development',
+      title: 'Desarrollo Web de Alto Impacto',
+      icon: 'fas fa-code',
+      description: 'Construimos plataformas digitales que no solo se ven increíbles, sino que convierten visitantes en clientes y generan resultados de negocio reales.',
       features: [
-        'Diagnóstico y Roadmap de Transformación Digital',
-        'Optimización de procesos con tecnología',
-        'Implementación de IA en tu negocio',
-        'Análisis de datos para toma de decisiones',
-        'Asesoría en innovación y nuevos modelos de negocio'
+        'Diseño UI/UX centrado en conversión',
+        'Desarrollo con tecnologías modernas y rápidas',
+        'E-commerce y pasarelas de pago seguras',
+        'Optimización Core Web Vitals y SEO',
+        'Panel de administración 100% intuitivo'
       ],
-      cta: 'Ver Opciones de Consultoría',
+      kpis: [
+        '85% mejora en velocidad de carga',
+        '40% aumento en conversiones móviles',
+        '70% mejora en ranking SEO'
+      ],
+      cta: 'Ver Planes de Desarrollo',
       plans: [
         {
-          id: 'consulting-insights',
-          name: 'Sesión de Diagnóstico',
-          subtitle: 'Claridad y próximos pasos',
-          price: '$297 USD', // PRECIO AJUSTADO
+          id: 'web-maintenance',
+          name: 'Mantenimiento Web',
+          subtitle: 'Tu sitio siempre protegido y actualizado',
+          price: '$197 USD/mes',
           popular: false,
           features: [
-            'Sesión de 2 horas con un estratega senior',
-            'Análisis de tu situación actual y competencia',
-            'Identificación de 3 oportunidades clave',
-            'Entrega de un plan de acción inmediato'
+            'Mantenimiento completo del sitio web',
+            'Actualizaciones de seguridad semanales',
+            'Backups diarios automatizados',
+            'Monitoreo de rendimiento 24/7',
+            'Soporte técnico prioritario por email'
           ],
-          cta: 'Agendar Diagnóstico'
+          cta: 'Proteger mi Web'
         },
         {
-          id: 'consulting-strategy',
-          name: 'Proyecto de Estrategia Digital',
-          subtitle: 'Tu hoja de ruta para crecer',
-          price: '$997 USD', // PRECIO AJUSTADO
+          id: 'web-optimization',
+          name: 'Optimización Continua',
+          subtitle: 'Mejora constante con IA',
+          price: '$397 USD/mes',
           popular: true,
           features: [
-            '<strong>Todo lo de la Sesión de Diagnóstico, y además:</strong>',
-            'Análisis de mercado y audiencia a fondo',
-            'Definición de KPIs y métricas de éxito',
-            'Documento de estrategia digital completo',
-            'Plan de implementación a 6 meses'
+            '<strong>Todo lo del Plan Mantenimiento, y además:</strong>',
+            'Optimización continua de velocidad y SEO',
+            'A/B testing de elementos clave',
+            'Informes mensuales de performance',
+            'Pequeñas mejoras y actualizaciones',
+            'Consultoría técnica mensual'
           ],
-          cta: 'Crear mi Estrategia'
+          cta: 'Optimizar mi Web'
         },
         {
-          id: 'consulting-transformation',
-          name: 'Asesoría de Transformación',
-          subtitle: 'Tu socio estratégico mensual',
-          price: 'Desde $2,997 USD', // PRECIO AJUSTADO
+          id: 'web-evolution',
+          name: 'Evolución Web',
+          subtitle: 'Tu socio tecnológico mensual',
+          price: '$697 USD/mes',
           popular: false,
           features: [
-            '<strong>Todo lo del Proyecto de Estrategia, y además:</strong>',
-            'Acompañamiento en la implementación',
-            'Reuniones de seguimiento semanales',
-            'Optimización continua de la estrategia',
-            'Acceso prioritario a nuestro equipo de expertos'
+            '<strong>Todo lo del Plan Optimización, y además:</strong>',
+            'Desarrollo de nuevas funcionalidades',
+            'Integraciones con herramientas externas',
+            'Rediseño de secciones según necesidad',
+            'Llamada estratégica semanal',
+            'Desarrollador dedicado para tu proyecto'
           ],
-          cta: 'Contratar Asesoría'
+          cta: 'Evolucionar mi Web'
+        }
+      ]
+    },
+    {
+      id: 'security',
+      title: 'Ciberseguridad Empresarial',
+      icon: 'fas fa-shield-alt',
+      description: 'Protegemos tu activo digital más valioso: la confianza de tus clientes. Seguridad proactiva con IA que te permite dormir tranquilo sabiendo que tu negocio está protegido.',
+      features: [
+        'Auditorías de vulnerabilidades (Pentesting)',
+        'Monitoreo continuo 24/7 con IA',
+        'Backup automático y recuperación rápida',
+        'Certificados SSL y cifrado avanzado',
+        'Capacitación en ciberseguridad para equipos'
+      ],
+      kpis: [
+        '99.9% uptime garantizado',
+        '95% reducción en vulnerabilidades',
+        '24/7 monitoreo automatizado con IA'
+      ],
+      cta: 'Ver Planes de Seguridad',
+      plans: [
+        {
+          id: 'security-basic',
+          name: 'Protección Básica',
+          subtitle: 'Seguridad esencial para tu negocio',
+          price: '$197 USD/mes',
+          popular: false,
+          features: [
+            'Firewall básico y protección antimalware',
+            'Backup semanal automatizado',
+            'Certificado SSL premium incluido',
+            'Monitoreo básico de uptime',
+            'Soporte de seguridad por email'
+          ],
+          cta: 'Proteger mi Negocio'
+        },
+        {
+          id: 'security-advanced',
+          name: 'Seguridad Avanzada',
+          subtitle: 'Protección empresarial completa',
+          price: '$397 USD/mes',
+          popular: true,
+          features: [
+            '<strong>Todo lo del Plan Básico, y además:</strong>',
+            'Monitoreo de seguridad 24/7 con IA',
+            'Backup diario con múltiples ubicaciones',
+            'Auditorías mensuales de vulnerabilidades',
+            'Respuesta rápida ante incidentes',
+            'Reportes ejecutivos de seguridad'
+          ],
+          cta: 'Securizar mi Empresa'
+        },
+        {
+          id: 'security-enterprise',
+          name: 'CISO Virtual',
+          subtitle: 'Tu Director de Seguridad externo',
+          price: '$697 USD/mes',
+          popular: false,
+          features: [
+            '<strong>Todo lo del Plan Avanzado, y además:</strong>',
+            'CISO (Director de Seguridad) virtual dedicado',
+            'Pentesting trimestral profesional',
+            'Plan de respuesta y simulacros de incidentes',
+            'Compliance y cumplimiento normativo',
+            'Capacitación mensual del equipo'
+          ],
+          cta: 'Contratar CISO'
         }
       ]
     }
-],
+  ],
 
-  // Features for About Section
+  // PROYECTOS ÚNICOS (Para planes de proyectos únicos)
+  projectPlans: [
+    {
+      id: 'starter-project',
+      name: 'Plan Starter',
+      subtitle: 'Para emprendedores y nuevos negocios',
+      price: '$497 USD',
+      popular: false,
+      features: [
+        'Landing page optimizada para conversión',
+        'Diseño responsive profesional',
+        'Formularios de contacto integrados',
+        'SEO básico y Google Analytics',
+        'Entrega en 7 días hábiles'
+      ],
+      cta: 'Comenzar Proyecto',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Me interesa el *Plan Starter* de $497 USD para lanzar mi proyecto. ¿Podemos conversar?'
+    },
+    {
+      id: 'growth-project',
+      name: 'Plan Growth',
+      subtitle: 'Para PYMEs en expansión',
+      price: '$997 USD',
+      popular: true,
+      features: [
+        'Todo del Plan Starter',
+        'Sitio web completo (hasta 10 páginas)',
+        'E-commerce básico integrado',
+        'Panel de administración intuitivo',
+        '3 meses de soporte incluidos'
+      ],
+      cta: 'Acelerar Crecimiento',
+      ctaType: 'primary',
+      whatsappMessage: '¡Hola! Me interesa el *Plan Growth* de $997 USD. Busco una solución web completa para mi empresa.'
+    },
+    {
+      id: 'enterprise-project',
+      name: 'Plan Enterprise',
+      subtitle: 'Para empresas líderes',
+      price: 'Personalizado',
+      popular: false,
+      features: [
+        'Todo del Plan Growth',
+        'Desarrollo completamente personalizado',
+        'Integraciones complejas (CRM, ERP, APIs)',
+        'Ciberseguridad de grado empresarial',
+        'Soporte prioritario y consultoría estratégica'
+      ],
+      cta: 'Agendar Reunión',
+      ctaType: 'secondary',
+      whatsappMessage: '¡Hola! Represento una empresa y me interesa el *Plan Enterprise*. ¿Podemos agendar una reunión?'
+    }
+  ],
+
+  // Features for About Section - RESTAURADO
   features: [
     {
       icon: 'fas fa-robot',
       title: 'IA que Potencia',
-      description: 'Optimizamos cada proceso con inteligencia artificial para entregar resultados superiores en menor tiempo.'
+      description: 'Optimizamos cada proceso con inteligencia artificial para entregar resultados superiores en menor tiempo, automatizando tareas repetitivas para que puedas enfocarte en hacer crecer tu negocio.'
     },
     {
       icon: 'fas fa-heart',
       title: 'Toque Humano',
-      description: 'Detrás de cada algoritmo hay un equipo apasionado que entiende tu negocio y tus objetivos únicos.'
+      description: 'Detrás de cada algoritmo hay un equipo apasionado que entiende tu negocio y objetivos únicos. La tecnología facilita, pero las personas conectan.'
     },
     {
       icon: 'fas fa-chart-line',
       title: 'Resultados Medibles',
-      description: 'Cada proyecto tiene KPIs claros y reportes transparentes que demuestran el impacto real en tu negocio.'
+      description: 'Cada proyecto tiene KPIs claros y reportes transparentes que demuestran el impacto real en tu negocio. No prometemos magia, entregamos datos.'
     }
   ],
 
-  // Benefits/Why Choose Us
+  // Benefits/Why Choose Us - RESTAURADO
   benefits: [
     {
       icon: 'fas fa-tachometer-alt',
@@ -302,190 +320,51 @@ services: [
     },
     {
       icon: 'fas fa-handshake',
-      title: 'Soporte Real',
-      description: 'Soporte técnico especializado con respuesta inmediata y seguimiento personalizado.'
+      title: 'Soporte Global',
+      description: 'Soporte técnico especializado con respuesta inmediata y seguimiento personalizado en cualquier zona horaria.'
     }
   ],
 
-  // Reemplaza el objeto 'pricingPlans' en tu archivo /assets/js/config.js
-
-// En /assets/js/config.js, asegúrate de que este sea tu arreglo 'pricingPlans'
-
-pricingPlans: [
-    {
-      id: 'starter',
-      name: 'Plan Emprende',
-      subtitle: 'Para startups y primeros pasos digitales',
-      price: '$197 USD',
-      popular: false,
-      features: [
-        'Landing page de alto impacto',
-        'Diseño profesional y moderno',
-        'Optimización para SEO inicial',
-        'Integración con Analytics y WhatsApp'
-      ],
-      cta: 'Comenzar Proyecto',
-      ctaType: 'secondary',
-      whatsappMessage: '¡Hola! Me interesa el *Plan Emprende* de $197 USD para lanzar mi proyecto. ¿Podemos conversar?'
-    },
-    {
-      id: 'growth',
-      name: 'Plan Consolida',
-      subtitle: 'La solución completa para PYMEs',
-      price: '$497 USD',
-      popular: true,
-      features: [
-        'Sitio web completo y autogestionable',
-        'Blog o portafolio integrado',
-        'Funcionalidades E-commerce',
-        'Asesoría en transformación digital'
-      ],
-      cta: 'Acelerar Crecimiento',
-      ctaType: 'primary',
-      whatsappMessage: '¡Hola! Me interesa el *Plan Consolida* de $497 USD. Busco una solución web completa para mi PYME.'
-    },
-    {
-      id: 'enterprise',
-      name: 'Plan Lidera',
-      subtitle: 'Soluciones a medida para empresas',
-      price: 'Personalizado',
-      popular: false,
-      features: [
-        'Desarrollo de software y aplicaciones web',
-        'Integración con sistemas (API, ERP, CRM)',
-        'Ciberseguridad de grado empresarial',
-        'Consultoría y soporte prioritario 24/7'
-      ],
-      cta: 'Contactar para Cotización',
-      ctaType: 'secondary',
-      whatsappMessage: '¡Hola! Represento a una empresa y me interesa el *Plan Lidera*. Necesitamos una solución personalizada.'
-    }
-],
-// En /assets/js/config.js, AÑADE este nuevo arreglo.
-
-monthlyPlans: [
-    {
-      id: 'monthly-starter',
-      name: 'Soporte Esencial',
-      icon: '🚀',
-      subtitle: 'Para mantener tu web segura y actualizada',
-      price: '$97 USD/mes', // Precio mensual competitivo
-      popular: false,
-      features: [
-        'Actualizaciones de seguridad semanales',
-        'Copias de seguridad diarias',
-        'Monitoreo de rendimiento básico',
-        'Soporte técnico vía email'
-      ],
-      cta: 'Contratar Soporte',
-      ctaType: 'secondary',
-      whatsappMessage: '¡Hola! Me interesa el plan de Soporte Esencial de $97 USD/mes para mantener mi sitio web.'
-    },
-    {
-      id: 'monthly-growth',
-      name: 'Crecimiento Continuo',
-      icon: '📈',
-      subtitle: 'Para optimizar y crecer cada mes',
-      price: '$297 USD/mes', // Precio mensual competitivo
-      popular: true,
-      features: [
-        '<strong>Todo lo del Soporte Esencial, y además:</strong>',
-        'Optimización SEO On-Page continua',
-        'Un artículo de blog o landing page al mes',
-        'Reporte de métricas y recomendaciones',
-        'Reunión estratégica trimestral'
-      ],
-      cta: 'Impulsar Crecimiento',
-      ctaType: 'primary',
-      whatsappMessage: '¡Hola! Me interesa el plan de Crecimiento Continuo de $297 USD/mes para optimizar mi negocio.'
-    },
-    {
-      id: 'monthly-enterprise',
-      name: 'Socio Estratégico',
-      icon: '🤝',
-      subtitle: 'Tu equipo técnico y estratégico externo',
-      price: 'Personalizado',
-      popular: false,
-      features: [
-        '<strong>Todo lo de Crecimiento Continuo, y además:</strong>',
-        'Desarrollo y mejoras a solicitud',
-        'Consultoría estratégica proactiva',
-        'Acceso prioritario a nuestro equipo',
-        'Soporte dedicado 24/7'
-      ],
-      cta: 'Agendar Reunión',
-      ctaType: 'secondary',
-      whatsappMessage: '¡Hola! Me interesa su servicio de Socio Estratégico. Necesitamos un partner tecnológico a largo plazo.'
-    }
-],
-  // Client Testimonials
-  testimonials: [
-    {
-      id: 1,
-      name: 'Claudia Marambio',
-      position: 'Subgerente de tiendas abc',
-      company: 'ABC',
-      avatar: 'https://via.placeholder.com/50x50/667eea/ffffff?text=MG',
-      rating: 5,
-      quote: 'LAURA transformó completamente nuestro negocio digital. Su enfoque con IA nos permitió automatizar procesos y triplicar nuestras ventas online.'
-    },
-    {
-      id: 2,
-      name: 'Juan Pérez',
-      position: 'Director',
-      company: 'InnovaCorp',
-      avatar: 'https://via.placeholder.com/50x50/764ba2/ffffff?text=JP',
-      rating: 5,
-      quote: 'La seguridad de nuestros datos era crítica. El programa PYME Segura nos dio la tranquilidad que necesitábamos para crecer sin preocupaciones.'
-    },
-    {
-      id: 3,
-      name: 'Francisco Flores',
-      position: 'CEO',
-      company: 'Degu Medios',
-      avatar: 'https://via.placeholder.com/50x50/10b981/ffffff?text=AM',
-      rating: 5,
-      quote: 'Su estrategia de marketing digital con IA nos ayudó a reducir costos de adquisición en un 60% mientras aumentábamos conversiones.'
-    }
+  // Hero Stats - RESTAURADO
+  heroStats: [
+    { target: 95, suffix: '%', label: 'Clientes satisfechos' },
+    { target: 150, suffix: '+', label: 'Proyectos completados' },
+    { target: 24, suffix: '/7', label: 'Soporte técnico' }
   ],
 
-  // Client Logos
-  clientLogos: [
-    { name: 'Cliente 1', logo: 'https://via.placeholder.com/120x60/f8fafc/667eea?text=Cliente+1' },
-    { name: 'Cliente 2', logo: 'https://via.placeholder.com/120x60/f8fafc/764ba2?text=Cliente+2' },
-    { name: 'Cliente 3', logo: 'https://via.placeholder.com/120x60/f8fafc/10b981?text=Cliente+3' },
-    { name: 'Cliente 4', logo: 'https://via.placeholder.com/120x60/f8fafc/8b5cf6?text=Cliente+4' },
-    { name: 'Cliente 5', logo: 'https://via.placeholder.com/120x60/f8fafc/f59e0b?text=Cliente+5' },
-    { name: 'Cliente 6', logo: 'https://via.placeholder.com/120x60/f8fafc/ef4444?text=Cliente+6' }
-  ],
-
-  // Contact Methods (CHILE)
+  // Contact Methods - ENFOQUE GLOBAL
   contactMethods: [
     {
-      icon: 'fas fa-phone',
-      title: 'Hablemos por teléfono',
+      icon: 'fab fa-whatsapp',
+      title: 'WhatsApp Global',
       value: '+56 9 9996 8482',
-      link: 'wa.me/+56999968482'
+      link: 'https://wa.me/56999968482'
     },
     {
       icon: 'fas fa-envelope',
-      title: 'Escríbenos un email',
+      title: 'Email',
       value: 'francisco@laura.lat',
       link: 'mailto:francisco@laura.lat'
     },
     {
       icon: 'fas fa-clock',
-      title: 'Respuesta garantizada',
-      value: 'En menos de 2 horas hábiles',
+      title: 'Respuesta',
+      value: 'En menos de 2 horas',
+      link: null
+    },
+    {
+      icon: 'fas fa-globe',
+      title: 'Alcance',
+      value: 'Proyectos globales',
       link: null
     }
   ],
 
-  // Contact Form Fields
+  // Contact Form Fields - MEJORADO PARA ENFOQUE GLOBAL
   contactForm: {
     fields: [
       {
-        name: 'firstName',
+        name: 'name',
         label: 'Nombre',
         type: 'text',
         required: true,
@@ -509,18 +388,28 @@ monthlyPlans: [
         gridColumn: 'full'
       },
       {
+        name: 'country',
+        label: 'País',
+        type: 'text',
+        required: false,
+        placeholder: '¿Desde dónde nos escribes?',
+        gridColumn: 'full'
+      },
+      {
         name: 'service',
         label: '¿Qué necesitas?',
         type: 'select',
         required: true,
         gridColumn: 'full',
         options: [
-          { value: '', label: 'Selecciona un servicio' },
-          { value: 'web', label: 'Desarrollo Web' },
-          { value: 'security', label: 'Ciberseguridad' },
-          { value: 'marketing', label: 'Marketing Digital' },
-          { value: 'consulting', label: 'Consultoría' },
-          { value: 'all', label: 'Solución integral' }
+          { value: '', label: 'Selecciona una opción' },
+          { value: 'marketing-monthly', label: '📈 Plan Mensual - Marketing Digital' },
+          { value: 'development-monthly', label: '💻 Plan Mensual - Desarrollo Web' },
+          { value: 'security-monthly', label: '🛡️ Plan Mensual - Ciberseguridad' },
+          { value: 'integral-monthly', label: '🔄 Plan Mensual - Solución Integral' },
+          { value: 'web-project', label: '🚀 Proyecto - Desarrollo Web' },
+          { value: 'consultancy', label: '🎯 Consultoría y Estrategia' },
+          { value: 'custom', label: '✨ Proyecto Personalizado' }
         ]
       },
       {
@@ -528,49 +417,34 @@ monthlyPlans: [
         label: 'Cuéntanos tu proyecto',
         type: 'textarea',
         required: true,
-        placeholder: 'Describe tu proyecto, objetivos y timeline...',
+        placeholder: 'Describe tu proyecto, objetivos, timeline y presupuesto aproximado. Entre más detalles, mejor podremos ayudarte...',
         gridColumn: 'full'
-      },
-      {
-        name: 'budget',
-        label: 'Presupuesto estimado',
-        type: 'select',
-        required: false,
-        gridColumn: 'full',
-        options: [
-            { value: '', label: 'Selecciona un rango' },
-            { value: 'under-1000', label: 'Menos de $1,000 USD' },
-            { value: '1000-3000', label: '$1,000 - $3,000 USD' },
-            { value: '3000-7000', label: '$3,000 - $7,000 USD' },
-            { value: '7000+', label: 'Más de $7,000 USD' }
-          ]
       }
     ],
-    submitText: 'Transformar mi negocio',
-    privacyText: 'Al enviar este formulario, aceptas nuestra política de privacidad y recibirás información relevante sobre nuestros servicios.'
+    submitText: 'Enviar Consulta Gratuita',
+    privacyText: 'Al enviar este formulario, aceptas que contactemos contigo para brindarte una consultoría gratuita sobre tu proyecto.'
   },
 
-  // Footer Configuration
+  // Footer Configuration - ENFOQUE GLOBAL
   footer: {
     sections: [
       {
         title: 'LAURA',
         type: 'brand',
         content: {
-          description: 'Agencia digital que combina inteligencia artificial con experiencia humana para transformar tu negocio y hacerlo crecer de manera sostenible.',
+          description: 'Agencia digital global que combina creatividad humana con inteligencia artificial para transformar negocios y crear soluciones que realmente funcionan en cualquier parte del mundo.',
           socialLinks: true
         }
       },
       {
-        title: 'Servicios',
+        title: 'Servicios Globales',
         type: 'links',
         content: {
           links: [
-            { text: 'Desarrollo Web', url: '#servicios' },
-            { text: 'Ciberseguridad', url: '#servicios' },
-            { text: 'Marketing Digital', url: '#servicios' },
-            { text: 'Consultoría', url: '#servicios' },
-            { text: 'PYME Segura', url: '#contacto' }
+            { text: 'Marketing Digital con IA', url: '#servicios' },
+            { text: 'Desarrollo Web Moderno', url: '#servicios' },
+            { text: 'Ciberseguridad Empresarial', url: '#servicios' },
+            { text: 'Planes Mensuales', url: '#planes' }
           ]
         }
       },
@@ -579,35 +453,57 @@ monthlyPlans: [
         type: 'links',
         content: {
           links: [
-            { text: 'Sobre Nosotros', url: '#nosotros' },
-            { text: 'Casos de Éxito', url: '#clientes' },
-            { text: 'Blog', url: './blog.html' },
-            { text: 'Contacto', url: '#contacto' },
-            { text: 'Política de Privacidad', url: '/privacy' }
+            { text: '¿Qué es LAURA?', url: '#nosotros' },
+            { text: 'Contacto Global', url: '#contacto' },
+            { text: 'Google Partner', url: 'https://www.google.com/partners/agency?id=5572476115' },
+            { text: 'Política de Privacidad', url: '#' }
           ]
         }
       }
     ]
   },
 
-  // Certifications
+  // Certifications - RESTAURADO
   certifications: [
-    { name: 'ISO 27001', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=ISO+27001' },
-    { name: 'Google Partner', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Google' },
-    { name: 'AWS', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=AWS' },
-    { name: 'OpenAI', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=OpenAI' },
-    { name: 'Microsoft', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Microsoft' },
-    { name: 'Shopify', logo: 'https://via.placeholder.com/80x40/374151/ffffff?text=Shopify' }
+    { name: 'Google Partner', logo: './assets/img/google-partner-badge.png' },
+    { name: 'Meta Business Partner', logo: './assets/img/meta-partner-badge.png' },
+    { name: 'Shopify Partner', logo: './assets/img/shopify-partner-badge.png' },
+    { name: 'HubSpot Solutions Partner', logo: './assets/img/hubspot-partner-badge.png' },
+    { name: 'Potenciado por Gemini', logo: './assets/img/gemini-partner-badge.png' }
   ],
 
-  // Hero Stats
-  heroStats: [
-    { target: 95, suffix: '%', label: 'Clientes satisfechos' },
-    { target: 150, suffix: '+', label: 'Proyectos completados' },
-    { target: 24, suffix: '/7', label: 'Soporte técnico' }
+  // Testimonials - ENFOQUE GLOBAL
+  testimonials: [
+    {
+      id: 1,
+      name: 'Sarah Johnson',
+      position: 'CEO',
+      company: 'TechStart USA',
+      avatar: 'https://via.placeholder.com/50x50/667eea/ffffff?text=SJ',
+      rating: 5,
+      quote: 'LAURA transformed our global digital presence. Their AI-driven approach helped us scale from startup to international company in just 18 months.'
+    },
+    {
+      id: 2,
+      name: 'Carlos Mendoza',
+      position: 'Director Marketing',
+      company: 'Innovación México',
+      avatar: 'https://via.placeholder.com/50x50/764ba2/ffffff?text=CM',
+      rating: 5,
+      quote: 'Su estrategia de marketing digital nos ayudó a expandirnos a 5 países de Latinoamérica. Los resultados superaron todas nuestras expectativas.'
+    },
+    {
+      id: 3,
+      name: 'Emma García',
+      position: 'Founder',
+      company: 'EcoTech Spain',
+      avatar: 'https://via.placeholder.com/50x50/10b981/ffffff?text=EG',
+      rating: 5,
+      quote: 'La ciberseguridad que implementaron nos permitió cumplir con GDPR y expandirnos por Europa sin preocupaciones. Profesionales excepcionales.'
+    }
   ],
 
-  // Animation Settings
+  // Animation Settings - RESTAURADO
   animations: {
     fadeInDelay: 100,
     counterDuration: 2000,
@@ -615,29 +511,28 @@ monthlyPlans: [
     pulseDuration: 2000
   },
 
-  // Performance Settings
+  // Performance Settings - RESTAURADO
   performance: {
     lazyLoadOffset: 100,
     debounceDelay: 250,
     preloadImages: [
-      'https://via.placeholder.com/500x400/667eea/ffffff?text=LAURA+AI+Dashboard',
-      'https://via.placeholder.com/600x500/f8fafc/667eea?text=Equipo+LAURA'
+      './assets/img/ICONO-LAURA-AGENCIA-SEGURIDAD.webp'
     ]
   },
 
-  // SEO Configuration
+  // SEO Configuration - OPTIMIZADO PARA ENFOQUE GLOBAL
   seo: {
-    title: 'LAURA - Agencia Digital IA | Desarrollo Web, Ciberseguridad y Marketing Digital Chile',
-    description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría. Optimizamos procesos con IA para hacer crecer tu negocio.',
-    keywords: 'agencia digital chile, desarrollo web santiago, ciberseguridad, marketing digital, inteligencia artificial, consultoría digital, PYME chile, automatización',
-    ogImage: '.\assets\img\LOGO-AGENCIA-LAURA.webp',
+    title: 'LAURA Digital Agency | Desarrollo Web, Marketing Digital y Ciberseguridad con IA para Empresas Globales',
+    description: 'Agencia digital especializada en transformar negocios globalmente con desarrollo web, marketing digital y ciberseguridad. Soluciones potenciadas con IA para empresas de todos los tamaños.',
+    keywords: 'agencia digital, desarrollo web, marketing digital, ciberseguridad, inteligencia artificial, planes mensuales, consultoría digital, proyectos globales',
+    ogImage: './assets/img/LOGO-AGENCIA-LAURA.webp',
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       name: 'LAURA Digital Agency',
-      url: 'https://laura.digital',
-      logo: '.\assets\img\LOGO-AGENCIA-LAURA.webp',
-      description: 'Agencia digital chilena especializada en desarrollo web, ciberseguridad, marketing digital y consultoría.',
+      url: 'https://laura.lat',
+      logo: './assets/img/LOGO-AGENCIA-LAURA.webp',
+      description: 'Agencia digital global especializada en desarrollo web, ciberseguridad, marketing digital y consultoría.',
       address: {
         '@type': 'PostalAddress',
         addressCountry: 'CL',
@@ -647,7 +542,8 @@ monthlyPlans: [
         '@type': 'ContactPoint',
         telephone: '+56999968482',
         contactType: 'customer service'
-      }
+      },
+      areaServed: 'Worldwide'
     }
   },
 
@@ -659,7 +555,7 @@ monthlyPlans: [
   }
 };
 
-// Utility function to get config values
+// Utility function to get config values - RESTAURADO
 window.getConfig = function(path, defaultValue = null) {
   return path.split('.').reduce((obj, key) => obj?.[key], window.LAURA_CONFIG) || defaultValue;
 };
@@ -669,6 +565,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = window.LAURA_CONFIG;
 }
 
+// Render SVG Icon utility - RESTAURADO
 window.renderSVGIcon = function(iconType, className = 'icon-svg') {
   const icons = {
     'code-svg': `
@@ -702,94 +599,8 @@ window.renderSVGIcon = function(iconType, className = 'icon-svg') {
         <path d="M10 14h4"/>
         <path d="M7 18h10"/>
       </svg>
-    `,
-    'lightbulb-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="5" width="12" height="13" rx="2"/>
-        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
-        <circle cx="10" cy="9" r="1"/>
-        <circle cx="14" cy="9" r="1"/>
-        <path d="M9 13h6"/>
-        <rect x="8" y="16" width="8" height="2" rx="1"/>
-      </svg>
-    `,
-    'cpu-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="7" y="6" width="10" height="12" rx="2"/>
-        <path d="M7 6V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>
-        <circle cx="10" cy="10" r="1"/>
-        <circle cx="14" cy="10" r="1"/>
-        <rect x="9" y="13" width="6" height="1"/>
-        <path d="M6 12h1"/>
-        <path d="M17 12h1"/>
-        <path d="M12 18v1"/>
-      </svg>
-    `,
-    'heart-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="6" width="12" height="12" rx="2"/>
-        <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
-        <circle cx="9" cy="10" r="1"/>
-        <circle cx="15" cy="10" r="1"/>
-        <path d="M9 14c0-1 1-2 3-2s3 1 3 2"/>
-      </svg>
-    `,
-    'bar-chart-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="5" width="12" height="13" rx="2"/>
-        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
-        <circle cx="9" cy="9" r="1"/>
-        <circle cx="15" cy="9" r="1"/>
-        <rect x="8" y="12" width="2" height="4"/>
-        <rect x="11" y="11" width="2" height="5"/>
-        <rect x="14" y="13" width="2" height="3"/>
-      </svg>
-    `,
-    'zap-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="6" width="12" height="12" rx="2"/>
-        <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
-        <circle cx="9" cy="10" r="1"/>
-        <circle cx="15" cy="10" r="1"/>
-        <path d="M12 13l-2 2h4l-2-2z"/>
-        <rect x="10" y="16" width="4" height="1"/>
-      </svg>
-    `,
-    'award-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="5" width="12" height="13" rx="2"/>
-        <path d="M6 5V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/>
-        <circle cx="9" cy="9" r="1"/>
-        <circle cx="15" cy="9" r="1"/>
-        <circle cx="12" cy="13" r="2"/>
-        <path d="M10 16h4"/>
-      </svg>
-    `,
-    'users-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="4" y="6" width="7" height="12" rx="1"/>
-        <rect x="13" y="6" width="7" height="12" rx="1"/>
-        <circle cx="7.5" cy="10" r="1"/>
-        <circle cx="16.5" cy="10" r="1"/>
-        <path d="M6 14h3"/>
-        <path d="M15 14h3"/>
-        <path d="M4 6V4a2 2 0 0 1 2-2h3"/>
-        <path d="M20 6V4a2 2 0 0 1-2-2h-3"/>
-      </svg>
-    `,
-    'brain-svg': `
-      <svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="6" y="4" width="12" height="16" rx="3"/>
-        <circle cx="10" cy="9" r="1"/>
-        <circle cx="14" cy="9" r="1"/>
-        <path d="M9 13h6"/>
-        <path d="M12 16v2"/>
-        <path d="M8 18h8"/>
-        <path d="M6 8h2"/>
-        <path d="M16 8h2"/>
-      </svg>
     `
   };
   
-  return icons[iconType] || icons['brain-svg'];
+  return icons[iconType] || icons['code-svg'];
 };

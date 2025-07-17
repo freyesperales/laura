@@ -1,13 +1,13 @@
 /**
  * LAURA DIGITAL AGENCY - Components Module
  * Dynamic component generation for scalable architecture
- * Version: 1.0.0 - FIXED
+ * Version: 2.2.0 - Fully Restored + Enhanced
  */
 
 window.LAURA_Components = {
   
   /**
-   * Render Services Grid
+   * Render Services Grid - 3 ÁREAS PRINCIPALES RESTAURADAS
    */
   renderServices() {
     const container = document.querySelector('.services-grid');
@@ -16,7 +16,7 @@ window.LAURA_Components = {
       return;
     }
 
-    console.log('🔧 Rendering services');
+    console.log('🔧 Rendering 3 main service areas');
     this.updateServicesContainer(container);
   },
   
@@ -28,25 +28,28 @@ window.LAURA_Components = {
     console.log('🔧 Rendering services:', services.length);
     
     container.innerHTML = services.map(service => `
-      <div class="card hover-lift fade-in service-card" data-service="${service.id}">
+      <div class="service-card card hover-lift fade-in" data-service="${service.id}">
         <div class="service-icon">
           <i class="${service.icon}"></i>
         </div>
         <h3 class="service-title">${service.title}</h3>
         <p class="service-description">${service.description}</p>
+        
         ${service.kpis ? `
           <div class="service-kpis">
-            <div class="kpis-title">📊 Resultados promedio:</div>
+            <div class="kpis-title">📊 Resultados promedio de nuestros clientes:</div>
             <ul class="kpis-list">
-              ${service.kpis.map(kpi => `<li><i class="fas fa-chart-line"></i>${kpi}</li>`).join('')}
+              ${service.kpis.map(kpi => `<li><i class="fas fa-chart-line"></i><strong>${kpi}</strong></li>`).join('')}
             </ul>
           </div>
         ` : ''}
+        
         <ul class="service-features">
           ${service.features.map(feature => `
             <li><i class="fas fa-check"></i>${feature}</li>
           `).join('')}
         </ul>
+        
         <button class="service-cta btn btn-outline" type="button" data-service-id="${service.id}" onclick="showServicePlans('${service.id}')">
           ${service.cta}
         </button>
@@ -94,6 +97,135 @@ window.LAURA_Components = {
     }
   },
   
+  /**
+   * Show service plans dynamically - MEJORADO
+   */
+  showServicePlans(serviceId) {
+    console.log('🎯 Showing plans for service:', serviceId);
+    
+    const services = getConfig('services', []);
+    const service = services.find(s => s.id === serviceId);
+    
+    if (!service || !service.plans) {
+      console.log('❌ Service not found or no plans:', serviceId);
+      return;
+    }
+
+    const container = document.getElementById('service-plans-container');
+    if (!container) {
+      console.log('❌ Plans container not found');
+      return;
+    }
+    
+    const plansGrid = container.querySelector('.service-plans-grid');
+    const title = container.querySelector('.service-plans-title');
+    
+    // Update title
+    if (title) {
+      title.textContent = `Planes Mensuales - ${service.title}`;
+    }
+    
+    // Render professional pricing cards
+    if (plansGrid) {
+      plansGrid.innerHTML = service.plans.map((plan, index) => `
+        <div class="pricing-card ${plan.popular ? 'popular' : ''}" data-plan="${plan.id}">
+          ${plan.popular ? '<div class="popular-badge">Más Popular</div>' : ''}
+          
+          <div class="card-header">
+            <div class="plan-icon">
+              ${this.getServiceEmoji(serviceId)}
+            </div>
+            <h3 class="plan-name">${plan.name}</h3>
+            <p class="plan-subtitle">${plan.subtitle}</p>
+            <div class="plan-price">${plan.price}</div>
+          </div>
+          
+          <div class="card-features">
+            <ul class="features-list">
+              ${plan.features.map(feature => `
+                <li class="feature-item">
+                  <i class="fas fa-check feature-check"></i>
+                  <span>${feature}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          
+          <div class="card-footer">
+            <a href="${this.generateWhatsAppLink(serviceId, plan)}" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="cta-btn ${plan.popular ? 'primary' : 'secondary'}">
+              💬 ${plan.cta}
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // Show container with smooth animation
+    container.classList.remove('hidden');
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+      container.style.transition = 'all 0.5s ease';
+      container.style.opacity = '1';
+      container.style.transform = 'translateY(0)';
+    }, 50);
+    
+    // Scroll to plans
+    setTimeout(() => {
+      const offset = 100;
+      const elementPosition = container.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+    }, 200);
+
+    // Add professional pricing styles
+    this.addProfessionalPricingStyles();
+    
+    console.log('✅ Professional plans rendered');
+  },
+
+  /**
+   * Get service emoji based on service ID
+   */
+  getServiceEmoji(serviceId) {
+    const emojis = {
+      'marketing': '📈',
+      'development': '💻',
+      'security': '🛡️'
+    };
+    return emojis[serviceId] || '⭐';
+  },
+
+  /**
+   * Generate WhatsApp link for plan
+   */
+  generateWhatsAppLink(serviceId, plan) {
+    const basePhone = '56999968482';
+    const serviceName = this.getServiceName(serviceId);
+    
+    const message = `¡Hola! Me interesa el plan *${plan.name}* de ${serviceName} (${plan.price}). ¿Podemos conversar sobre los detalles y próximos pasos?`;
+    
+    return `https://wa.me/${basePhone}?text=${encodeURIComponent(message)}`;
+  },
+
+  /**
+   * Get service name for WhatsApp message
+   */
+  getServiceName(serviceId) {
+    const names = {
+      'marketing': 'Marketing Digital',
+      'development': 'Desarrollo Web',
+      'security': 'Ciberseguridad'
+    };
+    return names[serviceId] || 'LAURA';
+  },
+
   /**
    * Handle plan selection and form pre-filling
    */
@@ -143,17 +275,16 @@ window.LAURA_Components = {
       console.log('📝 Found service select:', serviceSelect);
       
       // Map plan ID to service value
-      let serviceValue = 'web'; // default
-      if (planId.includes('web')) serviceValue = 'web';
-      else if (planId.includes('security') || planId.includes('cyber')) serviceValue = 'security';
-      else if (planId.includes('marketing')) serviceValue = 'marketing';
-      else if (planId.includes('consulting')) serviceValue = 'consulting';
+      let serviceValue = 'custom'; // default
+      if (planId.includes('marketing')) serviceValue = 'marketing-monthly';
+      else if (planId.includes('development') || planId.includes('web')) serviceValue = 'development-monthly';
+      else if (planId.includes('security')) serviceValue = 'security-monthly';
       
       // Try to set the value
       const options = Array.from(serviceSelect.options);
       const matchingOption = options.find(option => 
         option.value === serviceValue || 
-        option.textContent.toLowerCase().includes(serviceValue)
+        option.textContent.toLowerCase().includes(serviceValue.split('-')[0])
       );
       
       if (matchingOption) {
@@ -192,8 +323,8 @@ Me gustaría conocer más detalles sobre:
         console.log('✅ Message pre-filled');
         
         // Add visual feedback
-        messageTextarea.style.borderColor = '#667eea';
-        messageTextarea.style.boxShadow = '0 0 8px rgba(102, 126, 234, 0.3)';
+        messageTextarea.style.borderColor = '#e21e5c';
+        messageTextarea.style.boxShadow = '0 0 8px rgba(226, 30, 92, 0.3)';
         
         setTimeout(() => {
           messageTextarea.style.borderColor = '';
@@ -216,7 +347,7 @@ Me gustaría conocer más detalles sobre:
       position: fixed;
       top: 20px;
       right: 20px;
-      background: ${type === 'success' ? '#10B981' : '#667eea'};
+      background: ${type === 'success' ? '#10B981' : '#e21e5c'};
       color: white;
       padding: 1rem 1.5rem;
       border-radius: 0.5rem;
@@ -266,102 +397,6 @@ Me gustaría conocer más detalles sobre:
   },
 
   /**
-   * Show service plans dynamically
-   */
-  showServicePlans(serviceId) {
-    console.log('🎯 Showing plans for service:', serviceId);
-    
-    const services = getConfig('services', []);
-    const service = services.find(s => s.id === serviceId);
-    
-    if (!service || !service.plans) {
-      console.log('❌ Service not found or no plans:', serviceId);
-      return;
-    }
-
-    const container = document.getElementById('service-plans-container');
-    if (!container) {
-      console.log('❌ Plans container not found');
-      return;
-    }
-    
-    const plansGrid = container.querySelector('.service-plans-grid');
-    const title = container.querySelector('.service-plans-title');
-    
-    // Update title
-    if (title) {
-      title.textContent = `Planes para ${service.title}`;
-    }
-    
-    // Render professional pricing cards
-    if (plansGrid) {
-      plansGrid.innerHTML = service.plans.map((plan, index) => `
-        <div class="pricing-card ${plan.popular ? 'popular' : ''} ${index === 0 ? 'first' : index === 2 ? 'last' : 'middle'}" data-plan="${plan.id}">
-          ${plan.popular ? '<div class="popular-ribbon">Más Popular</div>' : ''}
-          
-          <div class="pricing-header">
-            <div class="plan-icon">
-              <i class="${service.icon}"></i>
-            </div>
-            <h3 class="plan-name">${plan.name}</h3>
-            <p class="plan-subtitle">${plan.subtitle}</p>
-            <div class="plan-price">
-              <span class="price-amount">${plan.price}</span>
-              ${plan.deliverables ? `<div class="price-note">${plan.deliverables}</div>` : ''}
-            </div>
-          </div>
-          
-          <div class="pricing-features">
-            <ul class="features-list">
-              ${plan.features.map(feature => `
-                <li class="feature-item">
-                  <i class="fas fa-check feature-check"></i>
-                  <span>${feature}</span>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-          
-          <div class="pricing-footer">
-            <button class="plan-cta-btn ${plan.popular ? 'cta-popular' : 'cta-standard'}" 
-                    onclick="selectPlan('${plan.id}', '${plan.name}')"
-                    data-plan-id="${plan.id}">
-              <span>${plan.cta}</span>
-              <i class="fas fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-      `).join('');
-    }
-    
-    // Show container with smooth animation
-    container.classList.remove('hidden');
-    container.style.opacity = '0';
-    container.style.transform = 'translateY(20px)';
-    
-    setTimeout(() => {
-      container.style.transition = 'all 0.5s ease';
-      container.style.opacity = '1';
-      container.style.transform = 'translateY(0)';
-    }, 50);
-    
-    // Scroll to plans
-    setTimeout(() => {
-      const offset = 100;
-      const elementPosition = container.offsetTop - offset;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
-    }, 200);
-
-    // Add professional pricing styles
-    this.addProfessionalPricingStyles();
-    
-    console.log('✅ Professional plans rendered');
-  },
-
-  /**
    * Render Featured Blog Articles
    */
   renderBlogArticles() {
@@ -376,7 +411,7 @@ Me gustaría conocer más detalles sobre:
         excerpt: 'Descubre cómo la inteligencia artificial está revolucionando los negocios y qué esperar en los próximos meses.',
         category: 'Inteligencia Artificial',
         readTime: '5 min',
-        image: 'https://via.placeholder.com/400x200/667eea/ffffff?text=IA+2025',
+        image: 'https://via.placeholder.com/400x200/e21e5c/ffffff?text=IA+2025',
         author: 'Equipo LAURA',
         date: '2025-01-15',
         featured: true
@@ -409,7 +444,7 @@ Me gustaría conocer más detalles sobre:
       <article class="blog-card hover-lift fade-in">
         <div class="blog-image">
           <img src="${article.image}" alt="${article.title}" loading="lazy"
-               onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiM2NjdlZWEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFydMOtY3VsbzwvdGV4dD48L3N2Zz4='">
+               onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNlMjFlNWMiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFydMOtY3VsbzwvdGV4dD48L3N2Zz4='">
           <div class="blog-category">${article.category}</div>
         </div>
         <div class="blog-content">
@@ -480,82 +515,6 @@ Me gustaría conocer más detalles sobre:
   },
 
   /**
-   * Render Pricing Plans
-   */
-  renderPricing() {
-    const container = document.querySelector('.pricing-grid');
-    if (!container) return;
-
-    const plans = getConfig('pricingPlans', []);
-    
-    container.innerHTML = plans.map(plan => `
-      <div class="pricing-card ${plan.popular ? 'popular' : ''} hover-lift fade-in">
-        ${plan.popular ? '<div class="popular-badge">Más Popular</div>' : ''}
-        <div class="pricing-header">
-          <h3 class="plan-name">${plan.name}</h3>
-          <p class="plan-subtitle">${plan.subtitle}</p>
-          <div class="plan-price">${plan.price}</div>
-        </div>
-        <ul class="plan-features">
-          ${plan.features.map(feature => `
-            <li><i class="fas fa-check"></i>${feature}</li>
-          `).join('')}
-        </ul>
-        <button class="btn-${plan.ctaType} plan-cta" data-plan="${plan.id}">
-          ${plan.cta}
-        </button>
-      </div>
-    `).join('');
-
-    this.addPricingStyles();
-  },
-
-  /**
-   * Render Client Logos
-   */
-  renderClientLogos() {
-    const container = document.querySelector('.clients-logos');
-    if (!container) return;
-
-    const clients = getConfig('clientLogos', []);
-    
-    container.innerHTML = clients.map(client => `
-      <div class="client-logo hover-lift fade-in">
-        <img src="${client.logo}" alt="${client.name}" loading="lazy" 
-             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTIwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmOGZhZmMiLz48dGV4dCB4PSI2MCIgeT0iMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY2N2VlYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPiR7Y2xpZW50Lm5hbWV9PC90ZXh0Pjwvc3ZnPg=='">
-      </div>
-    `).join('');
-  },
-
-  /**
-   * Render Testimonials
-   */
-  renderTestimonials() {
-    const container = document.querySelector('.testimonials-grid');
-    if (!container) return;
-
-    const testimonials = getConfig('testimonials', []);
-    
-    container.innerHTML = testimonials.map(testimonial => `
-      <div class="testimonial-card card fade-in">
-        <div class="testimonial-rating">
-          ${Array(testimonial.rating).fill('<i class="fas fa-star"></i>').join('')}
-        </div>
-        <blockquote class="testimonial-quote">"${testimonial.quote}"</blockquote>
-        <div class="testimonial-author">
-          <img src="${testimonial.avatar}" alt="${testimonial.name}" 
-               onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyNSIgZmlsbD0iIzY2N2VlYSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+JHt0ZXN0aW1vbmlhbC5uYW1lLmNoYXJBdCgwKX08L3RleHQ+PC9zdmc+'"
-               loading="lazy">
-          <div class="author-info">
-            <p class="author-name">${testimonial.name}</p>
-            <p class="author-position">${testimonial.position}, ${testimonial.company}</p>
-          </div>
-        </div>
-      </div>
-    `).join('');
-  },
-
-  /**
    * Render Contact Methods
    */
   renderContactMethods() {
@@ -597,7 +556,7 @@ Me gustaría conocer más detalles sobre:
       ${fields.map(field => this.renderFormField(field)).join('')}
       <div class="form-group">
         <button type="submit" class="btn-primary form-submit">
-          <i class="fas fa-rocket"></i>
+          <i class="fas fa-paper-plane"></i>
           <span>${formConfig.submitText || 'Enviar mensaje'}</span>
         </button>
       </div>
@@ -611,7 +570,7 @@ Me gustaría conocer más detalles sobre:
    * Render Individual Form Field
    */
   renderFormField(field) {
-    const gridClass = field.gridColumn === 'half' ? 'form-group-half' : 'form-group';
+    const gridClass = field.gridColumn === 'half' ? 'form-group' : 'form-group form-group-full';
     
     let inputHTML = '';
     
@@ -691,14 +650,12 @@ Me gustaría conocer más detalles sobre:
     return `
       <div class="footer-section footer-brand">
         <div class="footer-logo">
-          <a href="#inicio" title="Ir al inicio">
-            <img src="./assets/img/logo.svg" alt="LAURA Logo" class="footer-logo-svg">
-          </a>
+          <img src="./assets/img/logo.svg" alt="LAURA Logo" class="footer-logo-svg">
         </div>
         <p class="footer-description">${section.content.description}</p>
         ${section.content.socialLinks ? `
           <div class="social-links">
-            <a href="${socialMedia.linkedin}" class="social-link" aria-label="LinkedIn">
+            <a href="${socialMedia.linkedin}" class="social-link" target="_blank" aria-label="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
             </a>
             <a href="${socialMedia.twitter}" class="social-link" aria-label="Twitter">
@@ -706,9 +663,6 @@ Me gustaría conocer más detalles sobre:
             </a>
             <a href="${socialMedia.instagram}" class="social-link" aria-label="Instagram">
               <i class="fab fa-instagram"></i>
-            </a>
-            <a href="${socialMedia.youtube}" class="social-link" aria-label="YouTube">
-              <i class="fab fa-youtube"></i>
             </a>
           </div>
         ` : ''}
@@ -725,28 +679,11 @@ Me gustaría conocer más detalles sobre:
         <h4 class="footer-title">${section.title}</h4>
         <ul class="footer-links">
           ${section.content.links.map(link => `
-            <li><a href="${link.url}" class="footer-link">${link.text}</a></li>
+            <li><a href="${link.url}" class="footer-link" ${link.url.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}>${link.text}</a></li>
           `).join('')}
         </ul>
       </div>
     `;
-  },
-
-  /**
-   * Render Certifications
-   */
-  renderCertifications() {
-    const container = document.querySelector('.certifications-grid');
-    if (!container) return;
-
-    const certifications = getConfig('certifications', []);
-    
-    container.innerHTML = certifications.map(cert => `
-      <div class="certification-item">
-        <img src="${cert.logo}" alt="${cert.name}" loading="lazy"
-             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA4MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNDAiIGZpbGw9IiMzNzQxNTEiLz48dGV4dCB4PSI0MCIgeT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj4ke2NlcnQubmFtZX08L3RleHQ+PC9zdmc+'">
-      </div>
-    `).join('');
   },
 
   /**
@@ -785,69 +722,123 @@ Me gustaría conocer más detalles sobre:
       .service-icon {
         width: 3.5rem;
         height: 3.5rem;
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        border-radius: var(--radius-xl);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        border-radius: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: var(--space-6);
+        margin-bottom: 1.5rem;
         color: white;
-        font-size: var(--text-xl);
+        font-size: 1.5rem;
+        box-shadow: 0 8px 25px rgba(226, 30, 92, 0.3);
       }
       
       .service-title {
-        font-size: var(--text-xl);
-        font-weight: var(--font-weight-bold);
-        margin-bottom: var(--space-4);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
       }
       
       .service-description {
-        color: var(--gray-600);
-        margin-bottom: var(--space-6);
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .service-kpis {
+        background: rgba(226, 30, 92, 0.05);
+        border: 1px solid rgba(226, 30, 92, 0.2);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .kpis-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+      }
+
+      .kpis-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .kpis-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .kpis-list li:last-child {
+        margin-bottom: 0;
+      }
+
+      .kpis-list i {
+        color: var(--primary);
+        font-size: 0.75rem;
       }
       
       .service-features {
         list-style: none;
-        margin-bottom: var(--space-6);
+        margin-bottom: 1.5rem;
+        padding: 0;
       }
       
       .service-features li {
         display: flex;
         align-items: center;
-        gap: var(--space-2);
-        font-size: var(--text-sm);
-        color: var(--gray-500);
-        margin-bottom: var(--space-2);
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
       }
       
       .service-features i {
-        color: var(--success);
+        color: #10b981;
       }
       
       .service-cta {
-        color: var(--primary-600);
-        font-weight: var(--font-weight-semibold);
-        transition: var(--transition-base);
+        color: var(--primary);
+        font-weight: 600;
+        transition: all 0.3s ease;
         display: flex;
         align-items: center;
-        gap: var(--space-2);
+        gap: 0.5rem;
         background: none;
-        border: none;
-        padding: var(--space-2) 0;
+        border: 2px solid var(--border);
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
         cursor: pointer;
-        font-size: var(--text-base);
+        font-size: 0.875rem;
         width: 100%;
-        justify-content: flex-start;
+        justify-content: center;
+        margin-top: auto;
       }
       
       .service-cta:hover {
-        color: var(--primary-700);
-        transform: translateX(2px);
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(226, 30, 92, 0.2);
       }
       
       .service-cta:focus {
-        outline: 2px solid var(--primary-500);
+        outline: 2px solid var(--primary);
         outline-offset: 2px;
+      }
+
+      .service-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
     `;
     document.head.appendChild(styles);
@@ -862,369 +853,287 @@ Me gustaría conocer más detalles sobre:
     const styles = document.createElement('style');
     styles.id = 'professional-pricing-styles';
     styles.textContent = `
-  .service-plans-container {
-    margin-top: var(--space-16);
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, var(--dark-bg-secondary) 0%, var(--dark-bg-tertiary) 100%);
-    border-radius: var(--radius-2xl);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .service-plans-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-light) 50%, var(--color-accent) 100%);
-  }
-  
-  .service-plans-header {
-    text-align: center;
-    margin-bottom: var(--space-12);
-    position: relative;
-    z-index: 2;
-  }
-  
-  .service-plans-title {
-    font-size: var(--text-3xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-4);
-    color: var(--dark-text-primary);
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .service-plans-subtitle {
-    font-size: var(--text-lg);
-    color: var(--dark-text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .service-plans-grid {
-    display: grid;
-    gap: var(--space-6);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-4);
-  }
-  
-  @media (min-width: 768px) {
-    .service-plans-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
-    }
-  }
-  
-  .pricing-card {
-    background: var(--dark-bg-card);
-    border-radius: var(--radius-2xl);
-    padding: 0;
-    position: relative;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-    border: 2px solid var(--dark-border);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    transform: translateY(0);
-  }
-  
-  .pricing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
-    border-color: var(--color-accent);
-  }
-  
-  .pricing-card.popular {
-    transform: scale(1.05) translateY(-10px);
-    border-color: var(--color-accent);
-    box-shadow: 0 25px 50px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-    z-index: 10;
-  }
-  
-  .pricing-card.popular:hover {
-    transform: scale(1.05) translateY(-15px);
-    box-shadow: 0 30px 60px rgba(226, 30, 92, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .popular-ribbon {
-    position: absolute;
-    top: 1rem;
-    right: -2rem;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
-    color: white;
-    padding: 0.5rem 3rem;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-bold);
-    transform: rotate(45deg);
-    box-shadow: 0 4px 8px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-    z-index: 5;
-  }
-  
-  .pricing-header {
-    text-align: center;
-    padding: var(--space-8) var(--space-6) var(--space-6);
-    background: linear-gradient(135deg, var(--dark-bg-secondary) 0%, var(--dark-bg-tertiary) 100%);
-    position: relative;
-  }
-  
-  .plan-icon {
-    width: 4rem;
-    height: 4rem;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-4);
-    color: white;
-    font-size: var(--text-2xl);
-    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .popular .plan-icon {
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
-    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .plan-name {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-2);
-    color: var(--dark-text-primary);
-  }
-  
-  .plan-subtitle {
-    color: var(--dark-text-secondary);
-    margin-bottom: var(--space-4);
-    font-size: var(--text-base);
-  }
-  
-  .plan-price {
-    margin-bottom: var(--space-2);
-  }
-  
-  .price-amount {
-    font-size: var(--text-4xl);
-    font-weight: var(--font-weight-extrabold);
-    color: var(--dark-text-primary);
-    display: block;
-    line-height: 1;
-  }
-  
-  .price-note {
-    background: rgba(226, 30, 92, 0.1);
-    color: var(--color-accent);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: var(--font-weight-semibold);
-    display: inline-block;
-    margin-top: var(--space-2);
-    border: 1px solid rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .popular .price-note {
-    background: rgba(226, 30, 92, 0.1);
-    color: var(--color-accent);
-  }
-  
-  .pricing-features {
-    padding: var(--space-6);
-    flex-grow: 1;
-  }
-  
-  .features-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    font-size: var(--text-base);
-    line-height: 1.6;
-    color: var(--dark-text-secondary);
-  }
-  
-  .feature-item:last-child {
-    margin-bottom: 0;
-  }
-  
-  .feature-check {
-    color: var(--success);
-    font-size: var(--text-sm);
-    margin-top: 2px;
-    flex-shrink: 0;
-    width: 1rem;
-    height: 1rem;
-    background: rgba(16, 185, 129, 0.1);
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .pricing-footer {
-    padding: var(--space-6);
-    border-top: 1px solid var(--dark-border);
-  }
-  
-  .plan-cta-btn {
-    width: 100%;
-    padding: var(--space-4) var(--space-6);
-    border: none;
-    border-radius: var(--radius-xl);
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .plan-cta-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-  }
-  
-  .plan-cta-btn:hover::before {
-    left: 100%;
-  }
-  
-  .cta-standard {
-    background: var(--dark-bg-secondary);
-    color: var(--dark-text-primary);
-    border: 2px solid var(--dark-border);
-  }
-  
-  .cta-standard:hover {
-    background: var(--color-accent);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(226, 30, 92, 0.3); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .cta-popular {
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(226, 30, 92, 0.4); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .cta-popular:hover {
-    background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(226, 30, 92, 0.5); /* Valor original, se asocia al darkmode por el contexto. */
-  }
-  
-  .service-plans-actions {
-    text-align: center;
-    margin-top: var(--space-12);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--dark-border);
-  }
-  
-  .btn-custom-contact {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    color: white;
-    border: none;
-    padding: var(--space-4) var(--space-8);
-    border-radius: var(--radius-2xl);
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-semibold);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-  }
-  
-  .btn-custom-contact:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.5);
-    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  }
-  
-  .btn-custom-contact:active {
-    transform: translateY(-1px);
-  }
-  
-  .btn-custom-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--text-base);
-  }
-  
-  /* Responsive improvements */
-  @media (max-width: 767px) {
-    .pricing-card.popular {
-      transform: none;
-      margin-bottom: var(--space-4);
-    }
-    
-    .pricing-card.popular:hover {
-      transform: translateY(-5px);
-    }
-    
-    .service-plans-grid {
-      gap: var(--space-6);
-    }
-    
-    .plan-price .price-amount {
-      font-size: var(--text-3xl);
-    }
-  }
-  
-  /* Animation keyframes */
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .pricing-card {
-    animation: slideInUp 0.6s ease-out;
-  }
-  
-  .pricing-card:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  
-  .pricing-card:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-`;
-document.head.appendChild(styles);;
+      .service-plans-container {
+        margin-top: 4rem;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, var(--bg-secondary) 0%, #f1f5f9 100%);
+        border-radius: 1.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .service-plans-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+      }
+      
+      .service-plans-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .service-plans-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .service-plans-subtitle {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .service-plans-grid {
+        display: grid;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      @media (min-width: 768px) {
+        .service-plans-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+      }
+      
+      .pricing-card {
+        background: white;
+        border-radius: 1.5rem;
+        padding: 0;
+        position: relative;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        border: 2px solid #f1f5f9;
+        transition: all 0.4s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 520px;
+      }
+      
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(226, 30, 92, 0.15);
+        border-color: var(--primary);
+      }
+      
+      .pricing-card.popular {
+        transform: scale(1.05);
+        border-color: var(--primary);
+        box-shadow: 0 15px 40px rgba(226, 30, 92, 0.2);
+        z-index: 10;
+      }
+      
+      .pricing-card.popular:hover {
+        transform: scale(1.05) translateY(-10px);
+        box-shadow: 0 25px 60px rgba(226, 30, 92, 0.25);
+      }
+      
+      .popular-badge {
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0 0 1rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(226, 30, 92, 0.4);
+        z-index: 5;
+      }
+      
+      .card-header {
+        text-align: center;
+        padding: 3rem 2rem 2rem;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      }
+      
+      .popular .card-header {
+        padding-top: 4rem;
+      }
+      
+      .plan-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .plan-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+      
+      .plan-subtitle {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      
+      .plan-price {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary);
+        line-height: 1;
+      }
+      
+      .card-features {
+        padding: 2rem;
+        flex-grow: 1;
+      }
+      
+      .features-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+      
+      .feature-item:last-child {
+        margin-bottom: 0;
+      }
+      
+      .feature-check {
+        color: #10b981;
+        font-size: 0.875rem;
+        margin-top: 2px;
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+        width: 1rem;
+        height: 1rem;
+        background: rgba(16, 185, 129, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .card-footer {
+        padding: 2rem;
+        border-top: 1px solid #f1f5f9;
+        margin-top: auto;
+      }
+      
+      .cta-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .cta-btn.primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(226, 30, 92, 0.3);
+      }
+      
+      .cta-btn.primary:hover {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(226, 30, 92, 0.4);
+      }
+      
+      .cta-btn.secondary {
+        background: white;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        box-shadow: 0 4px 15px rgba(226, 30, 92, 0.1);
+      }
+      
+      .cta-btn.secondary:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(226, 30, 92, 0.3);
+      }
+
+      .service-plans-actions {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .custom-needs-cta {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        border: 2px solid #f1f5f9;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .custom-needs-cta h4 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+      }
+
+      .custom-needs-cta p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .btn-custom-contact {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+      }
+
+      .btn-custom-contact:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      }
+    `;
     document.head.appendChild(styles);
   },
 
@@ -1239,8 +1148,8 @@ document.head.appendChild(styles);;
     styles.textContent = `
       .blog-grid {
         display: grid;
-        gap: var(--space-8);
-        margin-bottom: var(--space-12);
+        gap: 2rem;
+        margin-bottom: 3rem;
       }
       
       @media (min-width: 768px) {
@@ -1257,16 +1166,16 @@ document.head.appendChild(styles);;
       
       .blog-card {
         background: white;
-        border-radius: var(--radius-2xl);
+        border-radius: 1.5rem;
         overflow: hidden;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--gray-200);
-        transition: var(--transition-base);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
       }
       
       .blog-card:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-xl);
+        box-shadow: 0 20px 40px rgba(226, 30, 92, 0.15);
       }
       
       .blog-image {
@@ -1279,7 +1188,7 @@ document.head.appendChild(styles);;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: var(--transition-base);
+        transition: all 0.3s ease;
       }
       
       .blog-card:hover .blog-image img {
@@ -1288,61 +1197,62 @@ document.head.appendChild(styles);;
       
       .blog-category {
         position: absolute;
-        top: var(--space-3);
-        left: var(--space-3);
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
+        top: 1rem;
+        left: 1rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
         color: white;
-        padding: var(--space-1) var(--space-3);
-        border-radius: var(--radius-full);
-        font-size: var(--text-xs);
-        font-weight: var(--font-weight-semibold);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
       }
       
       .blog-content {
-        padding: var(--space-6);
+        padding: 1.5rem;
       }
       
       .blog-title {
-        font-size: var(--text-xl);
-        font-weight: var(--font-weight-bold);
-        margin-bottom: var(--space-3);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
         line-height: 1.3;
-        color: var(--gray-800);
+        color: var(--text-primary);
       }
       
       .blog-excerpt {
-        color: var(--gray-600);
+        color: var(--text-secondary);
         line-height: 1.6;
-        margin-bottom: var(--space-4);
+        margin-bottom: 1rem;
       }
       
       .blog-meta {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: var(--space-4);
-        font-size: var(--text-sm);
-        color: var(--gray-500);
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
       }
       
       .blog-meta > div {
         display: flex;
         align-items: center;
-        gap: var(--space-1);
+        gap: 0.25rem;
       }
       
       .blog-read-more {
-        color: var(--primary-600);
-        font-weight: var(--font-weight-semibold);
+        color: var(--primary);
+        font-weight: 600;
         display: flex;
         align-items: center;
-        gap: var(--space-2);
-        transition: var(--transition-base);
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
       }
       
       .blog-read-more:hover {
-        color: var(--primary-700);
-        gap: var(--space-3);
+        color: var(--primary-dark);
+        gap: 0.75rem;
       }
       
       .blog-actions {
@@ -1352,202 +1262,76 @@ document.head.appendChild(styles);;
       .blog-cta {
         display: inline-flex;
         align-items: center;
-        gap: var(--space-2);
-        padding: var(--space-4) var(--space-8);
+        gap: 0.5rem;
+        padding: 1rem 2rem;
       }
     `;
     document.head.appendChild(styles);
   },
 
   /**
-   * Add general styles for missing elements
+   * VENTANA DE CÓDIGO ANIMADA ORIGINAL - RESTAURADA
    */
-  addPricingStyles() {
-    if (document.getElementById('pricing-styles')) return;
-    
-    const styles = document.createElement('style');
-    styles.id = 'pricing-styles';
-    styles.textContent = `
-      .popular-badge {
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-full);
-        font-size: var(--text-sm);
-        font-weight: var(--font-weight-bold);
-        box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
-      }
-      
-      .feature-icon {
-        width: 3rem;
-        height: 3rem;
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        border-radius: var(--radius-lg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: var(--text-lg);
-        margin-bottom: var(--space-4);
-      }
-      
-      .benefit-icon {
-        width: 4rem;
-        height: 4rem;
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-        border-radius: var(--radius-xl);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: var(--text-2xl);
-        margin-bottom: var(--space-6);
-      }
-    `;
-    document.head.appendChild(styles);
-  },
+  createCodeAnimation() {
+    const codeContent = `// Asistente Virtual Inteligente LAURA
+import { ChatbotAI } from '@laura/ai-assistant';
+import { DigitalTransformation } from '@laura/business-tools';
 
-  /**
-   * Initialize all components
-   */
-  init() {
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.renderAll());
-    } else {
-      this.renderAll();
-    }
-  },
-
-  /**
-   * Render all components
-   */
-  renderAll() {
-    try {
-      this.renderServices();
-      this.renderFeatures();
-      this.renderBenefits();
-      this.renderPricing();
-      this.renderClientLogos();
-      this.renderTestimonials();
-      this.renderContactMethods();
-      this.renderContactForm();
-      this.renderFooter();
-      this.renderCertifications();
-      this.renderBlogArticles();
-      
-      if (getConfig('dev.enableConsoleMessages')) {
-        console.log('✅ All components rendered successfully');
-      }
-    } catch (error) {
-      console.error('❌ Error rendering components:', error);
-    }
-  }
-};
-
-// Global functions for service interaction
-window.selectPlan = function(planId, planName) {
-  // Pre-fill contact form with selected plan
-  const form = document.getElementById('contact-form');
-  if (form) {
-    const serviceSelect = form.querySelector('select[name="service"]');
-    const messageTextarea = form.querySelector('textarea[name="message"]');
-    
-    if (serviceSelect) {
-      // Set the service type
-      serviceSelect.value = planId.includes('web') ? 'web' : 
-                            planId.includes('security') ? 'security' :
-                            planId.includes('marketing') ? 'marketing' : 'consulting';
-    }
-    
-    if (messageTextarea && !messageTextarea.value.trim()) {
-      messageTextarea.value = `Estoy interesado en el plan ${planName}. Me gustaría conocer más detalles y recibir una cotización personalizada.`;
-    }
-  }
-  
-  // Scroll to contact form
-  scrollToContact();
-  
-  // Track plan selection
-  if (window.LAURA_Forms && typeof window.LAURA_Forms.trackFormSubmission === 'function') {
-    window.LAURA_Forms.trackFormSubmission('plan_selection', {
-      planId: planId,
-      planName: planName,
-      timestamp: new Date().toISOString()
-    });
-  }
-};
-
-window.scrollToContact = function() {
-  const contactSection = document.getElementById('contacto');
-  if (contactSection) {
-    const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
-    const targetPosition = contactSection.offsetTop - navbarHeight - 20;
-    
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
-  }
-};
-
-// Componente de código animado
-window.LAURA_Components.createCodeAnimation = function() {
-    // New chatbot code content
-    const codeContent = `// Asistente Virtual Inteligente para Negocios
-import { ChatbotAI } from '@laura/ai-chatbot';
-import { CustomerEngagement } from '@laura/biz-tools';
-
-class BusinessChatbot {
+class LAURADigitalAgency {
   constructor() {
     this.ai = new ChatbotAI({
-      model: 'business-chat-v3',
+      model: 'laura-business-v4',
       language: 'es',
-      sentimentAnalysis: true
+      globalReach: true,
+      specialties: ['marketing', 'development', 'security']
     });
-    this.engagement = new CustomerEngagement();
+    this.transformation = new DigitalTransformation();
   }
 
-  async handleUserQuery(query, userContext) {
-    // Procesar la intención del usuario con IA
-    const intent = await this.ai.analyzeIntent(query);
-    const response = await this.ai.generateResponse(intent, userContext);
+  async transformBusiness(clientData) {
+    // Analizar necesidades del cliente con IA
+    const analysis = await this.ai.analyzeBusinessNeeds(clientData);
+    const strategy = await this.ai.createStrategy(analysis);
     
-    // Ejecutar acciones de negocio
-    if (intent.type === 'product_inquiry') {
-      this.engagement.provideProductInfo(response.data.product);
-    } else if (intent.type === 'support_request') {
-      this.engagement.createSupportTicket(userContext.id, response.data.details);
+    // Ejecutar transformación digital
+    if (strategy.includes('marketing')) {
+      this.transformation.launchMarketing(clientData.goals);
     }
     
-    // Enviar respuesta al usuario
+    if (strategy.includes('development')) {
+      this.transformation.buildPlatform(clientData.requirements);
+    }
+    
+    if (strategy.includes('security')) {
+      this.transformation.implementSecurity(clientData.assets);
+    }
+    
     return {
-      message: response.text,
-      action: response.action || 'display_message'
+      success: true,
+      growth: '300% average increase',
+      timeframe: strategy.timeline,
+      globalReady: true
     };
   }
 
-  async proactiveEngagement(visitorData) {
-    // Identificar oportunidades para interactuar
-    if (visitorData.timeOnPage > 60 && visitorData.scrollDepth > 0.5) {
-      const suggestedTopic = await this.ai.suggestTopic(visitorData.history);
-      return this.engagement.triggerProactiveChat(visitorData.id, suggestedTopic);
-    }
-    return null;
+  async globalExpansion(businessData) {
+    // Preparar negocio para expansión global
+    const marketAnalysis = await this.ai.analyzeGlobalMarkets();
+    const localization = await this.transformation.localizeForMarkets(
+      businessData, 
+      marketAnalysis.opportunities
+    );
+    
+    console.log('🌍 Ready for global expansion with LAURA');
+    return localization;
   }
 }
 
-// Inicializar y lanzar el asistente
-const myChatbot = new BusinessChatbot();
-console.log('🚀 Asistente Virtual LAURA operativo!');`;
+// Inicializar LAURA para transformación global
+const laura = new LAURADigitalAgency();
+console.log('🚀 LAURA Digital Agency - Transformando negocios globalmente');`;
 
     const lines = codeContent.split('\n');
-    let currentLine = 0;
-    let currentChar = 0;
     
     const codeHTML = `
         <div class="code-animation-container">
@@ -1559,7 +1343,7 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
                             <span class="code-dot yellow"></span>
                             <span class="code-dot green"></span>
                         </div>
-                        <div class="code-title">business-chatbot.js</div>
+                        <div class="code-title">laura-digital-agency.js</div>
                     </div>
                     <div class="code-body">
                         <pre class="code-content"><code id="animated-code" class="language-javascript"></code></pre>
@@ -1570,7 +1354,6 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
         </div>
     `;
     
-    // Estilos para el componente
     const styles = `
         <style>
         .code-animation-container {
@@ -1581,30 +1364,29 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
             justify-content: center;
             overflow: hidden;
             box-sizing: border-box;
-            padding-bottom: 50px; /* Slightly increased padding-bottom for a larger, softer shadow */
+            padding-bottom: 50px;
         }
         
         .code-window-wrapper {
             width: 95%;
             max-width: 1000px;
-            height: calc(100% - 50px); /* Adjusted height to account for increased padding-bottom */
+            height: calc(100% - 50px);
             position: relative;
             box-sizing: border-box;
         }
 
-.code-window {
-    width: 100%;
-    height: 100%;
-    background: #1e1e1e;
-    border-radius: 12px;
-    overflow: hidden;
-    /* Refined shadow for more even distribution */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Changed values for a softer, more uniform shadow */
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-sizing: border-box;
-}
+        .code-window {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-sizing: border-box;
+        }
         
         .code-header {
             background: #2d2d2d;
@@ -1668,7 +1450,7 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
             position: absolute;
             width: 2px;
             height: 18px;
-            background: #569cd6;
+            background: #e21e5c;
             animation: blink 1s infinite;
             display: none;
         }
@@ -1711,19 +1493,17 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
         </style>
     `;
     
-    // Function to apply syntax highlighting
     function highlightSyntax(code) {
         return code
             .replace(/\b(import|from|class|constructor|async|await|const|let|var|function|return|if|else|switch|case|default|new|this)\b/g, '<span class="keyword">$1</span>')
             .replace(/('.*?'|".*?"|`.*?`)/g, '<span class="string">$1</span>')
             .replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>')
-            .replace(/\b(ChatbotAI|CustomerEngagement|BusinessChatbot)\b/g, '<span class="class-name">$1</span>')
+            .replace(/\b(ChatbotAI|DigitalTransformation|LAURADigitalAgency)\b/g, '<span class="class-name">$1</span>')
             .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>')
-            .replace(/\b(ai|engagement|model|language|sentimentAnalysis|query|userContext|intent|response|text|action|product|id|details|visitorData|timeOnPage|scrollDepth|suggestedTopic|history)\b/g, '<span class="property">$1</span>')
-            .replace(/\b(handleUserQuery|analyzeIntent|generateResponse|provideProductInfo|createSupportTicket|proactiveEngagement|suggestTopic|triggerProactiveChat)\b/g, '<span class="function">$1</span>');
+            .replace(/\b(ai|transformation|model|language|globalReach|specialties|analysis|strategy|success|growth|timeframe|globalReady)\b/g, '<span class="property">$1</span>')
+            .replace(/\b(transformBusiness|analyzeBusinessNeeds|createStrategy|launchMarketing|buildPlatform|implementSecurity|globalExpansion|analyzeGlobalMarkets|localizeForMarkets)\b/g, '<span class="function">$1</span>');
     }
     
-    // Function to animate the code
     function animateCode() {
         const codeElement = document.getElementById('animated-code');
         const codeBody = document.querySelector('.code-body');
@@ -1777,16 +1557,18 @@ console.log('🚀 Asistente Virtual LAURA operativo!');`;
         styles: styles,
         init: animateCode
     };
-};
+  },
 
-// Actualizar la sección "Qué es LAURA" para usar el código animado
-window.LAURA_Components.updateAboutSection = function() {
+  /**
+   * Update About Section with Code Animation - RESTAURADO
+   */
+  updateAboutSection() {
     const aboutVisual = document.querySelector('.about-visual');
     if (!aboutVisual) return;
     
     const codeAnimation = this.createCodeAnimation();
     
-    // Agregar estilos
+    // Add styles
     if (!document.getElementById('code-animation-styles')) {
         const styleElement = document.createElement('div');
         styleElement.id = 'code-animation-styles';
@@ -1794,24 +1576,62 @@ window.LAURA_Components.updateAboutSection = function() {
         document.head.appendChild(styleElement);
     }
     
-    // Reemplazar contenido
+    // Replace content
     aboutVisual.innerHTML = codeAnimation.html;
     
-    // Iniciar animación
+    // Start animation
     setTimeout(() => {
         codeAnimation.init();
     }, 500);
+  },
+
+  /**
+   * Initialize all components
+   */
+  init() {
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this.renderAll());
+    } else {
+      this.renderAll();
+    }
+  },
+
+  /**
+   * Render all components
+   */
+  renderAll() {
+    try {
+      this.renderServices();
+      this.renderFeatures();
+      this.renderBenefits();
+      this.renderContactMethods();
+      this.renderContactForm();
+      this.renderFooter();
+      this.renderBlogArticles();
+      this.updateAboutSection(); // RESTAURADO - Ventana de código
+      
+      if (getConfig('dev.enableConsoleMessages')) {
+        console.log('✅ All components rendered successfully');
+      }
+    } catch (error) {
+      console.error('❌ Error rendering components:', error);
+    }
+  }
 };
 
-// Llamar a la actualización cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.LAURA_Components.updateAboutSection();
-    });
-} else {
-    window.LAURA_Components.updateAboutSection();
-}
+// Global functions for service interaction
+window.selectPlan = function(planId, planName) {
+  if (window.LAURA_Components && window.LAURA_Components.selectPlan) {
+    window.LAURA_Components.selectPlan(planId, planName);
+  }
+};
+
+window.scrollToContact = function() {
+  if (window.LAURA_Components && window.LAURA_Components.scrollToContact) {
+    window.LAURA_Components.scrollToContact();
+  }
+};
 
 // Auto-initialize components
 window.LAURA_Components.init();
-
