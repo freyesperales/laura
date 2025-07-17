@@ -1,0 +1,384 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --bg-dark: #121212;
+    --bg-medium: #1b1b1b;
+    --border-color: #2f2f2f;
+    --text-primary: #FFFFFF;
+    --text-secondary: #999999;
+    --text-accent: #cccccc;
+    --brand-gradient: linear-gradient(135deg, #FF416C, #FF4B2B);
+    --brand-gradient-text: #FF416C; /* Fallback for text gradient */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+/* --- Logos Section --- */
+.logos-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-dark);
+    gap: 50px;
+}
+
+.logo {
+    width: 180px;
+    height: 90px;
+    object-fit: contain;
+}
+
+/* --- Hero Section --- */
+.hero {
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-size: 3.8em;
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 15px;
+}
+
+.brand-accent {
+    font-weight: 500;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--brand-gradient-text);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.value-prop {
+    font-size: 1.1em;
+    color: var(--text-accent);
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* --- Metrics Section --- */
+.key-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.metric-card {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.metric-number {
+    font-size: 3.2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--brand-gradient-text);
+}
+
+.metric-label {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 400;
+}
+
+/* --- Timeline Section --- */
+.timeline-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    position: relative;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border-color);
+    transform: translateX(-50%);
+}
+
+.month-section {
+    margin-bottom: 100px;
+    position: relative;
+}
+
+.month-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.month-badge, .month-badge-future {
+    display: inline-block;
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.month-badge {
+    color: var(--text-accent);
+}
+
+.month-badge-future {
+    color: var(--text-secondary);
+    border-style: dashed;
+}
+
+.achievements {
+    display: grid;
+    gap: 40px;
+}
+
+.achievement {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.achievement:nth-child(odd) { margin-right: 52%; margin-left: 0; }
+.achievement:nth-child(even) { margin-left: 52%; margin-right: 0; }
+
+.achievement:hover {
+    border-color: rgba(255, 65, 108, 0.5);
+}
+
+.achievement-header {
+    margin-bottom: 20px;
+}
+
+.achievement-title {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.achievement-category {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--brand-gradient-text);
+}
+
+.achievement-description {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    line-height: 1.8;
+}
+
+.achievement-details {
+    margin-top: 20px;
+}
+
+.detail-item {
+    padding: 8px 0;
+    color: var(--text-accent);
+    font-size: 0.95em;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.detail-item::before {
+    content: "→";
+    font-weight: bold;
+    flex-shrink: 0;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--brand-gradient-text);
+}
+
+.impact-badge {
+    display: inline-block;
+    background: rgba(255, 65, 108, 0.1);
+    border: 1px solid rgba(255, 65, 108, 0.3);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    margin-top: 20px;
+    color: #FF416C;
+}
+
+/* --- Summary & Future Sections --- */
+.summary-section {
+    padding: 100px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.section-title {
+    font-size: 2.8em;
+    font-weight: 300;
+    margin-bottom: 60px;
+    color: var(--text-primary);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.summary-card {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: left;
+}
+
+.summary-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: 500;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: var(--brand-gradient-text);
+}
+
+.summary-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.future-section {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+.future-item {
+    padding: 25px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.future-item:last-child { border-bottom: none; }
+.future-item:first-child { padding-top: 0; }
+
+.future-item h4 {
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.future-item p {
+    color: var(--text-secondary);
+    font-size: 1em;
+}
+
+.pending-approval {
+    display: inline-block;
+    background: rgba(255, 152, 0, 0.1);
+    border: 1px solid rgba(255, 152, 0, 0.4);
+    color: #ff9800;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* --- Action Links & Media Queries --- */
+.action-link {
+    display: inline-block;
+    color: var(--text-accent);
+    text-decoration: none;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.action-link:hover {
+    background: var(--text-primary);
+    color: var(--bg-dark);
+    border-color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.8em; }
+    .timeline-line { left: 20px; }
+    .achievement:nth-child(odd),
+    .achievement:nth-child(even) {
+        margin-left: 40px;
+        margin-right: 0;
+    }
+    .metric-number { font-size: 2.8em; }
+    .summary-grid { grid-template-columns: 1fr; }
+}

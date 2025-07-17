@@ -1,0 +1,39 @@
+# LAURA Digital Agency - Robots.txt
+# https://laura.lat
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+Disallow: /php/
+Disallow: /config/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: *.log
+Disallow: *.sql
+Disallow: /backup/
+Disallow: /temp/
+Disallow: /cache/
+User-agent: *
+Disallow: /assets/php/
+Disallow: /assets/css/
+Disallow: /assets/js/
+
+# Specific crawler rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Ubicación de los Sitemaps
+Sitemap: https://www.laura.lat/sitemap.xml
+Sitemap: https://www.laura.lat/sitemap-blog.xml
+
+
+

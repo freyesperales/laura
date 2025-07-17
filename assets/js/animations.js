@@ -349,26 +349,7 @@ setupCounterAnimations() {
     });
   },
 
-  /**
-   * Add loading animation to elements
-   */
-  addLoadingAnimation(element, text = 'Cargando...') {
-    const originalContent = element.innerHTML;
-    
-    element.innerHTML = `
-      <div class="loading-animation">
-        <div class="loading-spinner"></div>
-        <span>${text}</span>
-      </div>
-    `;
-    
-    element.classList.add('loading');
-    
-    return () => {
-      element.innerHTML = originalContent;
-      element.classList.remove('loading');
-    };
-  },
+
 
   /**
    * Animate element entrance

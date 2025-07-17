@@ -1,186 +1,219 @@
 <?php
-// enviar_contacto.php
+/**
+ * LAURA DIGITAL AGENCY - Contact Form Handler
+ * Procesa los formularios de contacto
+ * Version: 2.0
+ */
 
-// --- INICIO DE LA MODIFICACIÓN IMPORTANTE PARA SEGURIDAD ---
-// Incluir el archivo de configuración seguro
-// Ajusta la ruta absoluta a donde hayas colocado config_secure.php
-// Esta ruta es un EJEMPLO, necesitas saber la ruta correcta en tu servidor FastComet
-$configFile = '/home/tu_usuario_fastcomet/config/config_secure.php'; // ¡AJUSTA ESTA RUTA!
+// Configuración
+require_once 'config_secure.php';
 
-if (file_exists($configFile)) {
-    require $configFile;
-} else {
-    error_log("Error Crítico: No se pudo encontrar el archivo de configuración segura: " . $configFile);
-    http_response_code(500); // Internal Server Error
-    // Considerar una respuesta JSON si es seguro que no ha habido output previo
-    // header('Content-Type: application/json'); // Solo si no se ha enviado antes
-    // echo json_encode(['success' => false, 'message' => 'Error interno del servidor (config).']);
-    exit('Error interno del servidor. Contacte al administrador.');
+// Headers para CORS y JSON
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Manejar OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
-// --- FIN DE LA MODIFICACIÓN IMPORTANTE PARA SEGURIDAD ---
 
-// Incluir la librería PHPMailer
-require 'PHPMailer/src/Exception.php'; // Asegúrate que la ruta a PHPMailer sea correcta
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Las variables de configuración ya no se definen aquí directamente.
-// Se usan las constantes definidas en config_secure.php
-
-header('Content-Type: application/json');
-
-// 1. Validar el método de la petición (igual que antes)
+// Solo aceptar POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
-    exit;
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+    exit();
 }
 
-// 2. Leer y decodificar el cuerpo JSON de la petición (igual que antes)
-$jsonPayload = file_get_contents('php://input');
-$data = json_decode($jsonPayload, true);
+// Obtener datos JSON
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
 
-if (json_last_error() !== JSON_ERROR_NONE || !$data) {
-    echo json_encode(['success' => false, 'message' => 'Error en los datos recibidos (JSON inválido).']);
-    exit;
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Datos inválidos']);
+    exit();
 }
 
-// --- INICIO VERIFICACIÓN RECAPTCHA (USANDO CONSTANTE) ---
-if (!isset($data['g-recaptcha-response'])) {
-    echo json_encode(['success' => false, 'message' => 'Falta el token de reCAPTCHA.']);
-    exit;
-}
-$recaptchaToken = $data['g-recaptcha-response'];
-
-$recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
-$recaptchaData = [
-    'secret'   => RECAPTCHA_SECRET_KEY, // Usando la constante desde config_secure.php
-    'response' => $recaptchaToken,
-    'remoteip' => $_SERVER['REMOTE_ADDR']
-];
-// ...  lógica de reCAPTCHA ...
-$options = [
-    'http' => [
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-        'method'  => 'POST',
-        'content' => http_build_query($recaptchaData),
-    ],
-];
-$context  = stream_context_create($options);
-$recaptchaResultJson = file_get_contents($recaptchaUrl, false, $context);
-
-if ($recaptchaResultJson === FALSE) {
-    error_log('reCAPTCHA verification request failed.');
-    echo json_encode(['success' => false, 'message' => 'No se pudo verificar el reCAPTCHA. Inténtalo más tarde.']);
-    exit;
-}
-$recaptchaResult = json_decode($recaptchaResultJson);
-
-if (!$recaptchaResult->success || $recaptchaResult->score < 0.5 || $recaptchaResult->action !== 'contact_form_submit') {
-    $logMessage = 'reCAPTCHA verification failed. Success: ' . ($recaptchaResult->success ? 'true' : 'false');
-    if (isset($recaptchaResult->score)) $logMessage .= ', Score: ' . $recaptchaResult->score;
-    if (isset($recaptchaResult->action)) $logMessage .= ', Action: ' . $recaptchaResult->action;
-    if (isset($recaptchaResult->{'error-codes'})) $logMessage .= ', Error Codes: ' . json_encode($recaptchaResult->{'error-codes'});
-    error_log($logMessage);
-    echo json_encode(['success' => false, 'message' => 'Verificación anti-bot fallida.']);
-    exit;
-}
-// --- FIN VERIFICACIÓN RECAPTCHA ---
-
-
-// 3. Definir campos esperados y sus reglas de validación (igual que antes)
-$expectedFields = [
-    // ... (tu definición de $expectedFields) ...
-    'firstName' => ['required' => true, 'maxLength' => 100],
-    'email'     => ['required' => true, 'isEmail' => true, 'maxLength' => 254],
-    'company'   => ['required' => false, 'maxLength' => 150],
-    'service'   => ['required' => true, 'allowedValues' => ['web', 'security', 'marketing', 'consulting', 'all']],
-    'message'   => ['required' => true, 'maxLength' => 5000],
-    'budget'    => ['required' => false, 'allowedValues' => ['20-50uf', '50-100uf', '100-200uf', '200uf+','']]
-];
-// ... (resto de la validación de campos, igual que antes, $validatedData, $errors) ...
-unset($data['g-recaptcha-response']); // Importante: quitar el token antes de validar campos del formulario
-// ... (bucle foreach para validar campos) ...
-$validatedData = [];
-$errors = [];
-
-foreach ($expectedFields as $fieldKey => $rules) {
-    $value = isset($data[$fieldKey]) ? trim($data[$fieldKey]) : '';
-    $sanitizedValue = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-
-    if ($rules['required'] && empty($sanitizedValue)) {
-        $errors[$fieldKey] = ucfirst($fieldKey) . " es obligatorio.";
-        continue;
+// Validar campos requeridos
+$required_fields = ['firstName', 'email', 'service', 'message'];
+foreach ($required_fields as $field) {
+    if (empty($data[$field])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => "Campo requerido: $field"]);
+        exit();
     }
-    if (!empty($sanitizedValue) && isset($rules['maxLength']) && mb_strlen($sanitizedValue, 'UTF-8') > $rules['maxLength']) {
-        $errors[$fieldKey] = ucfirst($fieldKey) . " excede la longitud máxima de " . $rules['maxLength'] . " caracteres.";
-    }
-    if (isset($rules['isEmail']) && $rules['isEmail'] && !empty($sanitizedValue)) {
-        if (!filter_var($sanitizedValue, FILTER_VALIDATE_EMAIL)) {
-            $errors[$fieldKey] = "El formato de " . ucfirst($fieldKey) . " no es válido.";
+}
+
+// Sanitizar datos
+$firstName = filter_var($data['firstName'], FILTER_SANITIZE_STRING);
+$email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+$company = isset($data['company']) ? filter_var($data['company'], FILTER_SANITIZE_STRING) : 'No especificada';
+$service = filter_var($data['service'], FILTER_SANITIZE_STRING);
+$message = filter_var($data['message'], FILTER_SANITIZE_STRING);
+$budget = isset($data['budget']) ? filter_var($data['budget'], FILTER_SANITIZE_STRING) : 'No especificado';
+$timestamp = isset($data['timestamp']) ? $data['timestamp'] : date('c');
+
+// Validar email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Email inválido']);
+    exit();
+}
+
+// Mapear servicios
+$service_names = [
+    'web' => 'Desarrollo Web',
+    'security' => 'Ciberseguridad',
+    'marketing' => 'Marketing Digital',
+    'consulting' => 'Consultoría',
+    'all' => 'Solución integral'
+];
+$service_name = isset($service_names[$service]) ? $service_names[$service] : $service;
+
+// Preparar email
+$to = CONTACT_EMAIL; // Definido en config_secure.php
+$subject = "Nuevo contacto LAURA: $firstName - $service_name";
+
+// Email HTML
+$email_body = "
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #E11D48; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f8f9fa; padding: 30px; border: 1px solid #ddd; border-radius: 0 0 8px 8px; }
+        .field { margin-bottom: 20px; }
+        .label { font-weight: bold; color: #666; }
+        .value { margin-top: 5px; padding: 10px; background: white; border-radius: 4px; }
+        .footer { margin-top: 30px; text-align: center; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h2>Nuevo Contacto desde LAURA</h2>
+        </div>
+        <div class='content'>
+            <div class='field'>
+                <div class='label'>Nombre:</div>
+                <div class='value'>$firstName</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Email:</div>
+                <div class='value'><a href='mailto:$email'>$email</a></div>
+            </div>
+            <div class='field'>
+                <div class='label'>Empresa:</div>
+                <div class='value'>$company</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Servicio de interés:</div>
+                <div class='value'>$service_name</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Presupuesto:</div>
+                <div class='value'>$budget</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Mensaje:</div>
+                <div class='value'>$message</div>
+            </div>
+            <div class='field'>
+                <div class='label'>Fecha y hora:</div>
+                <div class='value'>$timestamp</div>
+            </div>
+        </div>
+        <div class='footer'>
+            Este mensaje fue enviado desde el formulario de contacto de laura.lat
+        </div>
+    </div>
+</body>
+</html>
+";
+
+// Email headers
+$headers = [
+    'MIME-Version: 1.0',
+    'Content-type: text/html; charset=UTF-8',
+    'From: ' . SENDER_EMAIL,
+    'Reply-To: ' . $email,
+    'X-Mailer: PHP/' . phpversion()
+];
+
+// Enviar email
+$mail_sent = mail($to, $subject, $email_body, implode("\r\n", $headers));
+
+if ($mail_sent) {
+    // Guardar en base de datos si está configurada
+    if (defined('DB_ENABLED') && DB_ENABLED) {
+        try {
+            $pdo = new PDO(
+                'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
+                DB_USER,
+                DB_PASS
+            );
+            
+            $stmt = $pdo->prepare("
+                INSERT INTO contacts (name, email, company, service, budget, message, created_at)
+                VALUES (:name, :email, :company, :service, :budget, :message, NOW())
+            ");
+            
+            $stmt->execute([
+                ':name' => $firstName,
+                ':email' => $email,
+                ':company' => $company,
+                ':service' => $service,
+                ':budget' => $budget,
+                ':message' => $message
+            ]);
+        } catch (PDOException $e) {
+            error_log('Database error: ' . $e->getMessage());
         }
     }
-    if (isset($rules['allowedValues']) && !empty($sanitizedValue)) {
-        if (!in_array($sanitizedValue, $rules['allowedValues'])) {
-            $errors[$fieldKey] = "El valor para " . ucfirst($fieldKey) . " no es válido.";
-        }
+    
+    // Enviar notificación a Slack si está configurado
+    if (defined('SLACK_WEBHOOK') && SLACK_WEBHOOK) {
+        $slack_message = [
+            'text' => "🎉 Nuevo contacto desde LAURA",
+            'attachments' => [[
+                'color' => '#E11D48',
+                'fields' => [
+                    ['title' => 'Nombre', 'value' => $firstName, 'short' => true],
+                    ['title' => 'Email', 'value' => $email, 'short' => true],
+                    ['title' => 'Empresa', 'value' => $company, 'short' => true],
+                    ['title' => 'Servicio', 'value' => $service_name, 'short' => true],
+                    ['title' => 'Presupuesto', 'value' => $budget, 'short' => true],
+                    ['title' => 'Mensaje', 'value' => $message, 'short' => false]
+                ]
+            ]]
+        ];
+        
+        $ch = curl_init(SLACK_WEBHOOK);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($slack_message));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        curl_close($ch);
     }
-    $validatedData[$fieldKey] = $sanitizedValue;
-}
-
-if (!empty($errors)) {
-    $firstErrorField = key($errors);
-    $firstErrorMessage = $errors[$firstErrorField];
-    echo json_encode(['success' => false, 'message' => "Error de validación: " . $firstErrorMessage, 'errors' => $errors]);
-    exit;
-}
-
-
-// Mapeo de valores (igual que antes)
-// ...
-$serviceLabels = [ /*...*/ ]; $budgetLabels = [ /*...*/ ]; // (los mismos que antes)
-$serviceDisplay = $serviceLabels[$validatedData['service']] ?? $validatedData['service'];
-$budgetDisplay = $budgetLabels[$validatedData['budget']] ?? $validatedData['budget'];
-
-
-// 4. Construir el cuerpo del email (igual que antes, usando $validatedData)
-// ...
-$asuntoEmail = "Nuevo Contacto Web (reCAPTCHA OK): " . $validatedData['firstName'] . ($validatedData['company'] ? " de " . $validatedData['company'] : "");
-$cuerpoEmail = "Has recibido un nuevo mensaje de contacto (Verificado por reCAPTCHA v3):\n\n";
-// ... (resto del cuerpo del email)
-
-
-// 5. Enviar el correo usando PHPMailer (usando las CONSTANTES)
-$mail = new PHPMailer(true);
-
-try {
-    // Configuración del servidor SMTP de Gmail
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = REMITENTE_EMAIL;         // Usando la constante
-    $mail->Password = GMAIL_APP_PASSWORD;      // Usando la constante
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Port = 465;
-    $mail->CharSet = 'UTF-8';
-
-    // Remitente y Destinatario(s)
-    $mail->setFrom(REMITENTE_EMAIL, REMITENTE_NOMBRE); // Usando constantes
-    $mail->addAddress(DESTINATARIO_EMAIL, DESTINATARIO_NOMBRE); // Usando constantes
-    $mail->addReplyTo($validatedData['email'], $validatedData['firstName']);
-
-    // Contenido del email (igual que antes)
-    $mail->isHTML(false);
-    $mail->Subject = $asuntoEmail;
-    $mail->Body    = $cuerpoEmail;
-
-    $mail->send();
-    echo json_encode(['success' => true, 'message' => '¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.']);
-
-} catch (Exception $e) {
-    error_log("PHPMailer Error: {$mail->ErrorInfo} | User Data: " . json_encode($validatedData));
-    echo json_encode(['success' => false, 'message' => 'El mensaje no pudo ser enviado. Por favor, inténtalo más tarde.']);
+    
+    // Respuesta exitosa
+    echo json_encode([
+        'success' => true,
+        'message' => 'Mensaje enviado correctamente. Te contactaremos pronto.'
+    ]);
+} else {
+    // Error al enviar
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error al enviar el mensaje. Por favor, intenta nuevamente.'
+    ]);
 }
 ?>

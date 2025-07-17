@@ -31,22 +31,34 @@ Estructura:
   --primary-600: #5a67d8;
   --primary-700: #4c51bf;
   --secondary-500: #764ba2;
-  --accent-500: #4f46e5;
+  --accent-500: #6946e5;
+
+  --color-accent-primary: #e21e5c; /* Magenta principal (se mantiene) */
+  --color-accent-primary-light: #ff4081; /* Versión clara del magenta */
+  --color-accent-secondary: #0EA5E9; /* Cian/Azul tech (Tailwind Sky 500) */
+  --color-accent-secondary-light: #38BDF8; /* Versión clara del cian */
+
+  --primary-color: #e21e5c;
+  --secondary-color-purple: #702FFF; /* O #5F27CD si prefieres más profundo */
+  --text-color: #333333; /* Ejemplo */
+  --background-color:rgba(26, 29, 35, 0.95);
+  --light-gray: #f4f4f4; /* Ejemplo */
+  --dark-gray: #a9a9a9; /* Ejemplo */
 
   /* Colores dark theme */
   --dark-bg-primary: #1a1d23;
   --dark-bg-secondary: #2a2d3a;
   --dark-bg-tertiary: #363942;
   --dark-bg-card: #2d3038;
-  --dark-text-primary: #f8f9fa;
-  --dark-text-secondary: #adb5bd;
-  --dark-text-muted: #6c757d;
+  --dark-text-primary: #F1F5F9; /* Blanco pizarra (Tailwind Slate 100) */
+  --dark-text-secondary: #94A3B8; /* Gris pizarra (Tailwind Slate 400) */
+  --dark-text-muted: #64748B; /* Gris pizarra oscuro (Tailwind Slate 500) */
   --color-accent: #e21e5c;
   --color-accent-light: #ff4081;
   --color-accent-dark: #c91847;
   --color-bone: #f5f5dc;
   --color-graphite: #41444b;
-  --dark-border: #404651;
+  --dark-border: #334155; /* Borde sutil (Tailwind Slate 700) */
   --dark-shadow: rgba(0, 0, 0, 0.3);
 
   /* Grayscale */
@@ -155,12 +167,28 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: 1.6;
   color: var(--dark-text-primary); 
-  background-color: var(--dark-bg-primary);
+  background-color: var(--dark-bg-primary); /* <-- Asegúrate que esta línea esté presente */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed; /* Fija el ruido para que cubra toda la ventana visible */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Ancho completo de la ventana */
+  height: 100vh; /* Alto completo de la ventana */
+  background-image: url('../img/noise.png'); /* Ajusta la ruta si es necesario */
+  opacity: 0.05; /* ¡Experimenta con este valor! Entre 0.03 y 0.08 suele ser bueno */
+  pointer-events: none; /* Para que no interfiera con los clics */
+  z-index: 9999; /* Un valor alto para que esté por encima de la mayoría del contenido */
+                 /* pero asegúrate de que no cubra modales o menús desplegables. */
+                 /* Si tienes elementos con z-index muy alto, ajusta este. */
+                 /* Alternativamente, un z-index: -1 si el body tiene un background-color sólido y no hay otros elementos de fondo. */
+                 /* Pero con fixed, un z-index alto y pointer-events: none es más robusto para overlay. */
+}
 img {
   max-width: 100%;
   height: auto;
@@ -204,14 +232,18 @@ select {
   }
 }
 
+/* Estilo para las secciones impares (1, 3, 5...) */
 .section {
   padding: var(--space-20) 0;
-  background-color: rgba(26, 29, 35, 0.95); 
+  background-color: var(--dark-bg-primary);
 }
 
+/* Estilo para las secciones pares (2, 4, 6...) */
 .section-alt {
-  background-color: rgba(42, 45, 58, 0.95);
+  padding: var(--space-20) 0;
+  background-color: var(--dark-bg-secondary);
 }
+
 
 .section-header {
   text-align: center;
@@ -481,7 +513,7 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 4rem;
+  height: 5rem;
 }
 
 .nav-brand .logo {
@@ -620,48 +652,6 @@ select {
   z-index: 1;
 }
 
-.gradient-orb { /* From main.css */
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  animation: float 6s ease-in-out infinite;
-}
-
-.orb-1 { /* From main.css */
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(226, 30, 92, 0.3) 0%, transparent 70%);
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.orb-2 { /* From main.css */
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
-  top: 60%;
-  right: 20%;
-  animation-delay: 2s;
-}
-
-.orb-3 { /* From main.css */
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(118, 75, 162, 0.2) 0%, transparent 70%);
-  bottom: 20%;
-  left: 60%;
-  animation-delay: 4s;
-}
-
-@keyframes float { /* From main.css */
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-20px) scale(1.1);
-  }
-}
 
 .hero-badge-dark { /* From main.css */
   background: rgba(226, 30, 92, 0.1);
@@ -1381,39 +1371,7 @@ select {
   50% { opacity: 0.5; }
 }
 
-/* Loading Spinner */
-.loading-spinner { /* Used by index.html */
-  position: fixed;
-  top: 0; /* Corrected from 50% for full coverage */
-  left: 0; /* Corrected from 50% for full coverage */
-  width: 100%;
-  height: 100%;
-  background: var(--dark-bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
 
-.loading-spinner.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.spinner { /* Used by index.html loading spinner */
-  width: 3rem;
-  height: 3rem;
-  border: 3px solid var(--dark-border);
-  border-top: 3px solid var(--color-accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
 /* Hover Effects */
 .hover-lift {
@@ -1425,10 +1383,6 @@ select {
   box-shadow: 0 20px 40px rgba(226, 30, 92, 0.15); /* Was --shadow-xl */
 }
 
-/* Responsive Utilities */
-.hidden { /* Used by index.html for service plans, loading spinner */
-  display: none !important; /* Added !important from one of the definitions */
-}
 
 .sr-only {
   position: absolute;
@@ -1452,7 +1406,6 @@ select {
 @media print {
   .navbar,
   .hero-visual,
-  .loading-spinner,
   .blog-search, /* from blog.html context but general enough */
   .blog-filters, /* from blog.html context */
   .article-cta, /* from blog.html context */
@@ -1554,13 +1507,7 @@ select {
 
 /* Progressive Enhancement & Accessibility (already good) */
 .no-js .service-plans-container { display: block !important; }
-.no-js .loading-spinner { display: none !important; }
-.visually-hidden { /* Same as .sr-only */ }
-.skip-link:focus { }
 
-/* Advanced Grid Layouts */
-.masonry-grid { }
-.masonry-item { }
 
 
 /* ========================================
@@ -2325,7 +2272,6 @@ select {
   .status-dot, /* pulse animation */
   .fade-in,
   .hover-lift,
-  .spinner, /* loading spinner */
   .scroll-wheel, /* scroll indicator */
   .bounce /* scroll indicator */ {
     animation: none !important;
@@ -2378,4 +2324,652 @@ select {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* O un --light-gray si quieres alternar */
+
+
+.team-section {
+  background-color: var(--dark-bg-card); /* O un --light-gray si quieres alternar */
+  padding-bottom: 80px;
+    padding-top: 80px;
+}
+
+.team-section .section-title,
+.team-section .section-subtitle {
+  margin-bottom: 1rem; /* Ajusta según tu espaciado general */
+}
+.team-section .section-subtitle {
+  margin-bottom: 3rem; /* Más espacio antes del contenido principal de la sección */
+}
+
+.founder-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* Espacio entre imagen y texto en móvil */
+  text-align: center; /* Centrado en móvil */
+}
+
+.founder-image-container {
+  flex-shrink: 0;
+  margin-bottom: 1.5rem;
+  z-index: 99999;
+}
+
+.founder-image {
+  max-width: 250px; /* Tamaño máximo de la imagen */
+  height: auto;
+  border-radius: 50%; /* Imagen circular, muy de moda y personal */
+}
+
+.founder-details {
+  max-width: 750px; /* Ancho máximo del texto para legibilidad */
+}
+
+.founder-name {
+  font-size: 2rem; /* Ajusta según tu jerarquía */
+  color: var(--primary-color); /* O --secondary-color-purple */
+  margin-bottom: 0.25rem;
+}
+
+.founder-title {
+  font-size: 1.1rem;
+  color: var(--dark-gray);
+  margin-bottom: 1.5rem;
+}
+
+.founder-experience h4 {
+  font-size: 1.3rem;
+  color: var(--dark-text-muted); /* Usando el nuevo color para este subtítulo */
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.founder-experience p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.founder-contact-cta {
+  margin-top: 2rem;
+}
+
+.founder-contact-cta .btn {
+  margin-right: 1rem; /* Espacio entre botones si hay más de uno */
+}
+
+
+/* Tablet y Desktop */
+@media (min-width: 768px) {
+  .founder-profile {
+    flex-direction: row;
+    text-align: left; /* Alineación a la izquierda en pantallas más grandes */
+    align-items: flex-start; /* Alinea los items al inicio verticalmente */
+    gap: 3rem; /* Más espacio entre imagen y texto */
+  }
+
+  .founder-image-container {
+    margin-bottom: 0; /* Resetea el margen inferior ya que el gap se encarga */
+  }
+  .founder-image {
+    max-width: 300px; /* Un poco más grande en desktop */
+  }
+}
+
+/* Estilos opcionales para la sección de "Otros miembros del equipo" */
+.team-members {
+  margin-top: 4rem;
+}
+.team-members-title {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+.team-member-card {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--light-gray); /* O #FFFFFF si el fondo de sección es --light-gray */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.team-member-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid var(--primary-color); /* O --secondary-color-purple */
+}
+.team-member-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+}
+.team-member-card p {
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+}
+
+/* =================================================================== */
+/* ESTILOS PARA LA FORMA ORGÁNICA ANIMADA (BLOB)                       */
+/* =================================================================== */
+
+.animated-blob {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 800px;
+  max-height: 800px;
+  transform: translate(-50%, -50%);
+  z-index: 1; 
+background: radial-gradient(circle at 30% 30%, hsla(339, 79%, 57%, 0.3) 0px, transparent 50%), radial-gradient(circle at 70% 70%, hsla(259, 78%, 64%, 0.25) 0px, transparent 50%);  border-radius: 60% 40% 30% 70% / 70% 30% 70% 40%;
+  filter: blur(80px);
+  animation: blob-animate 10s ease-in-out infinite;
+  will-change: transform, border-radius;
+  
+}
+
+@keyframes blob-animate {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 70% 30% 70% 40%;
+  }
+  25% {
+    /* El "respiro" es más grande (scale 1.15) y se mueve más */
+    transform: translate(-55%, -45%) scale(1.15) rotate(20deg);
+  }
+  50% {
+    border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+    /* Se contrae más (scale 0.9) y rota más */
+    transform: translate(-50%, -50%) scale(0.9) rotate(40deg);
+  }
+  75% {
+    /* El "respiro" es más grande (scale 1.15) y se mueve a otro lado */
+    transform: translate(-45%, -55%) scale(1.15) rotate(60deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 70% 30% 70% 40%;
+  }
+}
+
+
+/* IMPORTANTE: Este código asegura que el texto del hero esté por delante de la forma */
+.hero .container {
+  position: relative;
+  z-index: 2; 
+}
+
+/* ====================================================== */
+/* NUEVA PANTALLA DE CARGA (IMPLEMENTACIÓN LIMPIA)       */
+/* ====================================================== */
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-bg-primary); /* Usa el color de fondo principal de tu web */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+  visibility: visible;
+}
+
+.loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden; /* Oculta completamente el elemento cuando no es visible */
+}
+
+.loader-circle {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--dark-border); /* Borde del círculo */
+  border-top-color: var(--color-accent); /* Color principal que gira */
+  border-radius: 50%;
+  animation: loader-spin 1s linear infinite;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ====================================================== */
+/* ESTILOS PARA EL NUEVO LOGO SVG                         */
+/* ====================================================== */
+
+/* Estilo para el logo en la barra de navegación (header) */
+.main-logo-svg {
+  height: 55px; /* <-- Puedes ajustar esta altura como desees */
+  width: auto;
+  display: block; /* Asegura que el logo se muestre correctamente */
+}
+
+/* Estilo para el logo en el pie de página (footer) */
+.footer-logo-svg {
+  height: 100px; /* <-- Un poco más grande para el footer, ajústalo si quieres */
+  width: auto;
+  display: block;
+}
+
+/* === Alineación de Tarjetas de Servicio y Botones === */
+
+/* 1. Hacemos que la tarjeta sea un contenedor flexible en columna */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio de la celda del grid */
+}
+
+/* 2. El nuevo estilo para el botón de la tarjeta */
+.service-card .btn.btn-outline {
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--dark-border);
+  background-color: transparent;
+  color: var(--dark-text-secondary);
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: auto; /* <-- La magia: empuja el botón al final del contenedor flex */
+}
+
+/* 3. Efecto hover para el botón */
+.service-card .btn.btn-outline:hover {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(226, 30, 92, 0.2);
+}
+
+/* 1. Preparamos la sección de contacto para que contenga el blob */
+#contacto {
+    position: relative; /* Clave para posicionar el blob dentro de esta sección */
+    overflow: hidden;   /* Evita que el blob se desborde visualmente */
+}
+
+/* 2. Estilos para el nuevo blob de la sección de contacto */
+.contact-blob {
+  position: absolute;
+  top: 50%;
+  left: 20%; /* Posición a la izquierda, como preferías */
+  width: 70vw;
+  height: 70vw;
+  max-width: 500px;
+  max-height: 500px;
+  transform: translate(-50%, -50%);
+  z-index: 1; 
+  background: radial-gradient(circle at 30% 30%, hsla(339, 79%, 57%, 0.3) 0px, transparent 50%), radial-gradient(circle at 70% 70%, hsla(259, 78%, 64%, 0.25) 0px, transparent 50%);
+  border-radius: 60% 40% 30% 70% / 70% 30% 70% 40%;
+  filter: blur(80px);
+  animation: blob-animate 10s ease-in-out infinite; /* Animación más rápida */
+  will-change: transform, border-radius;
+}
+
+/* 3. Nos aseguramos de que el contenido del contacto esté por delante del blob */
+#contacto .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* assets/css/ondas-animation.css */
+
+/* Contenedor principal de las ondas y puntos */
+.ondas-container { /* Este ya está posicionado para cubrir el hero-background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    /* display: flex; */ /* Podría ayudar a centrar los wrappers si son más pequeños */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.onda-wrapper {
+    position: absolute;
+    /* Centra el origen de las ondas en el medio del ondas-container */
+    top: 15%;
+    left: 48%;
+    transform: translate(-50%, -50%); /* Mantiene el centro del wrapper en este punto */
+
+    /* Define un tamaño para las ondas.
+       Este tamaño determinará qué tan grandes se expanden las ondas.
+       Podrías usar vw/vh para que sea responsivo o un tamaño fijo si la imagen
+       no cambia mucho de proporción.
+       Si la imagen del héroe ocupa, por ejemplo, un 50% del ancho del viewport:
+    */
+    width: 50vw; /* Ajusta esto según el tamaño visual de tu imagen */
+    height: 50vw; /* Mantén la proporción o ajústala */
+    max-width: 800px; /* Un límite para pantallas grandes */
+    max-height: 800px;
+
+    animation: onda-animate linear infinite;
+    /* NOTA: El transform: translate(-50%, -50%) en la animación @onda-animate
+       se aplicará SOBRE este transform.
+       Si @onda-animate también tiene translate(-50%,-50%), se duplicará el efecto
+       y podría descentrarse. Asegúrate de que el translate en @keyframes sea solo
+       para el centrado inicial si el wrapper no lo tiene, o elimínalo de @keyframes
+       si el wrapper ya lo maneja.
+
+       Vamos a asumir que @onda-animate NO tiene el translate(-50%,-50%) y se encarga
+       solo de scale y rotate.
+    */
+}
+
+.onda-wrapper svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; /* Ya centrado por el wrapper */
+  left: 0; /* Ya centrado por el wrapper */
+  overflow: visible;
+  transform-origin: center center;
+}
+
+.onda-wrapper svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1;
+  /* Un color claro y semitransparente, similar a tu imagen de referencia inicial */
+  stroke: rgba(200, 220, 255, 0.2); /* Ajusta la opacidad aquí */
+}
+
+/* Keyframes para la animación de las ondas */
+@keyframes onda-animate {
+  0% {
+    /* El translate(-50%, -50%) ya está en .onda-wrapper,
+       así que aquí solo controlamos scale y rotate */
+    transform: scale(var(--scale-start, 0.1)) rotate(var(--rotate-start, 0deg));
+    opacity: var(--opacity-start, 0);
+  }
+  50% {
+    opacity: var(--opacity-mid, 0.25); /* Opacidad media de las ondas */
+  }
+  100% {
+    transform: scale(var(--scale-end, 1.5)) rotate(var(--rotate-end, 360deg));
+    opacity: var(--opacity-end, 0);
+  }
+}
+
+/* Estilos y overrides para cada capa de onda */
+/* Onda 1 */
+.onda-wrapper:nth-child(1) {
+  animation-duration: 9s;
+  animation-delay: 0s;
+  --scale-start: 0.3; --scale-end: 1.3;
+  --rotate-start: 0deg; --rotate-end: 360deg;
+  --opacity-start: 0; --opacity-mid: 0.2; --opacity-end: 0; /* Sutil */
+}
+.onda-wrapper:nth-child(1) svg path { stroke: rgba(220, 230, 255, 0.2); }
+
+/* Onda 2 */
+.onda-wrapper:nth-child(2) {
+  animation-duration: 10s;
+  animation-delay: -2.5s;
+  --scale-start: 0.2; --scale-end: 1.1;
+  --rotate-start: 30deg; --rotate-end: -330deg;
+  --opacity-start: 0; --opacity-mid: 0.15; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(2) svg path { stroke: rgba(180, 200, 230, 0.15); }
+
+/* Onda 3 */
+.onda-wrapper:nth-child(3) {
+  animation-duration: 8s;
+  animation-delay: -4s;
+  --scale-start: 0.4; --scale-end: 1.5;
+  --rotate-start: -45deg; --rotate-end: 500deg;
+  --opacity-start: 0; --opacity-mid: 0.25; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(3) svg path { stroke: rgba(210, 225, 250, 0.25); }
+
+/* Onda 4 (más grande y lenta) */
+.onda-wrapper:nth-child(4) {
+  animation-duration: 12s;
+  animation-delay: -6s;
+  --scale-start: 0.5; --scale-end: 1.9; /* Se expande más */
+  --rotate-start: 0deg; --rotate-end: -360deg;
+  --opacity-start: 0.05; --opacity-mid: 0.1; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(4) svg path { stroke: rgba(150, 180, 220, 0.1); }
+
+
+/* Puntos parpadeantes */
+.blinking-dot {
+  position: absolute; /* Se posicionarán dentro de .ondas-container */
+  width: 4px; /* Más pequeños y sutiles */
+  height: 4px;
+  background-color: rgba(200, 220, 255, 0.5); /* Menos intensos */
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(200, 220, 255, 0.3), 0 0 6px rgba(200, 220, 255, 0.2);
+  opacity: 0;
+  animation: blink 2.5s infinite ease-in-out;
+  /* Variables para posicionamiento y delay, definidas en el HTML */
+  left: var(--dx);
+  top: var(--dy);
+  animation-delay: var(--dd);
+  z-index: 1; /* Encima de las ondas SVG si es necesario */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.7; transform: scale(1); } /* Opacidad máxima reducida */
+}
+
+/* Contenedor principal de las ondas y puntos */
+.ondas-container { /* Este ya está posicionado para cubrir el hero-background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.onda-wrapper {
+    position: absolute;
+    /* Centra el origen de las ondas en el medio del ondas-container */
+    top: 15%; /* Ideal para desktop donde la imagen está a la derecha */
+    left: 48%; /* Ideal para desktop */
+    transform: translate(-50%, -50%); /* Mantiene el centro del wrapper en este punto */
+
+    /* Define un tamaño para las ondas. */
+    width: 50vw; /* Ajusta esto según el tamaño visual de tu imagen */
+    height: 50vw; /* Mantén la proporción o ajústala */
+    max-width: 800px; /* Un límite para pantallas grandes */
+    max-height: 800px;
+
+    animation: onda-animate linear infinite;
+}
+
+.onda-wrapper svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; /* Ya centrado por el wrapper */
+  left: 0; /* Ya centrado por el wrapper */
+  overflow: visible;
+  transform-origin: center center;
+}
+
+.onda-wrapper svg path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1;
+  /* Un color claro y semitransparente, similar a tu imagen de referencia inicial */
+  stroke: rgba(200, 220, 255, 0.2); /* Ajusta la opacidad aquí */
+}
+
+/* Keyframes para la animación de las ondas */
+@keyframes onda-animate {
+  0% {
+    /* El translate(-50%, -50%) ya está en .onda-wrapper,
+       así que aquí solo controlamos scale y rotate */
+    transform: scale(var(--scale-start, 0.1)) rotate(var(--rotate-start, 0deg));
+    opacity: var(--opacity-start, 0);
+  }
+  50% {
+    opacity: var(--opacity-mid, 0.25); /* Opacidad media de las ondas */
+  }
+  100% {
+    transform: scale(var(--scale-end, 1.5)) rotate(var(--rotate-end, 360deg));
+    opacity: var(--opacity-end, 0);
+  }
+}
+
+/* Estilos y overrides para cada capa de onda */
+/* Onda 1 */
+.onda-wrapper:nth-child(1) {
+  animation-duration: 9s;
+  animation-delay: 0s;
+  --scale-start: 0.3; --scale-end: 1.3;
+  --rotate-start: 0deg; --rotate-end: 360deg;
+  --opacity-start: 0; --opacity-mid: 0.2; --opacity-end: 0; /* Sutil */
+}
+.onda-wrapper:nth-child(1) svg path { stroke: rgba(220, 230, 255, 0.2); }
+
+/* Onda 2 */
+.onda-wrapper:nth-child(2) {
+  animation-duration: 10s;
+  animation-delay: -2.5s;
+  --scale-start: 0.2; --scale-end: 1.1;
+  --rotate-start: 30deg; --rotate-end: -330deg;
+  --opacity-start: 0; --opacity-mid: 0.15; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(2) svg path { stroke: rgba(180, 200, 230, 0.15); }
+
+/* Onda 3 */
+.onda-wrapper:nth-child(3) {
+  animation-duration: 8s;
+  animation-delay: -4s;
+  --scale-start: 0.4; --scale-end: 1.5;
+  --rotate-start: -45deg; --rotate-end: 500deg;
+  --opacity-start: 0; --opacity-mid: 0.25; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(3) svg path { stroke: rgba(210, 225, 250, 0.25); }
+
+/* Onda 4 (más grande y lenta) */
+.onda-wrapper:nth-child(4) {
+  animation-duration: 12s;
+  animation-delay: -6s;
+  --scale-start: 0.5; --scale-end: 1.9; /* Se expande más */
+  --rotate-start: 0deg; --rotate-end: -360deg;
+  --opacity-start: 0.05; --opacity-mid: 0.1; --opacity-end: 0;
+}
+.onda-wrapper:nth-child(4) svg path { stroke: rgba(150, 180, 220, 0.1); }
+
+
+/* Puntos parpadeantes */
+.blinking-dot {
+  position: absolute; /* Se posicionarán dentro de .ondas-container */
+  width: 4px; /* Más pequeños y sutiles */
+  height: 4px;
+  background-color: rgba(200, 220, 255, 0.5); /* Menos intensos */
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(200, 220, 255, 0.3), 0 0 6px rgba(200, 220, 255, 0.2);
+  opacity: 0;
+  animation: blink 2.5s infinite ease-in-out;
+  /* Variables para posicionamiento y delay, definidas en el HTML */
+  left: var(--dx);
+  top: var(--dy);
+  animation-delay: var(--dd);
+  z-index: 1; /* Encima de las ondas SVG si es necesario */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 0.7; transform: scale(1); } /* Opacidad máxima reducida */
+}
+
+
+/* ---------------------------------------------- */
+/* Responsive: Ajustes para iPad y Móvil          */
+/* ---------------------------------------------- */
+
+/* Estilos para tabletas (ej. iPad, hasta 1024px) */
+@media (max-width: 1024px) {
+    .onda-wrapper {
+        /* Centramos las ondas más hacia el medio verticalmente */
+        top: 30%; 
+        left: 50%;
+        
+        /* Hacemos las ondas más grandes para que cubran más espacio de fondo */
+        width: 80vw;
+        height: 80vw;
+        max-width: 900px;
+        max-height: 900px;
+    }
+
+    .hero-visual-desktop {
+        /* Si la imagen en tableta ocupa menos espacio o desaparece,
+           las ondas deben centrarse. Este ajuste es clave. */
+        display: none; /* O ajusta su layout según tu diseño */
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Estilos para móviles (hasta 767px) */
+@media (max-width: 767px) {
+    .onda-wrapper {
+        /* En móvil, el contenido suele estar apilado.
+           Centramos las ondas en el tercio superior de la pantalla. */
+        top: 25%;
+        left: -10%;
+        
+        /* Aumentamos el tamaño relativo para que se vean bien en pantallas pequeñas */
+        width: 120vw;
+        height: 120vw;
+        
+        /* Ajustamos la opacidad media para que no distraigan tanto */
+        --opacity-mid: 0.15; 
+    }
+
+    /* Opcional: Podrías hacer los puntos un poco más pequeños en móvil */
+    .blinking-dot {
+        width: 3px;
+        height: 3px;
+    }
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }

@@ -47,7 +47,7 @@ window.LAURA_Components = {
             <li><i class="fas fa-check"></i>${feature}</li>
           `).join('')}
         </ul>
-        <button class="service-cta" type="button" data-service-id="${service.id}" onclick="showServicePlans('${service.id}')">
+        <button class="service-cta btn btn-outline" type="button" data-service-id="${service.id}" onclick="showServicePlans('${service.id}')">
           ${service.cta}
         </button>
       </div>
@@ -691,10 +691,9 @@ Me gustaría conocer más detalles sobre:
     return `
       <div class="footer-section footer-brand">
         <div class="footer-logo">
-          <div class="logo-icon">
-            <i class="fas fa-brain"></i>
-          </div>
-          <span class="logo-text gradient-text">${company.name}</span>
+          <a href="#inicio" title="Ir al inicio">
+            <img src="./assets/img/logo.svg" alt="LAURA Logo" class="footer-logo-svg">
+          </a>
         </div>
         <p class="footer-description">${section.content.description}</p>
         ${section.content.socialLinks ? `

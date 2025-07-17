@@ -1,7 +1,7 @@
 <!-- 
 LAURA DIGITAL AGENCY
-Arquitectura Escalable y Modular
-Autor: LAURA Dev Team
+Autor: Francisco Reyes P.
+Contacto: francisco@laura.lat
 Versión: 1.0.0
 -->
 
@@ -115,7 +115,6 @@ Versión: 1.0.0
     
     <!-- Non-critical CSS -->
     <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/ondas-animation.css">
     
     <!-- Fonts (load after critical CSS) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -131,12 +130,9 @@ Versión: 1.0.0
             <div class="nav-content">
                 <!-- Logo -->
                 <div class="nav-brand">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <span class="logo-text gradient-text">LAURA</span>
-                    </div>
+                    <a href="#inicio" title="Ir al inicio">
+                        <img src="/assets/img/logo.svg" alt="LAURA Gestión Digital Logo" class="main-logo-svg">
+                    </a>
                 </div>
                 
                 <!-- Desktop Navigation -->
@@ -144,6 +140,7 @@ Versión: 1.0.0
                     <a href="#inicio" class="nav-link">Inicio</a>
                     <a href="#servicios" class="nav-link">Servicios</a>
                     <a href="#nosotros" class="nav-link">Nosotros</a>
+                    <a href="#planes" class="nav-link">Planes</a>
                     <a href="#clientes" class="nav-link">Clientes</a>
                     <a href="#contacto" class="btn-primary">Contacto</a>
                 </div>
@@ -160,7 +157,7 @@ Versión: 1.0.0
 
 <!-- HERO SECTION - DARK MODE CON FONDO ANIMADO CORREGIDO -->
 <section id="inicio" class="hero section hero-dark">
-    <!-- Ondas animadas de fondo -->
+    <!-- Ondas animadas de fondo
     <div class="ondas-container">
         <div class="onda-wrapper">
             <svg viewBox="-100 -100 200 200">
@@ -186,7 +183,6 @@ Versión: 1.0.0
             </svg>
         </div>
         
-        <!-- Puntos parpadeantes -->
         <div class="blinking-dot" style="--dx: 20%; --dy: 25%; --dd: 0s;"></div>
         <div class="blinking-dot" style="--dx: 75%; --dy: 35%; --dd: 0.3s;"></div>
         <div class="blinking-dot" style="--dx: 50%; --dy: 75%; --dd: 0.6s;"></div>
@@ -196,15 +192,8 @@ Versión: 1.0.0
         <div class="blinking-dot" style="--dx: 85%; --dy: 80%; --dd: 0.5s;"></div>
         <div class="blinking-dot" style="--dx: 15%; --dy: 50%; --dd: 0.8s;"></div>
         <div class="blinking-dot" style="--dx: 80%; --dy: 10%; --dd: 1.1s;"></div>
-    </div>
-    
-    <!-- Fondo con gradientes adicionales -->
-    <div class="hero-background">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
-    </div>
-    
+    </div> -->
+    <div class="animated-blob"></div>
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
@@ -323,7 +312,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="coming-soon-ribbon">Pronto</div>
                     </button>
                 </div>
-                
+                <div><a href="https://www.google.com/partners/agency?id=5572476115" target="_blank">
+    <img src="https://www.gstatic.com/partners/badge/images/2025/PartnerBadgeClickable.svg"/>
+</a></div>
                 <!-- Stats mejoradas -->
                 <div class="hero-stats hero-stats-dark">
                     <div class="stat">
@@ -344,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="hero-visual hero-visual-desktop">
                 <div class="hero-image hero-image-dark">
                     <img src="./assets/img/agencia-laura-seguridad-web.png" 
-                         alt="LAURA AI Dashboard" 
+                         alt="Laura luchando contra un dragon que representa el mal en Internet" 
                          class="floating"
                          loading="eager">
                 </div>
@@ -427,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </h2>
                     
                     <p class="about-description">
-                        Somos una agencia digital que combina la creatividad humana con la precisión de la inteligencia artificial. Nuestro nombre representa la síntesis perfecta entre tecnología avanzada y toque personal.
+                        Somos una agencia de gestión digital que combina la creatividad humana con la precisión de la inteligencia artificial. Nuestro nombre representa la síntesis perfecta entre tecnología avanzada y toque personal.
                     </p>
                     
                     <div class="features-list">
@@ -437,10 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 <div class="about-visual">
                     <div class="about-image">
-                        <img src="https://via.placeholder.com/600x500/f8fafc/667eea?text=LAURA+Team+%2B+AI" 
-                             alt="Equipo LAURA trabajando con IA" 
-                             loading="lazy"
-                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDYwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiNmOGZhZmMiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjY3ZWVhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RXF1aXBvIExBVVJBPC90ZXh0Pjwvc3ZnPg=='">
                         <div class="status-indicator">
                             <div class="status-dot"></div>
                             <p>IA trabajando 24/7</p>
@@ -452,7 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="section section-alt">
+    <section class="section section-alt" id="crecer-negocio">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">
@@ -578,32 +565,40 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </section>
-
-    <!-- Clients Section -->
-    <section id="clientes" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    Clientes que <span class="gradient-text">confían en nosotros</span>
-                </h2>
-                <p class="section-subtitle">
-                    Desde startups hasta empresas consolidadas, ayudamos a crecer negocios de todos los tamaños
-                </p>
-            </div>
-            
-            <!-- Client Logos -->
-            <div class="clients-logos">
-                <!-- Client logos will be loaded via JavaScript -->
-            </div>
-            
-            <!-- Testimonials -->
-            <div class="testimonials-grid">
-                <!-- Testimonials will be loaded via JavaScript -->
-            </div>
+<section id="team" class="team-section section-padding">
+          <div class="section-header">
+            <h2 class="section-title">
+                ¿Quién está detrás de la <span class="gradient-text">Agencia Laura?</span>
+            </h2>
+            <p class="section-subtitle">
+                En Laura existe un equipo versátil y eficiente que a través de la IA te ayudará a resolver tus proyectos.
+            </p>
         </div>
-    </section>
+        <div class="container">
+    <div class="founder-profile" data-aos="fade-up" data-aos-delay="200">
+      <div class="founder-image-container">
+        <img src="assets/img/frp.webp" alt="Francisco Reyes P, Fundadora de LAURA Agencia Digital" class="founder-image">
+      </div>
+      <div class="founder-details">
+        <h2 class="founder-name">Francisco Reyes P.</h2>
+        <p class="founder-title">Emprendedor 🏪 | Ciberseguridad 🦠 | Ciberinteligencia 🕵️ | Desarrollo Web 🌐 | Wordpress 🎯 | Marketing Digital 💸l | TI 💻| Mentor de Nuevos Negocios 🪜</p>
+        <div class="founder-experience">
+          <h4>Mi Trayectoria:</h4>
+          <p>🌱Emprendedor especializado en transformación digital, con más de una década creando e implementando soluciones innovadoras para PYMEs. Mi experiencia combina creatividad estratégica con sólidos conocimientos en desarrollo web, ciberseguridad e inteligencia artificial.</p>
+          <p>🪴Mi trayectoria evolutiva desde el Marketing Digital hasta la Ciberseguridad me permiten diseñar soluciones integrales que equilibran innovación, seguridad y rentabilidad. He desarrollado distintas soluciones para optimizar procesos externos e internos a través de la IA y programación.</p>
+          <p>🌳Mi enfoque actual combina protección digital, automatización inteligente y optimización de procesos para potenciar el crecimiento sostenible de negocios.</p>
+          </div>
+        <div class="founder-contact-cta">
+          <a href="#contact" class="btn btn-primary">Hablemos de tu Proyecto</a>
+          </div>
+      </div>
+    </div>
 
-    <!-- Blog/Articles Section -->
+    </div>
+</section>
+   
+
+    <!-- Blog/Articles Section
     <section id="blog" class="section">
         <div class="container">
             <div class="section-header">
@@ -616,7 +611,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             
             <div class="blog-grid">
-                <!-- Featured articles will be loaded via JavaScript -->
             </div>
             
             <div class="blog-actions">
@@ -626,11 +620,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- Contact Section -->
     <section id="contacto" class="section">
         <div class="container">
+            <div class="contact-blob"></div> <div class="container"></div>
             <div class="contact-content">
                 <div class="contact-info">
                     <h2 class="section-title">
@@ -681,12 +676,9 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </footer>
-
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loading-spinner">
-        <div class="spinner"></div>
+<div class="loader-overlay" id="loader-overlay">
+        <div class="loader-circle"></div>
     </div>
-
     <!-- Scripts -->
     <script src="./assets/js/config.js"></script>
     <script src="./assets/js/components.js"></script>

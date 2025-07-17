@@ -1,0 +1,23 @@
+ <!-- Clients Section -->
+    <section id="clientes" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Clientes que han <span class="gradient-text">confiado en nosotros</span>
+                </h2>
+                <p class="section-subtitle">
+                    Desde startups hasta empresas consolidadas, ayudamos a crecer negocios de todos los tamaños
+                </p>
+            </div>
+            
+            <!-- Client Logos -->
+            <div class="clients-logos">
+                <!-- Client logos will be loaded via JavaScript -->
+            </div>
+            
+            <!-- Testimonials -->
+            <div class="testimonials-grid">
+                <!-- Testimonials will be loaded via JavaScript -->
+            </div>
+        </div>
+    </section>

@@ -196,20 +196,20 @@ window.LAURA_App = {
   /**
    * Setup external links
    */
-  setupExternalLinks() {
+    setupExternalLinks() {
     document.querySelectorAll('a[href^="http"]').forEach(link => {
       // Add external link attributes
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
       
-      // Add external link icon
-      if (!link.querySelector('.external-icon')) {
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-external-link-alt external-icon';
-        icon.style.marginLeft = '0.25rem';
-        icon.style.fontSize = '0.75rem';
-        link.appendChild(icon);
-      }
+      // Add external link icon (DESACTIVADO)
+      // if (!link.querySelector('.external-icon')) {
+      //   const icon = document.createElement('i');
+      //   icon.className = 'fas fa-external-link-alt external-icon';
+      //   icon.style.marginLeft = '0.25rem';
+      //   icon.style.fontSize = '0.75rem';
+      //   link.appendChild(icon);
+      // }
     });
   },
 
@@ -533,19 +533,14 @@ window.LAURA_App = {
   /**
    * Hide loading spinner
    */
-  hideLoadingSpinner() {
-    const spinner = document.getElementById('loading-spinner');
-    if (spinner) {
-      spinner.classList.add('hidden');
-      
-      // Remove from DOM after animation
-      setTimeout(() => {
-        if (spinner.parentNode) {
-          spinner.remove();
+hideLoadingSpinner() {
+        // Buscamos el nuevo ID de nuestro loader
+        const loader = document.getElementById('loader-overlay');
+        if (loader) {
+            // Le añadimos la clase 'hidden' para que se active la transición de CSS
+            loader.classList.add('hidden');
         }
-      }, 300);
-    }
-  },
+    },
 
   /**
    * Handle when content is loaded

@@ -27,19 +27,21 @@ window.LAURA_CONFIG = {
   services: [
     {
       id: 'web-development',
-      title: 'Creamos tu presencia digital',
+      title: 'Creamos tu Presencia Digital',
       icon: 'fas fa-code',
       description: 'Sitios web y aplicaciones que convierten visitantes en clientes, optimizados con IA para máximo rendimiento.',
       features: [
-        'Landing pages de alta conversión',
-        'E-commerce personalizado',
-        'Aplicaciones web escalables'
+        'Diseño UI/UX centrado en el usuario',
+        'Desarrollo con tecnologías modernas',
+        'E-commerce personalizado y escalable',
+        'Optimización de velocidad (Core Web Vitals)',
+        'Panel de administración intuitivo'
       ],
-      cta: 'Hacer una web',
+      cta: 'Ver Planes Web',
       plans: [
         {
           id: 'web-spark',
-          name: 'SPARK Web',
+          name: 'Landing Page',
           subtitle: 'Landing page profesional',
           price: '10 UF',
           popular: false,
@@ -55,7 +57,7 @@ window.LAURA_CONFIG = {
         },
         {
           id: 'web-fusion',
-          name: 'FUSION Web',
+          name: 'ID Digital',
           subtitle: 'Sitio web completo',
           price: '30 UF',
           popular: true,
@@ -71,7 +73,7 @@ window.LAURA_CONFIG = {
         },
         {
           id: 'web-quantum',
-          name: 'QUANTUM Web',
+          name: 'Desarrollo Web',
           subtitle: 'Desarrollo personalizado',
           price: '60 UF',
           popular: false,
@@ -89,19 +91,21 @@ window.LAURA_CONFIG = {
     },
     {
       id: 'cybersecurity',
-      title: 'Protegemos tu futuro',
+      title: 'Protegemos tu Futuro Digital',
       icon: 'fas fa-shield-alt',
       description: 'Seguridad digital empresarial con monitoreo 24/7 y nuestro programa exclusivo PYME Segura.',
       features: [
-        'Auditorías de vulnerabilidades',
-        'Monitoreo continuo',
-        'Programa PYME Segura'
+        'Auditorías de vulnerabilidades (Pentesting/White Hacking)',
+        'Implementación de Sistemas de Seguridad Web',
+        'Monitoreo continuo de amenazas',
+        'Planes de respuesta a incidentes',
+        'Capacitación en ciberseguridad para equipos'
       ],
-      cta: 'Proteger mi negocio',
+      cta: 'Ver Planes de Seguridad',
       plans: [
         {
           id: 'security-shield',
-          name: 'SHIELD Security',
+          name: 'Seguridad Inicial',
           subtitle: 'Protección básica',
           price: '10 UF',
           popular: false,
@@ -117,11 +121,12 @@ window.LAURA_CONFIG = {
         },
         {
           id: 'security-fortress',
-          name: 'FORTRESS Security',
+          name: 'Seguridad Avanzada',
           subtitle: 'Protección avanzada',
           price: '50 UF',
           popular: true,
           features: [
+            'Plan de Protección Básica',
             'Auditoría completa de seguridad',
             'WAF avanzado implementado',
             'Monitoreo de amenazas 24/7',
@@ -151,15 +156,17 @@ window.LAURA_CONFIG = {
     },
     {
       id: 'digital-marketing',
-      title: 'Amplificamos tu marca',
+      title: 'Amplificamos tu Marca',
       icon: 'fas fa-chart-line',
       description: 'Marketing digital con IA que encuentra tu audiencia perfecta y maximiza tu ROI automáticamente.',
       features: [
-        'Contenido visual profesional',
-        'Gestión inteligente de RRSS',
-        'Automatización con IA'
+        'Estrategia de Contenidos y SEO',
+        'Gestión de Redes Sociales con IA',
+        'Campañas de Publicidad (SEM/Social Ads)',
+        'Email Marketing y Automatización',
+        'Analítica y reportes de rendimiento'
       ],
-      cta: 'Hacer crecer mi marca',
+      cta: 'Ver Planes de Marketing',
       plans: [
         {
           id: 'marketing-launch',
@@ -213,15 +220,17 @@ window.LAURA_CONFIG = {
     },
     {
       id: 'consulting',
-      title: 'Estrategia que funciona',
+      title: 'Estrategia que Funciona',
       icon: 'fas fa-lightbulb',
       description: 'Consultoría digital personalizada que transforma tu visión en resultados medibles y sostenibles.',
       features: [
-        'Transformación digital',
-        'Optimización de procesos',
-        'Implementación de IA'
+        'Diagnóstico y Roadmap de Transformación Digital',
+        'Optimización de procesos con tecnología',
+        'Implementación de IA en tu negocio',
+        'Análisis de datos para toma de decisiones',
+        'Asesoría en innovación y nuevos modelos'
       ],
-      cta: 'Obtener consultoría',
+      cta: 'Ver Planes de Consultoría',
       plans: [
         {
           id: 'consulting-insights',
