@@ -179,12 +179,13 @@
                 </div>
                 
                 <div class="nav-menu" id="nav-menu">
-                    <a href="/" class="nav-link">Inicio</a>
-                    <a href="/#servicios" class="nav-link">Servicios</a>
-                    <a href="/#nosotros" class="nav-link">¿Qué es LAURA?</a>
-                    <a href="/#planes" class="nav-link">Planes</a>
-                    <a href="/blog" class="nav-link active">Blog</a>
-                    <a href="/#contacto" class="btn-primary">Comenzar Proyecto</a>
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#servicios" class="nav-link">Servicios</a>
+                    <a href="#planes" class="nav-link">Planes</a>
+                    <a href="#nosotros" class="nav-link">¿Qué es LAURA?</a>
+                    <a href="#metodologia" class="nav-link">Metodología</a>
+                    <a href="#blog" class="nav-link">Aprende</a>
+                    <a href="#contacto" class="btn-primary">Comenzar Proyecto</a>
                 </div>
                 
                 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -400,7 +401,55 @@
             </div>
         </div>
     </section>
-
+ <!-- Planes Section con Sistema de Filtros -->
+<section id="planes" class="section section-alt">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-star"></i>
+                <span>Planes y Servicios</span>
+            </div>
+            <h2 class="section-title">
+                Soluciones adaptadas a <span class="gradient-text">tu necesidad</span>
+            </h2>
+            <p class="section-subtitle">
+                Cada área de especialización con <strong>3 niveles de profundidad</strong>: 
+                desde consultoría puntual hasta transformación completa.
+            </p>
+        </div>
+        
+        <!-- Filtros por especialidad -->
+        <div class="specialty-filters">
+            <button class="filter-btn active" data-specialty="marketing">
+                <i class="fas fa-chart-line"></i>
+                <span>Marketing Digital</span>
+            </button>
+            <button class="filter-btn" data-specialty="development">
+                <i class="fas fa-code"></i>
+                <span>Desarrollo Web</span>
+            </button>
+            <button class="filter-btn" data-specialty="security">
+                <i class="fas fa-shield-alt"></i>
+                <span>Ciberseguridad</span>
+            </button>
+        </div>
+        
+        <!-- Contenedor de planes dinámicos -->
+        <div id="filtered-plans" class="filtered-plans-container">
+            <!-- Los planes se cargan dinámicamente aquí -->
+        </div>
+        <!-- Call to Action Personalizado -->
+<div class="custom-solution-cta">
+    <h3>¿No encuentras exactamente lo que necesitas?</h3>
+    <p><strong>Cada empresa es única.</strong> Conversemos sobre tus necesidades específicas y creemos una solución perfecta para ti.</p>
+    <a href="https://wa.me/56999968482?text=¡Hola!%20Necesito%20una%20solución%20personalizada%20para%20mi%20empresa.%20¿Podemos%20conversar?" 
+       target="_blank" 
+       class="whatsapp-cta-main">
+        💬 Personalizar mi Proyecto
+    </a>
+</div>
+    </div>
+</section>
     <!-- ¿Qué es LAURA? Section con Ventana de Código Original -->
     <section id="nosotros" class="section">
         <div class="container">
@@ -538,58 +587,60 @@
         </div>
     </div>
 </section>
-
-    <!-- Planes Section con Tabs -->
- <!-- Planes Section con Sistema de Filtros -->
-<section id="planes" class="section section-alt">
+<!-- ✨ SECCIÓN DEL BLOG DINÁMICO ✨ -->
+<section id="blog" class="section section-alt">
     <div class="container">
         <div class="section-header">
             <div class="section-badge">
-                <i class="fas fa-star"></i>
-                <span>Planes y Servicios</span>
+                <i class="fas fa-blog"></i>
+                <span>Insights y Conocimiento</span>
             </div>
             <h2 class="section-title">
-                Soluciones adaptadas a <span class="gradient-text">tu necesidad</span>
+                Últimas publicaciones de nuestro <span class="gradient-text">blog</span>
             </h2>
             <p class="section-subtitle">
-                Cada área de especialización con <strong>3 niveles de profundidad</strong>: 
-                desde consultoría puntual hasta transformación completa.
+                Conocimiento experto actualizado que puedes aplicar hoy mismo en tu negocio.
             </p>
         </div>
         
-        <!-- Filtros por especialidad -->
-        <div class="specialty-filters">
-            <button class="filter-btn active" data-specialty="marketing">
-                <i class="fas fa-chart-line"></i>
-                <span>Marketing Digital</span>
-            </button>
-            <button class="filter-btn" data-specialty="development">
-                <i class="fas fa-code"></i>
-                <span>Desarrollo Web</span>
-            </button>
-            <button class="filter-btn" data-specialty="security">
-                <i class="fas fa-shield-alt"></i>
-                <span>Ciberseguridad</span>
-            </button>
+        <!-- Estados del Blog -->
+        <div id="blog-home-container">
+            <!-- Loading State -->
+            <div id="blog-home-loading" class="blog-home-loading">
+                <div class="blog-loading-spinner"></div>
+                <p>Cargando últimos artículos...</p>
+            </div>
+
+            <!-- Content Grid -->
+            <div id="blog-home-grid" class="blog-home-grid hidden">
+                <!-- Se llenará dinámicamente -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="blog-home-empty" class="blog-home-empty hidden">
+                <i class="fas fa-edit"></i>
+                <h3>¡Próximamente nuevos artículos!</h3>
+                <p>Estamos preparando contenido valioso para ti. Mantente atento.</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="blog-home-error" class="blog-home-error hidden">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Error al cargar artículos</h3>
+                <p>Por favor, intenta nuevamente o visita nuestro blog directamente.</p>
+                <a href="/blog" class="btn-primary">Ir al Blog</a>
+            </div>
         </div>
-        
-        <!-- Contenedor de planes dinámicos -->
-        <div id="filtered-plans" class="filtered-plans-container">
-            <!-- Los planes se cargan dinámicamente aquí -->
+
+        <!-- CTA siempre visible -->
+        <div class="blog-home-cta">
+            <a href="/blog" class="btn-primary">
+                <i class="fas fa-book-open"></i>
+                <span>Ver Todos los Artículos</span>
+            </a>
         </div>
-        <!-- Call to Action Personalizado -->
-<div class="custom-solution-cta">
-    <h3>¿No encuentras exactamente lo que necesitas?</h3>
-    <p><strong>Cada empresa es única.</strong> Conversemos sobre tus necesidades específicas y creemos una solución perfecta para ti.</p>
-    <a href="https://wa.me/56999968482?text=¡Hola!%20Necesito%20una%20solución%20personalizada%20para%20mi%20empresa.%20¿Podemos%20conversar?" 
-       target="_blank" 
-       class="whatsapp-cta-main">
-        💬 Personalizar mi Proyecto
-    </a>
-</div>
     </div>
 </section>
-
     <!-- Enhanced Team Section -->
 <section id="team" class="section team-section-enhanced">
     <div class="container">
@@ -889,6 +940,7 @@
     <script src="./assets/js/animations.js"></script>
     <script src="./assets/js/forms.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/blog-home.js"></script>
     <script>
 // Typewriter Effect - Versión Simple
 // Typewriter Effect - Versión Ultra Simple

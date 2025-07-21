@@ -745,3 +745,5 @@ const app = new LauraApp();
 
 // Export for global access if needed
 window.LauraApp = app;
+
+

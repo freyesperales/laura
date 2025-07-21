@@ -2422,14 +2422,17 @@ input, textarea, select {
 
   .hero {
     min-height: 100vh;
-    padding-top: 0;
+    padding-top: 5.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: calc(100vh - 1rem);
   }
   
   .hero-content {
     display: grid;
+    padding-top: 1rem; /* Espaciado interno adicional */
+    padding-bottom: 2rem;
     grid-template-columns: 1fr;
     align-items: center;
     gap: var(--space-12);
@@ -3496,4 +3499,189 @@ input, textarea, select {
 .btn-plan:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(226, 30, 92, 0.2);
+}
+
+/* Blog Home Section */
+.blog-home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.blog-home-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-home-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+.blog-home-card-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--accent-color), #ff4081);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-home-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-home-card-category {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.blog-home-card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-home-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.blog-home-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.blog-home-card-excerpt {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.blog-home-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.blog-home-card-link {
+    color: var(--accent-color);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.blog-home-card-link:hover {
+    color: #c91847;
+    transform: translateX(4px);
+}
+
+.blog-home-card-read-time {
+    background: var(--background-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* States */
+.blog-home-loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+}
+
+.blog-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1.5rem;
+}
+
+.blog-home-empty,
+.blog-home-error {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+}
+
+.blog-home-empty i,
+.blog-home-error i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.blog-home-error i {
+    color: var(--error);
+    opacity: 1;
+}
+
+.blog-home-cta {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Category Colors */
+.blog-category-marketing { background: linear-gradient(135deg, #e21e5c, #ff4081) !important; }
+.blog-category-desarrollo { background: linear-gradient(135deg, #667eea, #764ba2) !important; }
+.blog-category-ciberseguridad { background: linear-gradient(135deg, #f093fb, #f5576c) !important; }
+.blog-category-general { background: linear-gradient(135deg, #4facfe, #00f2fe) !important; }
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .blog-home-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .blog-home-card-content {
+        padding: 1.25rem;
+    }
+    
+    .blog-home-card-image {
+        height: 180px;
+    }
 }
