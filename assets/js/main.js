@@ -343,14 +343,19 @@ class LauraApp {
     });
   }
 
-  animateCounter(element) {
+animateCounter(element) {
     const targetText = element.textContent.trim();
+    let targetNumber = 0;
+    let suffix = '';
+    
+    // Extraer número y sufijo
     const match = targetText.match(/^(\d+)(.*)$/);
-    
-    if (!match) return;
-    
-    const targetNumber = parseInt(match[1]);
-    const suffix = match[2] || '';
+    if (match) {
+        targetNumber = parseInt(match[1]);
+        suffix = match[2] || '';
+    } else {
+        return; // No hay número válido
+    }
     
     if (isNaN(targetNumber)) return;
 
@@ -359,21 +364,21 @@ class LauraApp {
     const increment = targetNumber / (duration / 16);
     
     const updateCounter = () => {
-      current += increment;
-      
-      if (current >= targetNumber) {
-        current = targetNumber;
-        element.textContent = targetNumber + suffix;
-        return;
-      }
-      
-      element.textContent = Math.ceil(current) + suffix;
-      requestAnimationFrame(updateCounter);
+        current += increment;
+        
+        if (current >= targetNumber) {
+            element.textContent = targetNumber + suffix;
+            return;
+        }
+        
+        element.textContent = Math.ceil(current) + suffix;
+        requestAnimationFrame(updateCounter);
     };
     
+    // Iniciar contador en 0
     element.textContent = '0' + suffix;
     requestAnimationFrame(updateCounter);
-  }
+}
 
   // ========================================
   // FORMS

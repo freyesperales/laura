@@ -156,10 +156,8 @@
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="./assets/css/main.css?=v1">
-    
     <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -233,22 +231,6 @@
                             <i class="fas fa-calendar-alt"></i>
                             <span>Ver Planes Mensuales</span>
                         </a>
-                    </div>
-
-                    <!-- Estadísticas del hero -->
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-number" data-target="95">95%</div>
-                            <div class="stat-label">Clientes satisfechos</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" data-target="150">150+</div>
-                            <div class="stat-label">Proyectos completados</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number" data-target="24">24/7</div>
-                            <div class="stat-label">Soporte técnico</div>
-                        </div>
                     </div>
 
                     <!-- Certificaciones Originales -->
@@ -413,18 +395,6 @@
                 </div>
                 <div class="service-plans-grid">
                     <!-- Plans se cargan dinámicamente -->
-                </div>
-                <div class="service-plans-actions">
-                    <div class="custom-needs-cta">
-                        <h4>¿No encuentras exactamente lo que necesitas?</h4>
-                        <p>Cada empresa es única. <strong>Conversemos sobre tu proyecto específico</strong> y creemos una solución perfecta para ti.</p>
-                        <a href="https://wa.me/56999968482?text=¡Hola!%20Tengo%20un%20proyecto%20específico%20y%20me%20gustaría%20conversar%20sobre%20una%20solución%20personalizada.%20¿Podemos%20agendar%20una%20llamada?" 
-                           target="_blank" 
-                           class="btn-custom-contact">
-                            <i class="fas fa-comments"></i>
-                            <span>Personalizar mi Proyecto</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -606,6 +576,16 @@
         <div id="filtered-plans" class="filtered-plans-container">
             <!-- Los planes se cargan dinámicamente aquí -->
         </div>
+        <!-- Call to Action Personalizado -->
+<div class="custom-solution-cta">
+    <h3>¿No encuentras exactamente lo que necesitas?</h3>
+    <p><strong>Cada empresa es única.</strong> Conversemos sobre tus necesidades específicas y creemos una solución perfecta para ti.</p>
+    <a href="https://wa.me/56999968482?text=¡Hola!%20Necesito%20una%20solución%20personalizada%20para%20mi%20empresa.%20¿Podemos%20conversar?" 
+       target="_blank" 
+       class="whatsapp-cta-main">
+        💬 Personalizar mi Proyecto
+    </a>
+</div>
     </div>
 </section>
 
@@ -665,16 +645,16 @@
                 
                 <div class="founder-achievements">
                     <div class="achievement">
-                        <div class="achievement-number">150+</div>
-                        <div class="achievement-label">Proyectos Exitosos</div>
+                        <div class="achievement-number">100%</div>
+                        <div class="achievement-label">Dedicado al mundo Digital</div>
                     </div>
                     <div class="achievement">
-                        <div class="achievement-number">25+</div>
-                        <div class="achievement-label">Países Atendidos</div>
+                        <div class="achievement-number">24/7</div>
+                        <div class="achievement-label">Para tu negocio</div>
                     </div>
                     <div class="achievement">
-                        <div class="achievement-number">95%</div>
-                        <div class="achievement-label">Satisfacción Cliente</div>
+                        <div class="achievement-number">+300</div>
+                        <div class="achievement-label">proyectos realizados</div>
                     </div>
                 </div>
                 
@@ -736,11 +716,11 @@
                         
                         <div class="contact-method">
                             <div class="contact-icon">
-                                <i class="fas fa-globe"></i>
+                                <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="contact-details">
-                                <p class="contact-title">Alcance</p>
-                                <p class="contact-value"><strong>Proyectos globales</strong></p>
+                                <p class="contact-title">Ubicación</p>
+                                <p class="contact-value">Santiago, Chile • Madrid, España</p>
                             </div>
                         </div>
                     </div>
@@ -908,82 +888,47 @@
     <script src="./assets/js/animations.js"></script>
     <script src="./assets/js/forms.js"></script>
     <script src="./assets/js/main.js"></script>
-    
-    <!-- Typewriter Effect -->
     <script>
-        // Typewriter Effect Corregido
-class TypewriterEffect {
-    constructor(element, words, options = {}) {
-        this.element = element;
-        this.words = words;
-        this.currentWordIndex = 0;
-        this.currentText = '';
-        this.isDeleting = false;
-        this.typeSpeed = options.typeSpeed || 120;
-        this.deleteSpeed = options.deleteSpeed || 60;
-        this.pauseTime = options.pauseTime || 2000;
-        this.deleteDelay = options.deleteDelay || 500;
-        this.isRunning = false;
-        this.timeoutId = null;
+// Typewriter Effect - Versión Simple
+// Typewriter Effect - Versión Ultra Simple
+function initTypewriter() {
+    const element = document.getElementById('typewriter');
+    if (!element) return;
+    
+    const words = ['negocio', 'empresa', 'proyecto', 'startup', 'marca', 'visión'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function type() {
+        const currentWord = words[wordIndex];
         
-        this.init();
-    }
-    
-    init() { 
-        if (this.element) {
-            this.element.classList.add('typewriter-active');
-            this.start();
-        }
-    }
-    
-    start() {
-        if (this.isRunning) return;
-        this.isRunning = true;
-        this.type();
-    }
-    
-    stop() {
-        this.isRunning = false;
-        if (this.timeoutId) {
-            clearTimeout(this.timeoutId);
-            this.timeoutId = null;
-        }
-    }
-    
-    type() {
-        if (!this.isRunning) return;
-        
-        const currentWord = this.words[this.currentWordIndex];
-        
-        if (this.isDeleting) {
-            // Borrando caracteres
-            this.currentText = currentWord.substring(0, this.currentText.length - 1);
+        if (isDeleting) {
+            element.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
         } else {
-            // Escribiendo caracteres
-            this.currentText = currentWord.substring(0, this.currentText.length + 1);
+            element.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
         }
         
-        this.element.textContent = this.currentText;
+        let speed = 150;
         
-        let timeout = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+        if (isDeleting) speed = 100;
         
-        // Lógica de control de estados
-        if (!this.isDeleting && this.currentText === currentWord) {
-            // Terminó de escribir la palabra completa
-            timeout = this.pauseTime;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.currentText === '') {
-            // Terminó de borrar la palabra
-            this.isDeleting = false;
-            this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
-            timeout = this.deleteDelay;
+        if (!isDeleting && charIndex === currentWord.length) {
+            speed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            speed = 500;
         }
         
-        // Programar siguiente iteración
-        this.timeoutId = setTimeout(() => {
-            this.type();
-        }, timeout);
+        setTimeout(type, speed);
     }
+    
+    element.classList.add('typewriter-active');
+    type();
 }
 
 // Inicialización segura

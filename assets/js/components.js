@@ -709,7 +709,87 @@ Me gustaría conocer más detalles sobre:
     
     console.log('📊 Plan selection tracked:', planId);
   },
+/**
+ * Initialize Specialty Filters System
+ */
+initSpecialtyFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const plansContainer = document.getElementById('filtered-plans');
+  
+  if (!plansContainer) return;
+  
+  // Event listeners para filtros
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const specialty = btn.getAttribute('data-specialty');
+      
+      // Actualizar estados de botones
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Renderizar planes
+      this.renderSpecialtyPlans(specialty);
+    });
+  });
+  
+  // Cargar planes iniciales (marketing)
+  this.renderSpecialtyPlans('marketing');
+},
 
+/**
+ * Render Specialty Plans
+ */
+renderSpecialtyPlans(specialty) {
+  const plansContainer = document.getElementById('filtered-plans');
+  if (!plansContainer) return;
+  
+  const specialtyData = getConfig(`specialtyPlans.${specialty}`);
+  if (!specialtyData) return;
+  
+  const plansHTML = `
+    <div class="plans-header">
+      <h3 class="plans-title">${specialtyData.title}</h3>
+      <p class="plans-subtitle">${specialtyData.subtitle}</p>
+    </div>
+    <div class="plans-grid">
+      ${specialtyData.plans.map(plan => `
+        <div class="plan-card ${plan.popular ? 'popular' : ''}">
+          ${plan.popular ? '<div class="plan-badge">Más Popular</div>' : ''}
+          <div class="plan-header">
+            <h4 class="plan-name">${plan.name}</h4>
+            <p class="plan-subtitle">${plan.subtitle}</p>
+            <div class="plan-price">${plan.price}</div>
+            <div class="plan-duration">${plan.duration}</div>
+          </div>
+          <div class="plan-features">
+            <ul>
+              ${plan.features.map(feature => `<li>${feature}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="plan-cta">
+            <a href="${this.generateWhatsAppLink(plan.whatsappMessage)}" 
+               target="_blank" 
+               class="btn-plan ${plan.popular ? 'btn-primary' : 'btn-secondary'}">
+              💬 Comenzar Ahora
+            </a>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  
+  plansContainer.innerHTML = plansHTML;
+  
+  console.log(`✅ ${specialty} plans rendered`);
+},
+
+/**
+ * Generate WhatsApp link
+ */
+generateWhatsAppLink(message) {
+  const phone = getConfig('company.whatsapp', '56999968482');
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+},
   /**
    * Add Service Card Styles
    */
@@ -1601,23 +1681,24 @@ console.log('🚀 LAURA Digital Agency - Transformando negocios globalmente');`;
    * Render all components
    */
   renderAll() {
-    try {
-      this.renderServices();
-      this.renderFeatures();
-      this.renderBenefits();
-      this.renderContactMethods();
-      this.renderContactForm();
-      this.renderFooter();
-      this.renderBlogArticles();
-      this.updateAboutSection(); // RESTAURADO - Ventana de código
-      
-      if (getConfig('dev.enableConsoleMessages')) {
-        console.log('✅ All components rendered successfully');
-      }
-    } catch (error) {
-      console.error('❌ Error rendering components:', error);
+  try {
+    this.renderServices();
+    this.renderFeatures();
+    this.renderBenefits();
+    this.renderContactMethods();
+    this.renderContactForm();
+    this.renderFooter();
+    this.renderBlogArticles();
+    this.updateAboutSection();
+    this.initSpecialtyFilters(); // Añadir esta línea
+    
+    if (getConfig('dev.enableConsoleMessages')) {
+      console.log('✅ All components rendered successfully');
     }
+  } catch (error) {
+    console.error('❌ Error rendering components:', error);
   }
+}
 };
 
 // Global functions for service interaction
@@ -1632,6 +1713,8 @@ window.scrollToContact = function() {
     window.LAURA_Components.scrollToContact();
   }
 };
+
+
 
 // Auto-initialize components
 window.LAURA_Components.init();

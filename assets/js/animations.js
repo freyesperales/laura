@@ -21,6 +21,7 @@ window.LAURA_Animations = {
     
     try {
       this.setupIntersectionObserver();
+      this.setupTimelineAnimations();
       this.setupScrollAnimations();
       this.setupCounterAnimations();
       this.setupHoverEffects();
@@ -74,7 +75,41 @@ window.LAURA_Animations = {
 
     this.state.observers.push(fadeInObserver);
   },
+/**
+ * Setup timeline animations
+ */
+setupTimelineAnimations() {
+  if (!window.IntersectionObserver) {
+    // Fallback para navegadores antiguos
+    document.querySelectorAll('.step-card').forEach(el => el.classList.add('animate-in'));
+    return;
+  }
 
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Delay escalonado para animación secuencial
+        const delay = index * 200;
+        
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+        }, delay);
+        
+        timelineObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observar todos los step-cards
+  document.querySelectorAll('.step-card').forEach(card => {
+    timelineObserver.observe(card);
+  });
+
+  this.state.observers.push(timelineObserver);
+},
   /**
    * Setup scroll-based animations
    */

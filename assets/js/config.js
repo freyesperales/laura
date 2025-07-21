@@ -333,32 +333,32 @@ window.LAURA_CONFIG = {
   ],
 
   // Contact Methods - ENFOQUE GLOBAL
-  contactMethods: [
-    {
-      icon: 'fab fa-whatsapp',
-      title: 'WhatsApp Global',
-      value: '+56 9 9996 8482',
-      link: 'https://wa.me/56999968482'
-    },
-    {
-      icon: 'fas fa-envelope',
-      title: 'Email',
-      value: 'francisco@laura.lat',
-      link: 'mailto:francisco@laura.lat'
-    },
-    {
-      icon: 'fas fa-clock',
-      title: 'Respuesta',
-      value: 'En menos de 2 horas',
-      link: null
-    },
-    {
-      icon: 'fas fa-globe',
-      title: 'Alcance',
-      value: 'Proyectos globales',
-      link: null
-    }
-  ],
+contactMethods: [
+  {
+    icon: 'fab fa-whatsapp',
+    title: 'WhatsApp Global',
+    value: '+56 9 9996 8482',
+    link: 'https://wa.me/56999968482'
+  },
+  {
+    icon: 'fas fa-envelope',
+    title: 'Email',
+    value: 'francisco@laura.lat',
+    link: 'mailto:francisco@laura.lat'
+  },
+  {
+    icon: 'fas fa-clock',
+    title: 'Respuesta',
+    value: 'En menos de 2 horas',
+    link: null
+  },
+  {
+    icon: 'fas fa-map-marker-alt', // Cambiar ícono
+    title: 'Ubicación', // Cambiar título
+    value: 'Santiago, Chile • Madrid, España', // Cambiar valor
+    link: null
+  }
+],
 
   // Contact Form Fields - MEJORADO PARA ENFOQUE GLOBAL
   contactForm: {
@@ -462,7 +462,174 @@ window.LAURA_CONFIG = {
       }
     ]
   },
-
+// PLANES FILTRADOS POR ESPECIALIDAD
+specialtyPlans: {
+  marketing: {
+    title: 'Marketing Digital',
+    subtitle: 'Estrategias que generan leads y aumentan ventas',
+    plans: [
+      {
+        id: 'marketing-consultoria',
+        name: 'Consultoría Marketing',
+        subtitle: 'Análisis completo y estrategia',
+        price: '$297 USD',
+        duration: '1 mes',
+        popular: false,
+        features: [
+          'Auditoría completa de marketing actual',
+          'Análisis de competencia y mercado',
+          'Estrategia de contenidos personalizada',
+          'Plan de implementación detallado',
+          'Sesión de consultoría 1:1 (2 horas)'
+        ],
+        whatsappMessage: '¡Hola! Me interesa la *Consultoría de Marketing* de $297 USD. ¿Podemos conversar sobre mi estrategia digital?'
+      },
+      {
+        id: 'marketing-basico',
+        name: 'Marketing Básico',
+        subtitle: 'Presencia constante y crecimiento',
+        price: '$497 USD/mes',
+        duration: '3 meses mínimo',
+        popular: false,
+        features: [
+          'Gestión de 2 redes sociales',
+          '12 publicaciones mensuales',
+          'Diseño gráfico profesional',
+          'Respuesta a comentarios',
+          'Reporte mensual básico'
+        ],
+        whatsappMessage: '¡Hola! Me interesa el *Marketing Básico* de $497 USD/mes. ¿Podemos conversar sobre los detalles?'
+      },
+      {
+        id: 'marketing-pro',
+        name: 'Marketing Pro',
+        subtitle: 'Crecimiento acelerado con IA',
+        price: '$997 USD/mes',
+        duration: 'Mensual',
+        popular: true,
+        features: [
+          'Todo del plan básico',
+          'Google Ads optimizado',
+          'Facebook/Instagram Ads',
+          'Email marketing automatizado',
+          'Blog SEO (1 artículo/mes)',
+          'Dashboard en tiempo real'
+        ],
+        whatsappMessage: '¡Hola! Me interesa el *Marketing Pro* de $997 USD/mes. ¿Podemos agendar una llamada?'
+      }
+    ]
+  },
+  development: {
+    title: 'Desarrollo Web',
+    subtitle: 'Sitios web que convierten y funcionan',
+    plans: [
+      {
+        id: 'dev-consultoria',
+        name: 'Consultoría Web',
+        subtitle: 'Análisis técnico y recomendaciones',
+        price: '$197 USD',
+        duration: '1 mes',
+        popular: false,
+        features: [
+          'Auditoría técnica completa',
+          'Análisis de velocidad y SEO',
+          'Recomendaciones de UX/UI',
+          'Plan de optimización',
+          'Informe técnico detallado'
+        ],
+        whatsappMessage: '¡Hola! Me interesa la *Consultoría Web* de $197 USD. ¿Podemos revisar mi sitio web?'
+      },
+      {
+        id: 'dev-basico',
+        name: 'Desarrollo Básico',
+        subtitle: 'Sitio web profesional',
+        price: '$697 USD',
+        duration: '3 meses',
+        popular: false,
+        features: [
+          'Diseño web responsive',
+          'Hasta 5 páginas',
+          'Formularios de contacto',
+          'SEO básico',
+          'Hosting por 1 año incluido'
+        ],
+        whatsappMessage: '¡Hola! Me interesa el *Desarrollo Básico* de $697 USD. ¿Podemos conversar sobre mi proyecto web?'
+      },
+      {
+        id: 'dev-pro',
+        name: 'Desarrollo Pro',
+        subtitle: 'Plataforma completa optimizada',
+        price: '$1,297 USD',
+        duration: 'Proyecto completo',
+        popular: true,
+        features: [
+          'Sitio web completo (hasta 10 páginas)',
+          'Panel de administración',
+          'E-commerce básico',
+          'Integraciones (CRM, Analytics)',
+          'Optimización avanzada',
+          '6 meses de soporte incluido'
+        ],
+        whatsappMessage: '¡Hola! Me interesa el *Desarrollo Pro* de $1,297 USD. ¿Podemos agendar una reunión?'
+      }
+    ]
+  },
+  security: {
+    title: 'Ciberseguridad',
+    subtitle: 'Protección integral para tu negocio digital',
+    plans: [
+      {
+        id: 'security-auditoria',
+        name: 'Auditoría Seguridad',
+        subtitle: 'Diagnóstico completo de vulnerabilidades',
+        price: '$397 USD',
+        duration: '1 mes',
+        popular: false,
+        features: [
+          'Escaneo de vulnerabilidades',
+          'Análisis de configuración',
+          'Reporte de riesgos',
+          'Plan de corrección',
+          'Recomendaciones de seguridad'
+        ],
+        whatsappMessage: '¡Hola! Me interesa la *Auditoría de Seguridad* de $397 USD. ¿Podemos revisar mi infraestructura?'
+      },
+      {
+        id: 'security-basico',
+        name: 'Protección Básica',
+        subtitle: 'Seguridad esencial',
+        price: '$297 USD/mes',
+        duration: '3 meses mínimo',
+        popular: false,
+        features: [
+          'Firewall básico',
+          'Backup semanal',
+          'Monitoreo de uptime',
+          'Certificado SSL',
+          'Soporte por email'
+        ],
+        whatsappMessage: '¡Hola! Me interesa la *Protección Básica* de $297 USD/mes. ¿Podemos conversar sobre seguridad?'
+      },
+      {
+        id: 'security-pro',
+        name: 'Seguridad Pro',
+        subtitle: 'Protección empresarial 24/7',
+        price: '$697 USD/mes',
+        duration: 'Mensual',
+        popular: true,
+        features: [
+          'Monitoreo 24/7',
+          'Backup diario automático',
+          'Respuesta a incidentes',
+          'Auditorías mensuales',
+          'Soporte prioritario',
+          'Reportes ejecutivos'
+        ],
+        whatsappMessage: '¡Hola! Me interesa la *Seguridad Pro* de $697 USD/mes. ¿Podemos agendar una llamada?'
+      }
+    ]
+  }
+},
   // Certifications - RESTAURADO
   certifications: [
     { name: 'Google Partner', logo: './assets/img/google-partner-badge.png' },
@@ -613,3 +780,4 @@ window.renderSVGIcon = function(iconType, className = 'icon-svg') {
   
   return icons[iconType] || icons['code-svg'];
 };
+
