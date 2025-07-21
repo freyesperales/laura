@@ -5,268 +5,332 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Blog - LAURA Digital Agency | Insights sobre IA, Desarrollo y Marketing</title>
-    <meta name="description" content="Descubre las últimas tendencias en inteligencia artificial, desarrollo web, ciberseguridad y marketing digital. Consejos prácticos para hacer crecer tu negocio.">
-    <meta name="keywords" content="blog tecnología, inteligencia artificial, desarrollo web, ciberseguridad, marketing digital, PYME, consejos digitales">
-    <meta name="author" content="LAURA Digital Agency">
+    <title>Blog - LAURA Digital Agency | Insights sobre Marketing Digital, Desarrollo Web y Ciberseguridad</title>
+    <meta name="description" content="Descubre las últimas tendencias en marketing digital, desarrollo web y ciberseguridad. Artículos expertos de LAURA Digital Agency.">
+    <meta name="keywords" content="blog marketing digital, desarrollo web, ciberseguridad, inteligencia artificial, tendencias digitales">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Blog - LAURA Digital Agency">
-    <meta property="og:description" content="Insights que transforman negocios. Artículos sobre IA, desarrollo web y marketing digital.">
+    <meta property="og:description" content="Insights expertos sobre marketing digital, desarrollo web y ciberseguridad">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="./assets/images/blog-og-image.jpg">
+    <meta property="og:url" content="https://laura.lat/blog">
+    <meta property="og:image" content="./assets/img/blog-og-image.webp">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://laura.lat/blog">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="icon" type="image/png" href="./assets/img/favicon-laura-agency.png">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Blog-specific styles -->
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+    
+    <!-- Blog-specific CSS -->
     <style>
+        /* Blog-specific styles */
         .blog-hero {
-            background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
-            color: white;
-            padding: var(--space-20) 0 var(--space-16);
-            margin-top: 4rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 8rem 0 4rem;
+            margin-top: 5rem;
         }
         
-        .blog-hero-content {
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .blog-header {
             text-align: center;
-            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
             margin: 0 auto;
-        }
-        
-        .blog-hero-title {
-            font-size: var(--text-5xl);
-            font-weight: var(--font-weight-bold);
-            margin-bottom: var(--space-6);
-        }
-        
-        .blog-hero-subtitle {
-            font-size: var(--text-xl);
-            opacity: 0.9;
-            margin-bottom: var(--space-8);
-        }
-        
-        .blog-search {
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .blog-search-input {
-            width: 100%;
-            padding: var(--space-4) var(--space-6);
-            padding-right: 3rem;
-            border: none;
-            border-radius: var(--radius-2xl);
-            font-size: var(--text-base);
-            background: white;
-        }
-        
-        .blog-search-btn {
-            position: absolute;
-            right: var(--space-3);
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--gray-500);
-            font-size: var(--text-lg);
-            cursor: pointer;
         }
         
         .blog-filters {
             display: flex;
             justify-content: center;
-            gap: var(--space-4);
-            margin-bottom: var(--space-12);
+            gap: 1rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
         }
         
         .filter-btn {
-            padding: var(--space-2) var(--space-6);
-            border: 2px solid var(--gray-300);
             background: white;
-            color: var(--gray-700);
-            border-radius: var(--radius-full);
-            font-weight: var(--font-weight-medium);
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition-base);
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
         
-        .filter-btn.active,
-        .filter-btn:hover {
-            border-color: var(--primary-500);
-            background: var(--primary-500);
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
             color: white;
-        }
-        
-        .blog-content {
-            padding: var(--space-16) 0;
+            transform: translateY(-2px);
         }
         
         .blog-grid {
             display: grid;
-            gap: var(--space-10);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
         
-        .blog-article {
-            display: grid;
-            gap: var(--space-8);
-            align-items: start;
-            padding: var(--space-8);
+        .blog-card {
             background: white;
-            border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
-            transition: var(--transition-base);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
-        @media (min-width: 768px) {
-            .blog-article {
-                grid-template-columns: 300px 1fr;
-            }
-            
-            .blog-article:nth-child(even) {
-                grid-template-columns: 1fr 300px;
-            }
-            
-            .blog-article:nth-child(even) .blog-article-image {
-                order: 2;
-            }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(226, 30, 92, 0.15);
         }
         
-        .blog-article:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .blog-article-image {
-            aspect-ratio: 4/3;
-            border-radius: var(--radius-xl);
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            position: relative;
             overflow: hidden;
         }
         
-        .blog-article-image img {
+        .blog-card-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition-base);
         }
         
-        .blog-article:hover .blog-article-image img {
-            transform: scale(1.05);
+        .blog-card-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
         
-        .blog-article-content {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-4);
+        .blog-card-content {
+            padding: 1.5rem;
         }
         
-        .blog-article-meta {
-            display: flex;
-            align-items: center;
-            gap: var(--space-4);
-            font-size: var(--text-sm);
-            color: var(--gray-500);
-        }
-        
-        .blog-article-category {
-            background: var(--primary-100);
-            color: var(--primary-700);
-            padding: var(--space-1) var(--space-3);
-            border-radius: var(--radius-full);
-            font-size: var(--text-xs);
-            font-weight: var(--font-weight-semibold);
-        }
-        
-        .blog-article-title {
-            font-size: var(--text-2xl);
-            font-weight: var(--font-weight-bold);
+        .blog-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
             line-height: 1.3;
-            color: var(--gray-800);
         }
         
-        .blog-article-excerpt {
-            color: var(--gray-600);
+        .blog-card-excerpt {
+            color: var(--text-secondary);
             line-height: 1.6;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
-        .blog-article-footer {
+        .blog-card-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: var(--space-2);
+            font-size: 0.875rem;
+            color: var(--text-muted);
         }
         
-        .blog-article-author {
+        .blog-card-date {
             display: flex;
             align-items: center;
-            gap: var(--space-2);
-            font-size: var(--text-sm);
-            color: var(--gray-600);
+            gap: 0.5rem;
         }
         
-        .blog-article-link {
-            color: var(--primary-600);
-            font-weight: var(--font-weight-semibold);
+        .blog-card-read-time {
             display: flex;
             align-items: center;
-            gap: var(--space-2);
-            transition: var(--transition-base);
+            gap: 0.5rem;
         }
         
-        .blog-article-link:hover {
-            color: var(--primary-700);
-            gap: var(--space-3);
+        .blog-single {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         
-        .loading-articles {
+        .blog-single-header {
+            margin-bottom: 2rem;
             text-align: center;
-            padding: var(--space-16) 0;
-            color: var(--gray-500);
         }
         
-        .no-articles {
-            text-align: center;
-            padding: var(--space-16) 0;
-            color: var(--gray-500);
+        .blog-single-category {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
         }
         
-        .pagination {
+        .blog-single-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .blog-single-meta {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: var(--space-2);
-            margin-top: var(--space-16);
+            gap: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
         }
         
-        .pagination-btn {
-            padding: var(--space-2) var(--space-4);
-            border: 1px solid var(--gray-300);
-            background: white;
-            color: var(--gray-700);
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            transition: var(--transition-base);
+        .blog-single-content {
+            line-height: 1.8;
+            color: var(--text-primary);
         }
         
-        .pagination-btn:hover,
-        .pagination-btn.active {
-            background: var(--primary-500);
+        .blog-single-content h1,
+        .blog-single-content h2,
+        .blog-single-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .blog-single-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-single-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        
+        .blog-single-content blockquote {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+            font-style: italic;
+        }
+        
+        .blog-navigation {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .blog-back-btn {
+            background: var(--primary);
             color: white;
-            border-color: var(--primary-500);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
         }
         
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .blog-back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .blog-loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+        
+        .blog-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .blog-single-title {
+                font-size: 1.75rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .blog-filters {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
         }
     </style>
 </head>
@@ -276,26 +340,21 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-content">
-                <!-- Logo -->
                 <div class="nav-brand">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <a href="./index.html" class="logo-text gradient-text">LAURA</a>
-                    </div>
+                    <a href="/" title="Ir al inicio">
+                        <img src="./assets/img/logo.svg" alt="LAURA Logo" class="main-logo-svg">
+                    </a>
                 </div>
                 
-                <!-- Desktop Navigation -->
                 <div class="nav-menu" id="nav-menu">
-                    <a href="./index.html" class="nav-link">Inicio</a>
-                    <a href="./index.html#servicios" class="nav-link">Servicios</a>
-                    <a href="./index.html#nosotros" class="nav-link">Nosotros</a>
-                    <a href="./blog.html" class="nav-link active">Blog</a>
-                    <a href="./index.html#contacto" class="btn-primary">Contacto</a>
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="index.html/#servicios" class="nav-link">Servicios</a>
+                    <a href="index.html/#nosotros" class="nav-link">¿Qué es LAURA?</a>
+                    <a href="index.html/#planes" class="nav-link">Planes</a>
+                    <a href="/blog" class="nav-link active">Blog</a>
+                    <a href="index.html/#contacto" class="btn-primary">Comenzar Proyecto</a>
                 </div>
                 
-                <!-- Mobile menu button -->
                 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                     <span class="hamburger"></span>
                     <span class="hamburger"></span>
@@ -307,358 +366,479 @@
 
     <!-- Blog Hero -->
     <section class="blog-hero">
-        <div class="container">
-            <div class="blog-hero-content">
-                <h1 class="blog-hero-title">
-                    Insights que transforman negocios
-                </h1>
-                <p class="blog-hero-subtitle">
-                    Descubre las últimas tendencias en IA, desarrollo web, ciberseguridad y marketing digital. 
-                    Consejos prácticos para hacer crecer tu empresa.
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1 class="blog-title">Blog de <span class="gradient-text">LAURA</span></h1>
+                <p class="blog-subtitle">
+                    Insights, tendencias y mejores prácticas en marketing digital, 
+                    desarrollo web y ciberseguridad
                 </p>
-                
-                <!-- Search -->
-                <div class="blog-search">
-                    <input type="text" 
-                           class="blog-search-input" 
-                           placeholder="Buscar artículos..."
-                           id="blog-search-input">
-                    <button class="blog-search-btn" id="blog-search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Blog Content -->
-    <section class="blog-content">
-        <div class="container">
-            <!-- Filters -->
-            <div class="blog-filters">
-                <button class="filter-btn active" data-category="all">Todos</button>
-                <button class="filter-btn" data-category="ia">Inteligencia Artificial</button>
-                <button class="filter-btn" data-category="desarrollo">Desarrollo Web</button>
-                <button class="filter-btn" data-category="seguridad">Ciberseguridad</button>
-                <button class="filter-btn" data-category="marketing">Marketing Digital</button>
-                <button class="filter-btn" data-category="consultoria">Consultoría</button>
+    <!-- Main Content -->
+    <main class="blog-container" style="padding: 2rem;">
+        <!-- Blog Index View -->
+        <div id="blog-index" class="blog-index">
+            <!-- Loading State -->
+            <div id="blog-loading" class="blog-loading">
+                <div class="blog-loading-spinner"></div>
+                <p>Cargando artículos...</p>
             </div>
-            
-            <!-- Articles Grid -->
-            <div class="blog-grid" id="blog-articles-container">
-                <div class="loading-articles">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Cargando artículos...</p>
-                </div>
+
+            <!-- Category Filters -->
+            <div id="blog-filters" class="blog-filters hidden">
+                <button class="filter-btn active" data-category="all">Todos los Artículos</button>
+                <!-- Dynamic categories will be inserted here -->
             </div>
-            
-            <!-- Pagination -->
-            <div class="pagination" id="blog-pagination" style="display: none;">
-                <!-- Pagination will be generated dynamically -->
+
+            <!-- Blog Grid -->
+            <div id="blog-grid" class="blog-grid hidden">
+                <!-- Dynamic blog posts will be inserted here -->
             </div>
         </div>
-    </section>
+
+        <!-- Single Blog Post View -->
+        <div id="blog-single" class="blog-single hidden">
+            <!-- Single post content will be inserted here -->
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section footer-brand">
+                <div class="footer-section">
                     <div class="footer-logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <span class="logo-text gradient-text">LAURA</span>
+                        <img src="./assets/img/logo.svg" alt="LAURA Logo" class="footer-logo-svg">
                     </div>
                     <p class="footer-description">
-                        Agencia digital que combina inteligencia artificial con experiencia humana.
+                        Agencia digital global que combina creatividad humana con inteligencia artificial 
+                        para transformar negocios en cualquier parte del mundo.
                     </p>
                 </div>
                 
                 <div class="footer-section">
-                    <h4 class="footer-title">Navegación</h4>
+                    <h4 class="footer-title">Servicios</h4>
                     <ul class="footer-links">
-                        <li><a href="./index.html" class="footer-link">Inicio</a></li>
-                        <li><a href="./index.html#servicios" class="footer-link">Servicios</a></li>
-                        <li><a href="./index.html#nosotros" class="footer-link">Nosotros</a></li>
-                        <li><a href="./blog.html" class="footer-link">Blog</a></li>
-                        <li><a href="./index.html#contacto" class="footer-link">Contacto</a></li>
+                        <li><a href="/#servicios" class="footer-link">Marketing Digital</a></li>
+                        <li><a href="/#servicios" class="footer-link">Desarrollo Web</a></li>
+                        <li><a href="/#servicios" class="footer-link">Ciberseguridad</a></li>
+                        <li><a href="/#planes" class="footer-link">Planes Mensuales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Empresa</h4>
+                    <ul class="footer-links">
+                        <li><a href="/#nosotros" class="footer-link">¿Qué es LAURA?</a></li>
+                        <li><a href="/blog" class="footer-link">Blog</a></li>
+                        <li><a href="/#contacto" class="footer-link">Contacto</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
                 <p class="copyright">
-                    © 2025 LAURA Digital Agency. Todos los derechos reservados.
+                    © 2025 LAURA Digital Agency. Transformando negocios globalmente con tecnología e IA.
                 </p>
-                <div class="ai-status">
-                    <div class="status-dot"></div>
-                    <span>IA operativa 24/7</span>
-                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="./assets/js/config.js"></script>
+    <!-- WhatsApp Bubble -->
+    <div class="whatsapp-bubble">
+        <a href="https://wa.me/56999968482?text=¡Hola!%20Visité%20el%20blog%20de%20laura.lat%20y%20me%20interesa%20conocer%20más%20sobre%20sus%20servicios." 
+           target="_blank" 
+           class="whatsapp-btn"
+           title="Chatea con nosotros">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Blog System JavaScript -->
     <script>
-        // Blog App - Loads articles dynamically from articles folder
-        class BlogApp {
+        /**
+         * LAURA Blog System - Dynamic Blog Loader
+         * Loads HTML files from /blog-posts/ directory structure
+         */
+        
+        class LAURABlogSystem {
             constructor() {
-                this.articles = [];
-                this.filteredArticles = [];
-                this.currentPage = 1;
-                this.articlesPerPage = 6;
+                this.posts = [];
+                this.categories = new Set();
                 this.currentCategory = 'all';
-                this.searchQuery = '';
+                this.currentPost = null;
+                this.baseUrl = '/blog-posts/'; // Base directory for blog posts
                 
                 this.init();
             }
             
-            async init() {
-                await this.loadArticles();
+            init() {
                 this.setupEventListeners();
-                this.renderArticles();
-            }
-            
-            async loadArticles() {
-                try {
-                    // Try to load articles from a manifest file first
-                    const response = await fetch('./articles/manifest.json');
-                    if (response.ok) {
-                        const manifest = await response.json();
-                        this.articles = manifest.articles || [];
-                    } else {
-                        // Fallback to predefined articles
-                        this.articles = this.getFallbackArticles();
-                    }
-                } catch (error) {
-                    console.log('Loading fallback articles...');
-                    this.articles = this.getFallbackArticles();
-                }
-                
-                this.filteredArticles = [...this.articles];
-            }
-            
-            getFallbackArticles() {
-                return [
-                    {
-                        id: 'ia-transformacion-digital-2025',
-                        title: 'IA y Transformación Digital: Tendencias 2025',
-                        excerpt: 'Descubre cómo la inteligencia artificial está revolucionando los negocios y qué esperar en los próximos meses. Desde chatbots hasta automatización de procesos, exploramos las tecnologías que marcarán la diferencia.',
-                        content: './articles/ia-transformacion-digital-2025.html',
-                        category: 'ia',
-                        categoryLabel: 'Inteligencia Artificial',
-                        readTime: '5 min',
-                        image: 'https://via.placeholder.com/400x300/667eea/ffffff?text=IA+2025',
-                        author: 'Equipo LAURA',
-                        date: '2025-01-15',
-                        featured: true
-                    },
-                    {
-                        id: 'ciberseguridad-pymes-guia-completa',
-                        title: 'Ciberseguridad para PYMEs: Guía Completa',
-                        excerpt: 'Todo lo que necesitas saber para proteger tu empresa de las amenazas digitales más comunes en 2025. Una guía práctica con pasos concretos y herramientas recomendadas.',
-                        content: './articles/ciberseguridad-pymes-guia-completa.html',
-                        category: 'seguridad',
-                        categoryLabel: 'Ciberseguridad',
-                        readTime: '8 min',
-                        image: 'https://via.placeholder.com/400x300/764ba2/ffffff?text=Seguridad+PYME',
-                        author: 'Equipo LAURA',
-                        date: '2025-01-10',
-                        featured: true
-                    },
-                    {
-                        id: 'marketing-digital-ia-resultados',
-                        title: 'Marketing Digital + IA = Resultados Exponenciales',
-                        excerpt: 'Casos reales de cómo nuestros clientes multiplicaron sus conversiones usando marketing impulsado por IA. Estrategias, herramientas y métricas que realmente funcionan.',
-                        content: './articles/marketing-digital-ia-resultados.html',
-                        category: 'marketing',
-                        categoryLabel: 'Marketing Digital',
-                        readTime: '6 min',
-                        image: 'https://via.placeholder.com/400x300/10b981/ffffff?text=Marketing+IA',
-                        author: 'Equipo LAURA',
-                        date: '2025-01-05',
-                        featured: true
-                    },
-                    {
-                        id: 'desarrollo-web-tendencias-2025',
-                        title: 'Desarrollo Web: Tendencias y Tecnologías 2025',
-                        excerpt: 'Las tecnologías emergentes que están transformando el desarrollo web. Desde frameworks hasta herramientas de IA, descubre qué necesitas saber para mantenerte competitivo.',
-                        content: './articles/desarrollo-web-tendencias-2025.html',
-                        category: 'desarrollo',
-                        categoryLabel: 'Desarrollo Web',
-                        readTime: '7 min',
-                        image: 'https://via.placeholder.com/400x300/3b82f6/ffffff?text=Web+2025',
-                        author: 'Equipo LAURA',
-                        date: '2025-01-01',
-                        featured: false
-                    },
-                    {
-                        id: 'consultoria-digital-casos-exito',
-                        title: 'Consultoría Digital: Casos de Éxito Reales',
-                        excerpt: 'Historias reales de transformación digital exitosa. Cómo ayudamos a empresas a optimizar procesos, reducir costos y aumentar ingresos con estrategias digitales personalizadas.',
-                        content: './articles/consultoria-digital-casos-exito.html',
-                        category: 'consultoria',
-                        categoryLabel: 'Consultoría',
-                        readTime: '9 min',
-                        image: 'https://via.placeholder.com/400x300/f59e0b/ffffff?text=Consultoría',
-                        author: 'Equipo LAURA',
-                        date: '2024-12-28',
-                        featured: false
-                    }
-                ];
+                this.parseURL();
+                this.loadBlogStructure();
             }
             
             setupEventListeners() {
-                // Search functionality
-                const searchInput = document.getElementById('blog-search-input');
-                const searchBtn = document.getElementById('blog-search-btn');
-                
-                searchInput.addEventListener('input', (e) => {
-                    this.searchQuery = e.target.value.toLowerCase();
-                    this.filterArticles();
-                });
-                
-                searchBtn.addEventListener('click', () => {
-                    this.filterArticles();
-                });
-                
-                // Category filters
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                        e.target.classList.add('active');
-                        this.currentCategory = e.target.dataset.category;
-                        this.filterArticles();
-                    });
-                });
-            }
-            
-            filterArticles() {
-                this.filteredArticles = this.articles.filter(article => {
-                    const matchesCategory = this.currentCategory === 'all' || article.category === this.currentCategory;
-                    const matchesSearch = this.searchQuery === '' || 
-                                        article.title.toLowerCase().includes(this.searchQuery) ||
-                                        article.excerpt.toLowerCase().includes(this.searchQuery);
-                    
-                    return matchesCategory && matchesSearch;
-                });
-                
-                this.currentPage = 1;
-                this.renderArticles();
-                this.renderPagination();
-            }
-            
-            renderArticles() {
-                const container = document.getElementById('blog-articles-container');
-                
-                if (this.filteredArticles.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-articles">
-                            <i class="fas fa-search"></i>
-                            <h3>No se encontraron artículos</h3>
-                            <p>Prueba con otros términos de búsqueda o selecciona una categoría diferente.</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                const startIndex = (this.currentPage - 1) * this.articlesPerPage;
-                const endIndex = startIndex + this.articlesPerPage;
-                const articlesToShow = this.filteredArticles.slice(startIndex, endIndex);
-                
-                container.innerHTML = articlesToShow.map(article => `
-                    <article class="blog-article fade-in">
-                        <div class="blog-article-image">
-                            <img src="${article.image}" alt="${article.title}" loading="lazy"
-                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiM2NjdlZWEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkFydMOtY3VsbzwvdGV4dD48L3N2Zz4='">
-                        </div>
-                        <div class="blog-article-content">
-                            <div class="blog-article-meta">
-                                <span class="blog-article-category">${article.categoryLabel}</span>
-                                <span><i class="fas fa-clock"></i> ${article.readTime}</span>
-                                <span><i class="fas fa-calendar"></i> ${this.formatDate(article.date)}</span>
-                            </div>
-                            <h2 class="blog-article-title">${article.title}</h2>
-                            <p class="blog-article-excerpt">${article.excerpt}</p>
-                            <div class="blog-article-footer">
-                                <div class="blog-article-author">
-                                    <i class="fas fa-user"></i>
-                                    <span>${article.author}</span>
-                                </div>
-                                <a href="${article.content}" class="blog-article-link">
-                                    Leer artículo <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                `).join('');
-                
-                // Trigger fade-in animations
-                setTimeout(() => {
-                    container.querySelectorAll('.fade-in').forEach(el => {
-                        el.classList.add('visible');
-                    });
-                }, 100);
-            }
-            
-            renderPagination() {
-                const totalPages = Math.ceil(this.filteredArticles.length / this.articlesPerPage);
-                const paginationContainer = document.getElementById('blog-pagination');
-                
-                if (totalPages <= 1) {
-                    paginationContainer.style.display = 'none';
-                    return;
-                }
-                
-                paginationContainer.style.display = 'flex';
-                
-                let paginationHTML = '';
-                
-                // Previous button
-                paginationHTML += `
-                    <button class="pagination-btn" ${this.currentPage === 1 ? 'disabled' : ''} 
-                            onclick="blogApp.goToPage(${this.currentPage - 1})">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                `;
-                
-                // Page numbers
-                for (let i = 1; i <= totalPages; i++) {
-                    if (i === 1 || i === totalPages || (i >= this.currentPage - 1 && i <= this.currentPage + 1)) {
-                        paginationHTML += `
-                            <button class="pagination-btn ${i === this.currentPage ? 'active' : ''}" 
-                                    onclick="blogApp.goToPage(${i})">
-                                ${i}
-                            </button>
-                        `;
-                    } else if (i === this.currentPage - 2 || i === this.currentPage + 2) {
-                        paginationHTML += '<span class="pagination-ellipsis">...</span>';
+                // Filter buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-btn')) {
+                        this.handleCategoryFilter(e.target);
                     }
-                }
+                });
                 
-                // Next button
-                paginationHTML += `
-                    <button class="pagination-btn" ${this.currentPage === totalPages ? 'disabled' : ''} 
-                            onclick="blogApp.goToPage(${this.currentPage + 1})">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                `;
+                // Blog card clicks
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.blog-card')) {
+                        const card = e.target.closest('.blog-card');
+                        const category = card.dataset.category;
+                        const slug = card.dataset.slug;
+                        this.showPost(category, slug);
+                    }
+                });
                 
-                paginationContainer.innerHTML = paginationHTML;
+                // Back button
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('blog-back-btn')) {
+                        e.preventDefault();
+                        this.showIndex();
+                    }
+                });
+                
+                // Browser back/forward
+                window.addEventListener('popstate', () => {
+                    this.parseURL();
+                });
             }
             
-            goToPage(page) {
-                this.currentPage = page;
-                this.renderArticles();
-                this.renderPagination();
+            parseURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const hash = window.location.hash.substring(1);
                 
-                // Scroll to top of articles
-                document.getElementById('blog-articles-container').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                if (hash) {
+                    const [category, post] = hash.split('/');
+                    if (category && post) {
+                        this.currentPost = { category, slug: post };
+                        this.showPost(category, post);
+                    } else if (category) {
+                        this.currentCategory = category;
+                        this.showIndex();
+                    }
+                } else {
+                    this.showIndex();
+                }
+            }
+            
+            async loadBlogStructure() {
+                try {
+                    // In a real implementation, this would come from a server endpoint
+                    // For now, we'll define the structure manually
+                    const blogStructure = await this.fetchBlogStructure();
+                    this.processBlogStructure(blogStructure);
+                    this.renderBlogIndex();
+                } catch (error) {
+                    console.error('Error loading blog structure:', error);
+                    this.showError('Error al cargar los artículos del blog');
+                }
+            }
+            
+            async fetchBlogStructure() {
+                // This is a mock structure - in production, this would come from an API
+                // that scans the /blog-posts/ directory
+                return {
+                    'marketing-digital': [
+                        {
+                            slug: 'ia-marketing-2025',
+                            title: 'IA en Marketing Digital: Tendencias 2025',
+                            excerpt: 'Descubre cómo la inteligencia artificial está revolucionando el marketing digital y qué esperar en 2025.',
+                            date: '2025-01-15',
+                            readTime: '5 min',
+                            image: 'https://via.placeholder.com/400x200/e21e5c/ffffff?text=IA+Marketing+2025'
+                        },
+                        {
+                            slug: 'seo-ai-optimization',
+                            title: 'Optimización SEO con IA: Guía Completa',
+                            excerpt: 'Aprende a usar herramientas de IA para mejorar tu SEO y posicionarte mejor en Google.',
+                            date: '2025-01-10',
+                            readTime: '8 min',
+                            image: 'https://via.placeholder.com/400x200/10b981/ffffff?text=SEO+IA'
+                        }
+                    ],
+                    'desarrollo-web': [
+                        {
+                            slug: 'web-performance-2025',
+                            title: 'Optimización Web: Core Web Vitals 2025',
+                            excerpt: 'Todo lo que necesitas saber sobre Core Web Vitals y cómo optimizar tu sitio para Google.',
+                            date: '2025-01-12',
+                            readTime: '6 min',
+                            image: 'https://via.placeholder.com/400x200/764ba2/ffffff?text=Web+Performance'
+                        }
+                    ],
+                    'ciberseguridad': [
+                        {
+                            slug: 'ciberseguridad-pymes-2025',
+                            title: 'Ciberseguridad para PYMEs: Guía 2025',
+                            excerpt: 'Protege tu empresa de las amenazas digitales más comunes con esta guía completa.',
+                            date: '2025-01-08',
+                            readTime: '10 min',
+                            image: 'https://via.placeholder.com/400x200/f59e0b/ffffff?text=Ciberseguridad+PYME'
+                        }
+                    ]
+                };
+            }
+            
+            processBlogStructure(structure) {
+                this.posts = [];
+                this.categories = new Set(['all']);
+                
+                Object.entries(structure).forEach(([category, posts]) => {
+                    this.categories.add(category);
+                    
+                    posts.forEach(post => {
+                        this.posts.push({
+                            ...post,
+                            category: category,
+                            categoryLabel: this.getCategoryLabel(category)
+                        });
+                    });
                 });
+                
+                // Sort posts by date (newest first)
+                this.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            getCategoryLabel(category) {
+                const labels = {
+                    'marketing-digital': 'Marketing Digital',
+                    'desarrollo-web': 'Desarrollo Web',
+                    'ciberseguridad': 'Ciberseguridad',
+                    'inteligencia-artificial': 'Inteligencia Artificial',
+                    'tendencias': 'Tendencias'
+                };
+                return labels[category] || category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+            }
+            
+            renderBlogIndex() {
+                this.renderCategoryFilters();
+                this.renderBlogGrid();
+                this.hideLoading();
+            }
+            
+            renderCategoryFilters() {
+                const filtersContainer = document.getElementById('blog-filters');
+                let filtersHTML = '<button class="filter-btn active" data-category="all">Todos los Artículos</button>';
+                
+                Array.from(this.categories).filter(cat => cat !== 'all').forEach(category => {
+                    filtersHTML += `<button class="filter-btn" data-category="${category}">${this.getCategoryLabel(category)}</button>`;
+                });
+                
+                filtersContainer.innerHTML = filtersHTML;
+                filtersContainer.classList.remove('hidden');
+            }
+            
+            renderBlogGrid() {
+                const gridContainer = document.getElementById('blog-grid');
+                const filteredPosts = this.currentCategory === 'all' 
+                    ? this.posts 
+                    : this.posts.filter(post => post.category === this.currentCategory);
+                
+                let gridHTML = '';
+                
+                filteredPosts.forEach(post => {
+                    gridHTML += `
+                        <article class="blog-card" data-category="${post.category}" data-slug="${post.slug}">
+                            <div class="blog-card-image">
+                                <img src="${post.image}" alt="${post.title}" loading="lazy">
+                                <div class="blog-card-category">${post.categoryLabel}</div>
+                            </div>
+                            <div class="blog-card-content">
+                                <h2 class="blog-card-title">${post.title}</h2>
+                                <p class="blog-card-excerpt">${post.excerpt}</p>
+                                <div class="blog-card-meta">
+                                    <div class="blog-card-date">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>${this.formatDate(post.date)}</span>
+                                    </div>
+                                    <div class="blog-card-read-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>${post.readTime}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                });
+                
+                if (filteredPosts.length === 0) {
+                    gridHTML = '<div class="blog-empty"><p>No hay artículos en esta categoría.</p></div>';
+                }
+                
+                gridContainer.innerHTML = gridHTML;
+                gridContainer.classList.remove('hidden');
+            }
+            
+            handleCategoryFilter(button) {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update current category
+                this.currentCategory = button.dataset.category;
+                
+                // Re-render grid
+                this.renderBlogGrid();
+                
+                // Update URL
+                const url = this.currentCategory === 'all' ? '/blog' : `/blog#${this.currentCategory}`;
+                history.pushState(null, '', url);
+            }
+            
+            async showPost(category, slug) {
+                try {
+                    this.showLoading();
+                    
+                    // Load post content
+                    const postContent = await this.loadPostContent(category, slug);
+                    const post = this.posts.find(p => p.category === category && p.slug === slug);
+                    
+                    if (!post || !postContent) {
+                        throw new Error('Post not found');
+                    }
+                    
+                    this.renderSinglePost(post, postContent);
+                    
+                    // Update URL
+                    history.pushState(null, '', `/blog#${category}/${slug}`);
+                    
+                    // Update page title and meta
+                    document.title = `${post.title} - Blog LAURA Digital Agency`;
+                    
+                } catch (error) {
+                    console.error('Error loading post:', error);
+                    this.showError('Error al cargar el artículo');
+                }
+            }
+            
+            async loadPostContent(category, slug) {
+                // Try to load the HTML file
+                const postUrl = `${this.baseUrl}${category}/${slug}.html`;
+                
+                try {
+                    const response = await fetch(postUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return await response.text();
+                } catch (error) {
+                    console.warn(`Could not load ${postUrl}:`, error);
+                    // Return placeholder content for demo
+                    return this.getPlaceholderContent(category, slug);
+                }
+            }
+            
+            getPlaceholderContent(category, slug) {
+                const post = this.posts.find(p => p.category === category && p.slug === slug);
+                if (!post) return '';
+                
+                return `
+                    <h2>Introducción</h2>
+                    <p>Este es el contenido del artículo "<strong>${post.title}</strong>". En esta sección encontrarás información detallada sobre el tema tratado.</p>
+                    
+                    <h2>Desarrollo del Tema</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                    
+                    <blockquote>
+                        "La transformación digital no es solo tecnología, es un cambio de mentalidad que permite a las empresas adaptarse y crecer en el mundo moderno."
+                    </blockquote>
+                    
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                    
+                    <h3>Puntos Clave</h3>
+                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    
+                    <h2>Conclusión</h2>
+                    <p>En <strong>LAURA Digital Agency</strong>, entendemos la importancia de estos conceptos y cómo aplicarlos para generar resultados reales en tu negocio. Si quieres saber más, no dudes en contactarnos.</p>
+                `;
+            }
+            
+            renderSinglePost(post, content) {
+                const singleContainer = document.getElementById('blog-single');
+                
+                singleContainer.innerHTML = `
+                    <div class="blog-single-header">
+                        <div class="blog-single-category">${post.categoryLabel}</div>
+                        <h1 class="blog-single-title">${post.title}</h1>
+                        <div class="blog-single-meta">
+                            <div class="blog-single-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>${this.formatDate(post.date)}</span>
+                            </div>
+                            <div class="blog-single-read-time">
+                                <i class="fas fa-clock"></i>
+                                <span>${post.readTime} de lectura</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="blog-single-content">
+                        ${content}
+                    </div>
+                    
+                    <div class="blog-navigation">
+                        <a href="#" class="blog-back-btn">
+                            <i class="fas fa-arrow-left"></i>
+                            Volver al Blog
+                        </a>
+                    </div>
+                `;
+                
+                this.showSingle();
+            }
+            
+            showIndex() {
+                document.getElementById('blog-index').classList.remove('hidden');
+                document.getElementById('blog-single').classList.add('hidden');
+                
+                // Reset page title
+                document.title = 'Blog - LAURA Digital Agency | Insights sobre Marketing Digital y Tecnología';
+                
+                // Update URL if needed
+                if (window.location.hash) {
+                    history.pushState(null, '', '/blog');
+                }
+            }
+            
+            showSingle() {
+                document.getElementById('blog-index').classList.add('hidden');
+                document.getElementById('blog-single').classList.remove('hidden');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            showLoading() {
+                document.getElementById('blog-loading').classList.remove('hidden');
+                document.getElementById('blog-filters').classList.add('hidden');
+                document.getElementById('blog-grid').classList.add('hidden');
+            }
+            
+            hideLoading() {
+                document.getElementById('blog-loading').classList.add('hidden');
+            }
+            
+            showError(message) {
+                const container = document.getElementById('blog-grid');
+                container.innerHTML = `
+                    <div class="blog-error" style="text-align: center; padding: 3rem; color: var(--error);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">${message}</p>
+                        <p>Por favor, intenta nuevamente más tarde.</p>
+                    </div>
+                `;
+                container.classList.remove('hidden');
+                this.hideLoading();
             }
             
             formatDate(dateString) {
@@ -671,26 +851,54 @@
             }
         }
         
-        // Initialize blog app
-        let blogApp;
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                blogApp = new BlogApp();
-            });
-        } else {
-            blogApp = new BlogApp();
-        }
+        // Initialize blog system when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new LAURABlogSystem();
+        });
         
-        // Mobile menu functionality
-        const mobileToggle = document.getElementById('nav-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        if (mobileToggle && navMenu) {
-            mobileToggle.addEventListener('click', () => {
-                mobileToggle.classList.toggle('active');
-                navMenu.classList.toggle('mobile-open');
-            });
+        // Mobile navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navToggle.classList.toggle('active');
+                    navMenu.classList.toggle('mobile-open');
+                });
+                
+                // Close mobile menu when clicking on links
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navToggle.classList.remove('active');
+                        navMenu.classList.remove('mobile-open');
+                    });
+                });
+            }
+        });
+    </script>
+
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "LAURA Digital Agency Blog",
+        "description": "Insights expertos sobre marketing digital, desarrollo web y ciberseguridad",
+        "url": "https://laura.lat/blog",
+        "publisher": {
+            "@type": "Organization",
+            "name": "LAURA Digital Agency",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://laura.lat/assets/img/logo.svg"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://laura.lat/blog"
         }
+    }
     </script>
 </body>
 </html>
