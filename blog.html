@@ -489,588 +489,101 @@
 
     <!-- Blog System JavaScript -->
     <script>
-        /**
-         * LAURA Blog System - Dynamic Blog Loader
-         * Loads HTML files from /blog-posts/ directory structure
-         */
+class LAURABlogSystem {
+    constructor() {
+        this.apiUrl = '/api/blog.php';
+        this.posts = [];
+        this.categories = new Set();
+        this.currentCategory = 'all';
+        this.currentPost = null;
         
-        class LAURABlogSystem {
-            constructor() {
-                this.posts = [];
-                this.categories = new Set();
-                this.currentCategory = 'all';
-                this.currentPost = null;
-                this.baseUrl = '/blog-posts/'; // Base directory for blog posts
-                
-                this.init();
-            }
-            
-            init() {
-                this.setupEventListeners();
-                this.parseURL();
-                this.loadBlogStructure();
-            }
-            
-            setupEventListeners() {
-                // Filter buttons
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('filter-btn')) {
-                        this.handleCategoryFilter(e.target);
-                    }
-                });
-                
-                // Blog card clicks
-                document.addEventListener('click', (e) => {
-                    if (e.target.closest('.blog-card')) {
-                        const card = e.target.closest('.blog-card');
-                        const category = card.dataset.category;
-                        const slug = card.dataset.slug;
-                        this.showPost(category, slug);
-                    }
-                });
-                
-                // Back button
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('blog-back-btn')) {
-                        e.preventDefault();
-                        this.showIndex();
-                    }
-                });
-                
-                // Browser back/forward
-                window.addEventListener('popstate', () => {
-                    this.parseURL();
-                });
-            }
-            
-            parseURL() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const hash = window.location.hash.substring(1);
-                
-                if (hash) {
-                    const [category, post] = hash.split('/');
-                    if (category && post) {
-                        this.currentPost = { category, slug: post };
-                        this.showPost(category, post);
-                    } else if (category) {
-                        this.currentCategory = category;
-                        this.showIndex();
-                    }
-                } else {
-                    this.showIndex();
-                }
-            }
-            
-            async loadBlogStructure() {
-                try {
-                    // In a real implementation, this would come from a server endpoint
-                    // For now, we'll define the structure manually
-                    const blogStructure = await this.fetchBlogStructure();
-                    this.processBlogStructure(blogStructure);
-                    this.renderBlogIndex();
-                } catch (error) {
-                    console.error('Error loading blog structure:', error);
-                    this.showError('Error al cargar los artículos del blog');
-                }
-            }
-            
-            async fetchBlogStructure() {
-                // This is a mock structure - in production, this would come from an API
-                // that scans the /blog-posts/ directory
-                return {
-                    'marketing-digital': [
-                        {
-                            slug: 'ia-marketing-2025',
-                            title: 'IA en Marketing Digital: Tendencias 2025',
-                            excerpt: 'Descubre cómo la inteligencia artificial está revolucionando el marketing digital y qué esperar en 2025.',
-                            date: '2025-01-15',
-                            readTime: '5 min',
-                            image: 'https://via.placeholder.com/400x200/e21e5c/ffffff?text=IA+Marketing+2025'
-                        },
-                        {
-                            slug: 'seo-ai-optimization',
-                            title: 'Optimización SEO con IA: Guía Completa',
-                            excerpt: 'Aprende a usar herramientas de IA para mejorar tu SEO y posicionarte mejor en Google.',
-                            date: '2025-01-10',
-                            readTime: '8 min',
-                            image: 'https://via.placeholder.com/400x200/10b981/ffffff?text=SEO+IA'
-                        }
-                    ],
-                    'desarrollo-web': [
-                        {
-                            slug: 'web-performance-2025',
-                            title: 'Optimización Web: Core Web Vitals 2025',
-                            excerpt: 'Todo lo que necesitas saber sobre Core Web Vitals y cómo optimizar tu sitio para Google.',
-                            date: '2025-01-12',
-                            readTime: '6 min',
-                            image: 'https://via.placeholder.com/400x200/764ba2/ffffff?text=Web+Performance'
-                        }
-                    ],
-                    'ciberseguridad': [
-                        {
-                            slug: 'ciberseguridad-pymes-2025',
-                            title: 'Ciberseguridad para PYMEs: Guía 2025',
-                            excerpt: 'Protege tu empresa de las amenazas digitales más comunes con esta guía completa.',
-                            date: '2025-01-08',
-                            readTime: '10 min',
-                            image: 'https://via.placeholder.com/400x200/f59e0b/ffffff?text=Ciberseguridad+PYME'
-                        }
-                    ]
-                };
-            }
-            
-            processBlogStructure(structure) {
-                this.posts = [];
-                this.categories = new Set(['all']);
-                
-                Object.entries(structure).forEach(([category, posts]) => {
-                    this.categories.add(category);
-                    
-                    posts.forEach(post => {
-                        this.posts.push({
-                            ...post,
-                            category: category,
-                            categoryLabel: this.getCategoryLabel(category)
-                        });
-                    });
-                });
-                
-                // Sort posts by date (newest first)
-                this.posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-            }
-            
-            getCategoryLabel(category) {
-                const labels = {
-                    'marketing-digital': 'Marketing Digital',
-                    'desarrollo-web': 'Desarrollo Web',
-                    'ciberseguridad': 'Ciberseguridad',
-                    'inteligencia-artificial': 'Inteligencia Artificial',
-                    'tendencias': 'Tendencias'
-                };
-                return labels[category] || category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
-            }
-            
-            renderBlogIndex() {
-                this.renderCategoryFilters();
-                this.renderBlogGrid();
-                this.hideLoading();
-            }
-            
-            renderCategoryFilters() {
-                const filtersContainer = document.getElementById('blog-filters');
-                let filtersHTML = '<button class="filter-btn active" data-category="all">Todos los Artículos</button>';
-                
-                Array.from(this.categories).filter(cat => cat !== 'all').forEach(category => {
-                    filtersHTML += `<button class="filter-btn" data-category="${category}">${this.getCategoryLabel(category)}</button>`;
-                });
-                
-                filtersContainer.innerHTML = filtersHTML;
-                filtersContainer.classList.remove('hidden');
-            }
-            
-            renderBlogGrid() {
-                const gridContainer = document.getElementById('blog-grid');
-                const filteredPosts = this.currentCategory === 'all' 
-                    ? this.posts 
-                    : this.posts.filter(post => post.category === this.currentCategory);
-                
-                let gridHTML = '';
-                
-                filteredPosts.forEach(post => {
-                    gridHTML += `
-                        <article class="blog-card" data-category="${post.category}" data-slug="${post.slug}">
-                            <div class="blog-card-image">
-                                <img src="${post.image}" alt="${post.title}" loading="lazy">
-                                <div class="blog-card-category">${post.categoryLabel}</div>
-                            </div>
-                            <div class="blog-card-content">
-                                <h2 class="blog-card-title">${post.title}</h2>
-                                <p class="blog-card-excerpt">${post.excerpt}</p>
-                                <div class="blog-card-meta">
-                                    <div class="blog-card-date">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>${this.formatDate(post.date)}</span>
-                                    </div>
-                                    <div class="blog-card-read-time">
-                                        <i class="fas fa-clock"></i>
-                                        <span>${post.readTime}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    `;
-                });
-                
-                if (filteredPosts.length === 0) {
-                    gridHTML = '<div class="blog-empty"><p>No hay artículos en esta categoría.</p></div>';
-                }
-                
-                gridContainer.innerHTML = gridHTML;
-                gridContainer.classList.remove('hidden');
-            }
-            
-            handleCategoryFilter(button) {
-                // Update active button
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                // Update current category
-                this.currentCategory = button.dataset.category;
-                
-                // Re-render grid
-                this.renderBlogGrid();
-                
-                // Update URL
-                const url = this.currentCategory === 'all' ? '/blog' : `/blog#${this.currentCategory}`;
-                history.pushState(null, '', url);
-            }
-            
-            async showPost(category, slug) {
-                try {
-                    this.showLoading();
-                    
-                    // Load post content
-                    const postContent = await this.loadPostContent(category, slug);
-                    const post = this.posts.find(p => p.category === category && p.slug === slug);
-                    
-                    if (!post || !postContent) {
-                        throw new Error('Post not found');
-                    }
-                    
-                    this.renderSinglePost(post, postContent);
-                    
-                    // Update URL
-                    history.pushState(null, '', `/blog#${category}/${slug}`);
-                    
-                    // Update page title and meta
-                    document.title = `${post.title} - Blog LAURA Digital Agency`;
-                    
-                } catch (error) {
-                    console.error('Error loading post:', error);
-                    this.showError('Error al cargar el artículo');
-                }
-            }
-            
-            async loadPostContent(category, slug) {
-                // Try to load the HTML file
-                const postUrl = `${this.baseUrl}${category}/${slug}.html`;
-                
-                try {
-                    const response = await fetch(postUrl);
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                    return await response.text();
-                } catch (error) {
-                    console.warn(`Could not load ${postUrl}:`, error);
-                    // Return placeholder content for demo
-                    return this.getPlaceholderContent(category, slug);
-                }
-            }
-            
-            getPlaceholderContent(category, slug) {
-                const post = this.posts.find(p => p.category === category && p.slug === slug);
-                if (!post) return '';
-                
-                return `
-                    <h2>Introducción</h2>
-                    <p>Este es el contenido del artículo "<strong>${post.title}</strong>". En esta sección encontrarás información detallada sobre el tema tratado.</p>
-                    
-                    <h2>Desarrollo del Tema</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-                    
-                    <blockquote>
-                        "La transformación digital no es solo tecnología, es un cambio de mentalidad que permite a las empresas adaptarse y crecer en el mundo moderno."
-                    </blockquote>
-                    
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-                    
-                    <h3>Puntos Clave</h3>
-                    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                    
-                    <h2>Conclusión</h2>
-                    <p>En <strong>LAURA Digital Agency</strong>, entendemos la importancia de estos conceptos y cómo aplicarlos para generar resultados reales en tu negocio. Si quieres saber más, no dudes en contactarnos.</p>
-                `;
-            }
-            
-            renderSinglePost(post, content) {
-                const singleContainer = document.getElementById('blog-single');
-                
-                singleContainer.innerHTML = `
-                    <div class="blog-single-header">
-                        <div class="blog-single-category">${post.categoryLabel}</div>
-                        <h1 class="blog-single-title">${post.title}</h1>
-                        <div class="blog-single-meta">
-                            <div class="blog-single-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span>${this.formatDate(post.date)}</span>
-                            </div>
-                            <div class="blog-single-read-time">
-                                <i class="fas fa-clock"></i>
-                                <span>${post.readTime} de lectura</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-single-content">
-                        ${content}
-                    </div>
-                    
-                    <div class="blog-navigation">
-                        <a href="#" class="blog-back-btn">
-                            <i class="fas fa-arrow-left"></i>
-                            Volver al Blog
-                        </a>
-                    </div>
-                `;
-                
-                this.showSingle();
-            }
-            
-            showIndex() {
-                document.getElementById('blog-index').classList.remove('hidden');
-                document.getElementById('blog-single').classList.add('hidden');
-                
-                // Reset page title
-                document.title = 'Blog - LAURA Digital Agency | Insights sobre Marketing Digital y Tecnología';
-                
-                // Update URL if needed
-                if (window.location.hash) {
-                    history.pushState(null, '', '/blog');
-                }
-            }
-            
-            showSingle() {
-                document.getElementById('blog-index').classList.add('hidden');
-                document.getElementById('blog-single').classList.remove('hidden');
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            showLoading() {
-                document.getElementById('blog-loading').classList.remove('hidden');
-                document.getElementById('blog-filters').classList.add('hidden');
-                document.getElementById('blog-grid').classList.add('hidden');
-            }
-            
-            hideLoading() {
-                document.getElementById('blog-loading').classList.add('hidden');
-            }
-            
-            showError(message) {
-                const container = document.getElementById('blog-grid');
-                container.innerHTML = `
-                    <div class="blog-error" style="text-align: center; padding: 3rem; color: var(--error);">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                        <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">${message}</p>
-                        <p>Por favor, intenta nuevamente más tarde.</p>
-                    </div>
-                `;
-                container.classList.remove('hidden');
-                this.hideLoading();
-            }
-            
-            formatDate(dateString) {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('es-ES', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            }
-        }
-        
-        // Initialize blog system when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            new LAURABlogSystem();
-        });
-        
-        // Mobile navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const navToggle = document.getElementById('nav-toggle');
-            const navMenu = document.getElementById('nav-menu');
-            
-            if (navToggle && navMenu) {
-                navToggle.addEventListener('click', function() {
-                    navToggle.classList.toggle('active');
-                    navMenu.classList.toggle('mobile-open');
-                });
-                
-                // Close mobile menu when clicking on links
-                navMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navToggle.classList.remove('active');
-                        navMenu.classList.remove('mobile-open');
-                    });
-                });
-            }
-        });
-    </script>
-
-    <!-- Schema.org structured data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "LAURA Digital Agency Blog",
-        "description": "Insights expertos sobre marketing digital, desarrollo web y ciberseguridad",
-        "url": "https://laura.lat/blog",
-        "publisher": {
-            "@type": "Organization",
-            "name": "LAURA Digital Agency",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://laura.lat/assets/img/logo.svg"
-            }
-        },
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://laura.lat/blog"
-        }
-    }
-    </script>
-    <!-- DEBUG PANEL (TEMPORAL - ELIMINAR EN PRODUCCIÓN) -->
-<div id="debug-panel" style="position: fixed; bottom: 10px; right: 10px; background: #000; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; max-width: 400px; z-index: 9999; display: none;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-        <strong>🐛 BLOG DEBUG</strong>
-        <button onclick="document.getElementById('debug-panel').style.display='none'" style="background: transparent; border: none; color: #fff; cursor: pointer;">✕</button>
-    </div>
-    <div id="debug-content"></div>
-    <button onclick="runDebugTests()" style="background: #007cba; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px;">🔄 Run Tests</button>
-</div>
-
-<button onclick="document.getElementById('debug-panel').style.display='block'" style="position: fixed; bottom: 10px; left: 10px; background: #e21e5c; color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 9998;">🐛</button>
-
-<script>
-/**
- * DEBUG FUNCTIONS FOR BLOG SYSTEM
- */
-
-function debugLog(message, type = 'info') {
-    const debugContent = document.getElementById('debug-content');
-    if (!debugContent) return;
-    
-    const color = {
-        'error': '#ff6b6b',
-        'success': '#51cf66',
-        'warning': '#ffd43b',
-        'info': '#74c0fc'
-    }[type] || '#74c0fc';
-    
-    const timestamp = new Date().toLocaleTimeString();
-    debugContent.innerHTML += `
-        <div style="color: ${color}; margin: 2px 0; border-left: 3px solid ${color}; padding-left: 5px;">
-            [${timestamp}] ${message}
-        </div>
-    `;
-    debugContent.scrollTop = debugContent.scrollHeight;
-}
-
-async function runDebugTests() {
-    const debugContent = document.getElementById('debug-content');
-    debugContent.innerHTML = '<div style="color: #ffd43b;">🧪 Running debug tests...</div>';
-    
-    // Test 1: Check if DOM elements exist
-    debugLog('=== DOM ELEMENTS CHECK ===', 'info');
-    const elements = ['blog-loading', 'blog-filters', 'blog-grid', 'blog-single', 'blog-pagination'];
-    elements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-            debugLog(`✅ ${id} exists`, 'success');
-        } else {
-            debugLog(`❌ ${id} missing`, 'error');
-        }
-    });
-    
-    // Test 2: Check if blog system is initialized
-    debugLog('=== BLOG SYSTEM CHECK ===', 'info');
-    if (window.blogSystem) {
-        debugLog('✅ blogSystem initialized', 'success');
-        debugLog(`Posts loaded: ${window.blogSystem.posts.length}`, 'info');
-        debugLog(`Categories: ${Array.from(window.blogSystem.categories).join(', ')}`, 'info');
-        debugLog(`Current category: ${window.blogSystem.currentCategory}`, 'info');
-        debugLog(`Current page: ${window.blogSystem.currentPage}`, 'info');
-    } else {
-        debugLog('❌ blogSystem not initialized', 'error');
+        this.init();
     }
     
-    // Test 3: Test API connection
-    debugLog('=== API CONNECTION TEST ===', 'info');
-    try {
-        const response = await fetch('/api/blog.php?action=structure&_debug=1');
-        debugLog(`API Status: ${response.status}`, response.ok ? 'success' : 'error');
-        
-        if (response.ok) {
+    async init() {
+        this.parseURL();
+        await this.loadBlogContent();
+        this.setupEventListeners();
+    }
+    
+    parseURL() {
+        const params = new URLSearchParams(window.location.search);
+        this.currentCategory = params.get('category') || 'all';
+        this.currentPost = params.get('post');
+    }
+    
+    async loadBlogContent() {
+        try {
+            const response = await fetch(this.apiUrl + '?action=list');
             const data = await response.json();
-            debugLog(`API Response: ${data.success ? '✅ Success' : '❌ Failed'}`, data.success ? 'success' : 'error');
             
             if (data.success) {
-                const postCount = Object.values(data.data).flat().length;
-                debugLog(`Posts found in API: ${postCount}`, 'info');
-                debugLog(`Data structure: ${JSON.stringify(Object.keys(data.data))}`, 'info');
-            } else {
-                debugLog(`API Error: ${data.error}`, 'error');
+                this.posts = data.data;
+                this.extractCategories();
+                
+                if (this.currentPost) {
+                    this.showSinglePost();
+                } else {
+                    this.showBlogIndex();
+                }
             }
+        } catch (error) {
+            console.error('Error loading blog content:', error);
+            this.showError();
         }
-    } catch (error) {
-        debugLog(`❌ API connection failed: ${error.message}`, 'error');
     }
     
-    // Test 4: Check current URL and routing
-    debugLog('=== ROUTING CHECK ===', 'info');
-    debugLog(`Current URL: ${window.location.href}`, 'info');
-    debugLog(`Hash: ${window.location.hash || 'none'}`, 'info');
+    extractCategories() {
+        this.categories.clear();
+        this.categories.add('all');
+        
+        this.posts.forEach(post => {
+            this.categories.add(post.category);
+        });
+    }
     
-    // Test 5: Check console errors
-    debugLog('=== CONSOLE ERRORS ===', 'info');
-    debugLog('Check browser console for any JavaScript errors', 'warning');
+    showBlogIndex() {
+        this.renderFilters();
+        this.renderPosts();
+        document.getElementById('blog-index').style.display = 'block';
+        document.getElementById('blog-single-view').style.display = 'none';
+    }
     
-    // Test 6: Network requests
-    debugLog('=== NETWORK CHECK ===', 'info');
-    debugLog('Open DevTools → Network tab to see failed requests', 'warning');
+    renderFilters() {
+        const filtersContainer = document.getElementById('blog-filters');
+        const filtersHTML = Array.from(this.categories).map(category => {
+            const active = category === this.currentCategory ? 'active' : '';
+            const label = category === 'all' ? 'Todos' : this.formatCategory(category);
+            
+            return `<button class="filter-btn ${active}" data-category="${category}">${label}</button>`;
+        }).join('');
+        
+        filtersContainer.innerHTML = filtersHTML;
+    }
     
-    debugLog('=== DEBUG COMPLETE ===', 'success');
+    renderPosts() {
+        const postsContainer = document.getElementById('blog-posts');
+        const filteredPosts = this.currentCategory === 'all' 
+            ? this.posts 
+            : this.posts.filter(post => post.category === this.currentCategory);
+        
+        const postsHTML = filteredPosts.map(post => this.createPostCard(post)).join('');
+        postsContainer.innerHTML = postsHTML;
+    }
+    
+    setupEventListeners() {
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                this.handleCategoryFilter(e.target);
+            }
+        });
+    }
 }
 
-// Auto-run debug on page load
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        if (!window.blogSystem) {
-            debugLog('⚠️ Blog system not loaded after 3 seconds', 'warning');
-        }
-    }, 3000);
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    new LAURABlogSystem();
 });
-
-// Log blog system events
-if (window.blogSystem) {
-    const originalTrackEvent = window.blogSystem.trackEvent;
-    window.blogSystem.trackEvent = function(event, data) {
-        debugLog(`📊 Event: ${event} | Data: ${JSON.stringify(data)}`, 'info');
-        return originalTrackEvent.call(this, event, data);
-    };
-}
-
-// Expose debug functions globally
-window.debugBlog = {
-    log: debugLog,
-    test: runDebugTests,
-    clear: () => {
-        document.getElementById('debug-content').innerHTML = '';
-    },
-    exportLogs: () => {
-        const logs = document.getElementById('debug-content').innerHTML;
-        const blob = new Blob([logs], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'blog-debug-log.html';
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-};
-
-console.log('🐛 Blog Debug Tools loaded. Use window.debugBlog for manual testing.');
 </script>
 </body>
 </html>

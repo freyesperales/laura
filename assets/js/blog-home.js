@@ -128,67 +128,65 @@ class BlogHomeLoader {
      * Carga los posts del blog desde la API
      */
     async loadBlogPosts() {
-        if (this.isLoading) return;
+    if (this.isLoading) return;
+    
+    // NO usar cache en desarrollo - siempre recargar
+    this.isLoading = true;
+    this.showState('loading');
+
+    try {
+        const response = await this.fetchBlogData();
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        if (!result.success) {
+            throw new Error(result.error || 'Error al cargar la estructura del blog');
+        }
+
+        const posts = this.processBlogStructure(result.data);
         
-        // Verificar cache válido
-        if (this.isCacheValid()) {
-            this.renderPosts(this.cache);
-            this.showState('content');
-            this.hasLoaded = true;
-            return;
-        }
-
-        this.isLoading = true;
-        this.showState('loading');
-
-        try {
-            const response = await this.fetchBlogData();
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-
-            if (!result.success) {
-                throw new Error(result.error || 'Error al cargar la estructura del blog');
-            }
-
-            const posts = this.processBlogStructure(result.data);
+        if (posts.length === 0) {
+            this.showState('empty');
+        } else {
+            // Actualizar cache CON timestamp actual
+            this.cache = posts;
+            this.cacheTimestamp = Date.now();
             
-            if (posts.length === 0) {
-                this.showState('empty');
-            } else {
-                // Actualizar cache
-                this.cache = posts;
-                this.cacheTimestamp = Date.now();
-                
-                this.renderPosts(posts);
-                this.showState('content');
-            }
-
-            this.hasLoaded = true;
-
-        } catch (error) {
-            console.error('BlogHomeLoader: Error loading posts:', error);
-            this.showState('error');
-        } finally {
-            this.isLoading = false;
+            this.renderPosts(posts);
+            this.showState('content');
         }
+
+        this.hasLoaded = true;
+
+    } catch (error) {
+        console.error('BlogHomeLoader: Error loading posts:', error);
+        this.showState('error');
+    } finally {
+        this.isLoading = false;
     }
+}
 
     /**
      * Realiza la petición a la API
      */
     async fetchBlogData() {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 segundos timeout
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
 
         try {
-            const response = await fetch(`${this.apiUrl}?action=structure&_t=${Date.now()}`, {
+            // Agregar timestamp y headers anti-cache
+            const timestamp = Date.now();
+            const response = await fetch(`${this.apiUrl}?action=structure&_t=${timestamp}&_cache=false`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache, no-store, must-revalidate',
+                    'Pragma': 'no-cache',
+                    'Expires': '0'
                 },
                 signal: controller.signal
             });

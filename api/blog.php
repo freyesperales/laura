@@ -109,6 +109,9 @@ class LAURABlogAPI {
                     
                 case 'health':
                     return $this->getHealthCheck();
+                
+                case 'checksum':
+                    return $this->getContentChecksum();
                     
                 default:
                     throw new Exception("Unknown action: {$action}");
@@ -134,7 +137,48 @@ class LAURABlogAPI {
             ]
         ]);
     }
+    private function getContentChecksum() {
+    try {
+        $files = $this->getAllBlogFiles();
+        $checksumData = '';
+        
+        foreach ($files as $file) {
+            $checksumData .= $file . filemtime($file);
+        }
+        
+        $checksum = md5($checksumData);
+        
+        return $this->successResponse([
+            'checksum' => $checksum,
+            'files_count' => count($files),
+            'last_modified' => max(array_map('filemtime', $files))
+        ]);
+        
+    } catch (Exception $e) {
+        return $this->errorResponse('Error generating checksum: ' . $e->getMessage());
+    }
+}
+
+private function getAllBlogFiles() {
+    $files = [];
+    $this->scanForFiles($this->blogDirectory, $files);
+    return $files;
+}
+
+private function scanForFiles($dir, &$files) {
+    if (!is_dir($dir)) return;
     
+    foreach (scandir($dir) as $item) {
+        if ($item[0] === '.') continue;
+        
+        $path = $dir . '/' . $item;
+        if (is_dir($path)) {
+            $this->scanForFiles($path, $files);
+        } elseif (in_array(pathinfo($path, PATHINFO_EXTENSION), $this->allowedExtensions)) {
+            $files[] = $path;
+        }
+    }
+}
     private function getBlogStructure() {
         try {
             $this->debugLog("Getting blog structure from: {$this->blogDirectory}");
