@@ -3685,3 +3685,205 @@ input, textarea, select {
         height: 180px;
     }
 }
+
+/* ========================================
+   BLOG PAGE SPECIFIC STYLES
+========================================= */
+
+/* Stats */
+.blog-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0 2rem;
+    color: var(--dark-text-secondary);
+    font-size: var(--text-sm);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item span {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Filters mejorados */
+.blog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--dark-bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--dark-border);
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--dark-border);
+    color: var(--dark-text-secondary);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: var(--font-weight-medium);
+}
+
+.filter-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.filter-btn.active {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+}
+
+/* Pagination */
+.blog-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding: 2rem 0;
+}
+
+.pagination-btn {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--dark-border);
+    background: var(--dark-bg-card);
+    color: var(--dark-text-secondary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-btn:hover,
+.pagination-btn.active {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+}
+
+/* Single post view mejorado */
+.blog-single {
+    background: var(--dark-bg-card);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--dark-border);
+}
+
+.blog-single-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--dark-border);
+}
+
+.blog-single-category {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 1rem;
+}
+
+.blog-single-title {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--dark-text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.blog-single-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--dark-text-secondary);
+    font-size: var(--text-sm);
+}
+
+.blog-single-content {
+    line-height: 1.8;
+    color: var(--dark-text-primary);
+}
+
+.blog-single-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin: 2rem 0 1rem;
+    color: var(--dark-text-primary);
+}
+
+.blog-single-content h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    margin: 1.5rem 0 0.75rem;
+    color: var(--dark-text-primary);
+}
+
+.blog-single-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--dark-border);
+}
+
+.blog-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease;
+}
+
+.blog-back-btn:hover {
+    background: var(--color-accent);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .blog-single {
+        padding: 2rem 1.5rem;
+    }
+    
+    .blog-single-title {
+        font-size: var(--text-3xl);
+    }
+    
+    .blog-single-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .blog-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

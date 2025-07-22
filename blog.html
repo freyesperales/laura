@@ -379,31 +379,61 @@
 
     <!-- Main Content -->
     <main class="blog-container" style="padding: 2rem;">
-        <!-- Blog Index View -->
-        <div id="blog-index" class="blog-index">
-            <!-- Loading State -->
-            <div id="blog-loading" class="blog-loading">
-                <div class="blog-loading-spinner"></div>
-                <p>Cargando artículos...</p>
-            </div>
+    <!-- Blog Index View -->
+    <div id="blog-index" class="blog-index">
+        <!-- Loading State -->
+        <div id="blog-loading" class="blog-loading">
+            <div class="blog-loading-spinner"></div>
+            <p>Cargando artículos...</p>
+        </div>
 
-            <!-- Category Filters -->
-            <div id="blog-filters" class="blog-filters hidden">
-                <button class="filter-btn active" data-category="all">Todos los Artículos</button>
-                <!-- Dynamic categories will be inserted here -->
-            </div>
+        <!-- Category Filters -->
+        <div id="blog-filters" class="blog-filters hidden">
+            <button class="filter-btn active" data-category="all">Todos los Artículos</button>
+            <!-- Dynamic categories will be inserted here -->
+        </div>
 
-            <!-- Blog Grid -->
-            <div id="blog-grid" class="blog-grid hidden">
-                <!-- Dynamic blog posts will be inserted here -->
+        <!-- Stats -->
+        <div id="blog-stats" class="blog-stats hidden">
+            <div class="stat-item">
+                <span id="total-posts">-</span> artículos
+            </div>
+            <div class="stat-item">
+                <span id="total-categories">-</span> categorías
             </div>
         </div>
 
-        <!-- Single Blog Post View -->
-        <div id="blog-single" class="blog-single hidden">
-            <!-- Single post content will be inserted here -->
+        <!-- Blog Grid -->
+        <div id="blog-grid" class="blog-grid hidden">
+            <!-- Dynamic blog posts will be inserted here -->
         </div>
-    </main>
+
+        <!-- Pagination -->
+        <div id="blog-pagination" class="blog-pagination hidden">
+            <!-- Pagination buttons will be inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="blog-empty" class="blog-empty hidden">
+            <i class="fas fa-edit"></i>
+            <h3>¡Próximamente nuevos artículos!</h3>
+            <p>Estamos preparando contenido valioso para ti.</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="blog-error" class="blog-error hidden">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Error cargando artículos</h3>
+            <p>Por favor, intenta recargar la página.</p>
+            <button class="btn-secondary" onclick="blogLoader.refresh()">Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <!-- Single Blog Post View -->
+    <div id="blog-single" class="blog-single hidden">
+        <!-- Single post content will be inserted here -->
+    </div>
+</main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -900,5 +930,147 @@
         }
     }
     </script>
+    <!-- DEBUG PANEL (TEMPORAL - ELIMINAR EN PRODUCCIÓN) -->
+<div id="debug-panel" style="position: fixed; bottom: 10px; right: 10px; background: #000; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; max-width: 400px; z-index: 9999; display: none;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <strong>🐛 BLOG DEBUG</strong>
+        <button onclick="document.getElementById('debug-panel').style.display='none'" style="background: transparent; border: none; color: #fff; cursor: pointer;">✕</button>
+    </div>
+    <div id="debug-content"></div>
+    <button onclick="runDebugTests()" style="background: #007cba; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px;">🔄 Run Tests</button>
+</div>
+
+<button onclick="document.getElementById('debug-panel').style.display='block'" style="position: fixed; bottom: 10px; left: 10px; background: #e21e5c; color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 9998;">🐛</button>
+
+<script>
+/**
+ * DEBUG FUNCTIONS FOR BLOG SYSTEM
+ */
+
+function debugLog(message, type = 'info') {
+    const debugContent = document.getElementById('debug-content');
+    if (!debugContent) return;
+    
+    const color = {
+        'error': '#ff6b6b',
+        'success': '#51cf66',
+        'warning': '#ffd43b',
+        'info': '#74c0fc'
+    }[type] || '#74c0fc';
+    
+    const timestamp = new Date().toLocaleTimeString();
+    debugContent.innerHTML += `
+        <div style="color: ${color}; margin: 2px 0; border-left: 3px solid ${color}; padding-left: 5px;">
+            [${timestamp}] ${message}
+        </div>
+    `;
+    debugContent.scrollTop = debugContent.scrollHeight;
+}
+
+async function runDebugTests() {
+    const debugContent = document.getElementById('debug-content');
+    debugContent.innerHTML = '<div style="color: #ffd43b;">🧪 Running debug tests...</div>';
+    
+    // Test 1: Check if DOM elements exist
+    debugLog('=== DOM ELEMENTS CHECK ===', 'info');
+    const elements = ['blog-loading', 'blog-filters', 'blog-grid', 'blog-single', 'blog-pagination'];
+    elements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            debugLog(`✅ ${id} exists`, 'success');
+        } else {
+            debugLog(`❌ ${id} missing`, 'error');
+        }
+    });
+    
+    // Test 2: Check if blog system is initialized
+    debugLog('=== BLOG SYSTEM CHECK ===', 'info');
+    if (window.blogSystem) {
+        debugLog('✅ blogSystem initialized', 'success');
+        debugLog(`Posts loaded: ${window.blogSystem.posts.length}`, 'info');
+        debugLog(`Categories: ${Array.from(window.blogSystem.categories).join(', ')}`, 'info');
+        debugLog(`Current category: ${window.blogSystem.currentCategory}`, 'info');
+        debugLog(`Current page: ${window.blogSystem.currentPage}`, 'info');
+    } else {
+        debugLog('❌ blogSystem not initialized', 'error');
+    }
+    
+    // Test 3: Test API connection
+    debugLog('=== API CONNECTION TEST ===', 'info');
+    try {
+        const response = await fetch('/api/blog.php?action=structure&_debug=1');
+        debugLog(`API Status: ${response.status}`, response.ok ? 'success' : 'error');
+        
+        if (response.ok) {
+            const data = await response.json();
+            debugLog(`API Response: ${data.success ? '✅ Success' : '❌ Failed'}`, data.success ? 'success' : 'error');
+            
+            if (data.success) {
+                const postCount = Object.values(data.data).flat().length;
+                debugLog(`Posts found in API: ${postCount}`, 'info');
+                debugLog(`Data structure: ${JSON.stringify(Object.keys(data.data))}`, 'info');
+            } else {
+                debugLog(`API Error: ${data.error}`, 'error');
+            }
+        }
+    } catch (error) {
+        debugLog(`❌ API connection failed: ${error.message}`, 'error');
+    }
+    
+    // Test 4: Check current URL and routing
+    debugLog('=== ROUTING CHECK ===', 'info');
+    debugLog(`Current URL: ${window.location.href}`, 'info');
+    debugLog(`Hash: ${window.location.hash || 'none'}`, 'info');
+    
+    // Test 5: Check console errors
+    debugLog('=== CONSOLE ERRORS ===', 'info');
+    debugLog('Check browser console for any JavaScript errors', 'warning');
+    
+    // Test 6: Network requests
+    debugLog('=== NETWORK CHECK ===', 'info');
+    debugLog('Open DevTools → Network tab to see failed requests', 'warning');
+    
+    debugLog('=== DEBUG COMPLETE ===', 'success');
+}
+
+// Auto-run debug on page load
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (!window.blogSystem) {
+            debugLog('⚠️ Blog system not loaded after 3 seconds', 'warning');
+        }
+    }, 3000);
+});
+
+// Log blog system events
+if (window.blogSystem) {
+    const originalTrackEvent = window.blogSystem.trackEvent;
+    window.blogSystem.trackEvent = function(event, data) {
+        debugLog(`📊 Event: ${event} | Data: ${JSON.stringify(data)}`, 'info');
+        return originalTrackEvent.call(this, event, data);
+    };
+}
+
+// Expose debug functions globally
+window.debugBlog = {
+    log: debugLog,
+    test: runDebugTests,
+    clear: () => {
+        document.getElementById('debug-content').innerHTML = '';
+    },
+    exportLogs: () => {
+        const logs = document.getElementById('debug-content').innerHTML;
+        const blob = new Blob([logs], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'blog-debug-log.html';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+};
+
+console.log('🐛 Blog Debug Tools loaded. Use window.debugBlog for manual testing.');
+</script>
 </body>
 </html>

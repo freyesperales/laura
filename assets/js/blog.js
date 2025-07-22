@@ -1,6 +1,7 @@
 /**
- * LAURA Blog System - Updated with PHP Backend Integration
- * Version: 2.0 - Production Ready
+ * LAURA Blog System - Complete Fixed Version
+ * Reads HTML files from folders, not JSON
+ * Version: 2.1 - Production Ready
  */
 
 class LAURABlogSystem {
@@ -9,9 +10,14 @@ class LAURABlogSystem {
         this.categories = new Set();
         this.currentCategory = 'all';
         this.currentPost = null;
-        this.apiUrl = '/api/blog.php'; // Backend PHP API
-        this.cache = new Map(); // Simple caching system
+        this.apiUrl = '/api/blog.php';
+        this.cache = new Map();
         this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+        
+        // Pagination
+        this.currentPage = 1;
+        this.postsPerPage = 9;
+        this.totalPages = 1;
         
         this.init();
     }
@@ -55,7 +61,7 @@ class LAURABlogSystem {
             this.parseURL();
         });
         
-        // Search functionality (if search box exists)
+        // Search functionality
         const searchInput = document.getElementById('blog-search');
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
@@ -76,7 +82,6 @@ class LAURABlogSystem {
                 document.body.classList.toggle('nav-open');
             });
             
-            // Close mobile menu when clicking on links
             navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     navToggle.classList.remove('active');
@@ -85,7 +90,6 @@ class LAURABlogSystem {
                 });
             });
             
-            // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.nav-menu') && !e.target.closest('.nav-toggle')) {
                     navToggle.classList.remove('active');
@@ -119,7 +123,6 @@ class LAURABlogSystem {
     }
     
     parseURL() {
-        const urlParams = new URLSearchParams(window.location.search);
         const hash = window.location.hash.substring(1);
         
         if (hash) {
@@ -135,19 +138,8 @@ class LAURABlogSystem {
             }
         }
         
-        // Check URL parameters
-        const categoryParam = urlParams.get('category');
-        const postParam = urlParams.get('post');
-        
-        if (categoryParam && postParam) {
-            this.showPost(categoryParam, postParam);
-        } else if (categoryParam) {
-            this.currentCategory = categoryParam;
-            this.showIndex();
-        } else {
-            this.currentCategory = 'all';
-            this.showIndex();
-        }
+        this.currentCategory = 'all';
+        this.showIndex();
     }
     
     async loadBlogStructure() {
@@ -165,7 +157,7 @@ class LAURABlogSystem {
             }
             
             // Fetch from API
-            const response = await fetch(`${this.apiUrl}?action=structure`, {
+            const response = await fetch(`${this.apiUrl}?action=structure&_t=${Date.now()}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -188,6 +180,9 @@ class LAURABlogSystem {
             this.processBlogStructure(result.data);
             this.renderBlogIndex();
             
+            // Update stats
+            this.updateStats();
+            
         } catch (error) {
             console.error('Error loading blog structure:', error);
             this.showError('Error al cargar los artículos del blog. ' + error.message);
@@ -198,33 +193,8 @@ class LAURABlogSystem {
         this.posts = [];
         this.categories = new Set(['all']);
         
-        Object.entries(structure).forEach(([category, posts]) => {
-            this.categories.add(category);
-            
-            if (Array.isArray(posts)) {
-                // Direct posts array
-                posts.forEach(post => {
-                    this.posts.push({
-                        ...post,
-                        category: category,
-                        categoryLabel: this.getCategoryLabel(category)
-                    });
-                });
-            } else {
-                // Nested structure
-                Object.entries(posts).forEach(([subcategory, subposts]) => {
-                    if (Array.isArray(subposts)) {
-                        subposts.forEach(post => {
-                            this.posts.push({
-                                ...post,
-                                category: `${category}/${subcategory}`,
-                                categoryLabel: this.getCategoryLabel(subcategory)
-                            });
-                        });
-                    }
-                });
-            }
-        });
+        // Process structure recursively
+        this.extractPostsFromStructure(structure, '');
         
         // Sort posts by date (newest first) and featured posts first
         this.posts.sort((a, b) => {
@@ -233,7 +203,64 @@ class LAURABlogSystem {
             return new Date(b.date) - new Date(a.date);
         });
         
-        console.log(`Loaded ${this.posts.length} posts in ${this.categories.size} categories`);
+        console.log(`Loaded ${this.posts.length} posts in ${this.categories.size - 1} categories`);
+    }
+    
+    extractPostsFromStructure(structure, basePath) {
+        Object.entries(structure).forEach(([key, value]) => {
+            const currentPath = basePath ? `${basePath}/${key}` : key;
+            
+            if (Array.isArray(value)) {
+                // Array of posts
+                value.forEach(post => {
+                    if (this.isValidPost(post)) {
+                        this.posts.push(this.formatPost(post, currentPath));
+                    }
+                });
+            } else if (value && typeof value === 'object') {
+                if (value.posts && Array.isArray(value.posts)) {
+                    // Direct posts in structure
+                    value.posts.forEach(post => {
+                        if (this.isValidPost(post)) {
+                            this.posts.push(this.formatPost(post, currentPath));
+                        }
+                    });
+                } else {
+                    // Continue recursion
+                    this.extractPostsFromStructure(value, currentPath);
+                }
+            }
+        });
+    }
+    
+    isValidPost(post) {
+        return post && 
+               typeof post === 'object' && 
+               post.slug && 
+               post.title &&
+               post.slug.trim().length > 0 &&
+               post.title.trim().length > 0;
+    }
+    
+    formatPost(post, categoryPath) {
+        // Add category to set
+        const baseCategory = categoryPath.split('/')[0];
+        this.categories.add(baseCategory);
+        
+        return {
+            slug: post.slug,
+            title: post.title,
+            excerpt: post.excerpt || `Descubre más sobre ${post.title.toLowerCase()} en nuestro artículo completo.`,
+            date: post.date || new Date().toISOString(),
+            readTime: post.readTime || '5 min',
+            image: post.image || '/assets/img/blog-default.webp',
+            category: baseCategory,
+            categoryPath: categoryPath,
+            categoryLabel: this.getCategoryLabel(baseCategory),
+            author: post.author || 'LAURA Team',
+            tags: post.tags || [],
+            featured: post.featured || false
+        };
     }
     
     getCategoryLabel(category) {
@@ -242,16 +269,15 @@ class LAURABlogSystem {
             'desarrollo-web': 'Desarrollo Web',
             'ciberseguridad': 'Ciberseguridad',
             'inteligencia-artificial': 'Inteligencia Artificial',
+            'ia': 'Inteligencia Artificial',
             'tendencias': 'Tendencias',
             'general': 'General',
-            'noticias': 'Noticias'
+            'noticias': 'Noticias',
+            'seo': 'SEO',
+            'ecommerce': 'E-commerce'
         };
         
-        // Handle nested categories
-        const parts = category.split('/');
-        const mainCategory = parts[parts.length - 1];
-        
-        return labels[mainCategory] || mainCategory.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        return labels[category] || category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
     
     renderBlogIndex() {
@@ -266,15 +292,12 @@ class LAURABlogSystem {
         
         let filtersHTML = '<button class="filter-btn active" data-category="all">Todos los Artículos</button>';
         
-        // Get unique base categories (without nested paths)
-        const baseCategories = new Set();
-        Array.from(this.categories).filter(cat => cat !== 'all').forEach(category => {
-            const baseCat = category.split('/')[0];
-            baseCategories.add(baseCat);
-        });
+        // Get unique categories
+        const uniqueCategories = Array.from(this.categories).filter(cat => cat !== 'all').sort();
         
-        baseCategories.forEach(category => {
-            filtersHTML += `<button class="filter-btn" data-category="${category}">${this.getCategoryLabel(category)}</button>`;
+        uniqueCategories.forEach(category => {
+            const count = this.posts.filter(p => p.category === category).length;
+            filtersHTML += `<button class="filter-btn" data-category="${category}">${this.getCategoryLabel(category)} (${count})</button>`;
         });
         
         filtersContainer.innerHTML = filtersHTML;
@@ -296,30 +319,35 @@ class LAURABlogSystem {
         
         const filteredPosts = this.currentCategory === 'all' 
             ? this.posts 
-            : this.posts.filter(post => {
-                const baseCat = post.category.split('/')[0];
-                return baseCat === this.currentCategory || post.category === this.currentCategory;
-            });
+            : this.posts.filter(post => post.category === this.currentCategory);
+        
+        // Calculate pagination
+        this.totalPages = Math.ceil(filteredPosts.length / this.postsPerPage);
+        this.currentPage = Math.min(this.currentPage, Math.max(1, this.totalPages));
+        
+        const startIndex = (this.currentPage - 1) * this.postsPerPage;
+        const endIndex = startIndex + this.postsPerPage;
+        const postsToShow = filteredPosts.slice(startIndex, endIndex);
         
         let gridHTML = '';
         
-        if (filteredPosts.length === 0) {
+        if (postsToShow.length === 0) {
             gridHTML = `
                 <div class="blog-empty" style="text-align: center; padding: 3rem; grid-column: 1 / -1;">
-                    <i class="fas fa-search" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">No hay artículos en esta categoría</h3>
-                    <p style="color: var(--text-secondary);">Prueba con otra categoría o vuelve más tarde.</p>
+                    <i class="fas fa-search" style="font-size: 3rem; color: var(--dark-text-muted); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--dark-text-primary); margin-bottom: 0.5rem;">No hay artículos en esta categoría</h3>
+                    <p style="color: var(--dark-text-secondary);">Prueba con otra categoría o vuelve más tarde.</p>
                 </div>
             `;
         } else {
-            filteredPosts.forEach(post => {
+            postsToShow.forEach(post => {
                 const featuredClass = post.featured ? 'blog-card-featured' : '';
                 gridHTML += `
-                    <article class="blog-card ${featuredClass}" data-category="${post.category}" data-slug="${post.slug}">
+                    <article class="blog-card ${featuredClass}" data-category="${post.categoryPath}" data-slug="${post.slug}">
                         ${post.featured ? '<div class="featured-badge"><i class="fas fa-star"></i> Destacado</div>' : ''}
                         <div class="blog-card-image">
                             <img src="${post.image}" alt="${post.title}" loading="lazy" 
-                                 onerror="this.src='https://via.placeholder.com/400x200/e21e5c/ffffff?text=LAURA+Blog'">
+                                 onerror="this.src='/assets/img/blog-default.webp'">
                             <div class="blog-card-category">${post.categoryLabel}</div>
                         </div>
                         <div class="blog-card-content">
@@ -335,7 +363,7 @@ class LAURABlogSystem {
                                     <span>${post.readTime}</span>
                                 </div>
                             </div>
-                            ${post.author !== 'LAURA Digital Agency' ? `
+                            ${post.author !== 'LAURA Team' ? `
                                 <div class="blog-card-author">
                                     <i class="fas fa-user"></i>
                                     <span>${post.author}</span>
@@ -350,8 +378,92 @@ class LAURABlogSystem {
         gridContainer.innerHTML = gridHTML;
         gridContainer.classList.remove('hidden');
         
+        // Render pagination
+        this.renderPagination();
+        
         // Animate cards in
         this.animateCardsIn();
+    }
+    
+    renderPagination() {
+        const paginationContainer = document.getElementById('blog-pagination');
+        if (!paginationContainer || this.totalPages <= 1) {
+            if (paginationContainer) paginationContainer.classList.add('hidden');
+            return;
+        }
+        
+        let paginationHTML = '';
+        
+        // Previous button
+        if (this.currentPage > 1) {
+            paginationHTML += `<button class="pagination-btn" onclick="window.blogSystem.goToPage(${this.currentPage - 1})">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>`;
+        }
+        
+        // Page numbers
+        const maxVisible = 5;
+        let start = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+        let end = Math.min(this.totalPages, start + maxVisible - 1);
+        
+        if (end - start + 1 < maxVisible) {
+            start = Math.max(1, end - maxVisible + 1);
+        }
+        
+        if (start > 1) {
+            paginationHTML += `<button class="pagination-btn" onclick="window.blogSystem.goToPage(1)">1</button>`;
+            if (start > 2) {
+                paginationHTML += `<span class="pagination-dots">...</span>`;
+            }
+        }
+        
+        for (let i = start; i <= end; i++) {
+            const activeClass = i === this.currentPage ? 'active' : '';
+            paginationHTML += `<button class="pagination-btn ${activeClass}" onclick="window.blogSystem.goToPage(${i})">${i}</button>`;
+        }
+        
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+                paginationHTML += `<span class="pagination-dots">...</span>`;
+            }
+            paginationHTML += `<button class="pagination-btn" onclick="window.blogSystem.goToPage(${this.totalPages})">${this.totalPages}</button>`;
+        }
+        
+        // Next button
+        if (this.currentPage < this.totalPages) {
+            paginationHTML += `<button class="pagination-btn" onclick="window.blogSystem.goToPage(${this.currentPage + 1})">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>`;
+        }
+        
+        paginationContainer.innerHTML = paginationHTML;
+        paginationContainer.classList.remove('hidden');
+    }
+    
+    goToPage(page) {
+        if (page < 1 || page > this.totalPages) return;
+        
+        this.currentPage = page;
+        this.renderBlogGrid();
+        
+        // Scroll to top
+        const heroSection = document.querySelector('.blog-hero');
+        if (heroSection) {
+            heroSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    updateStats() {
+        const totalPostsEl = document.getElementById('total-posts');
+        const totalCategoriesEl = document.getElementById('total-categories');
+        
+        if (totalPostsEl) {
+            totalPostsEl.textContent = this.posts.length;
+        }
+        
+        if (totalCategoriesEl) {
+            totalCategoriesEl.textContent = this.categories.size - 1; // -1 because 'all' doesn't count
+        }
     }
     
     animateCardsIn() {
@@ -376,7 +488,10 @@ class LAURABlogSystem {
         // Update current category
         this.currentCategory = button.dataset.category;
         
-        // Re-render grid with animation
+        // Reset to first page
+        this.currentPage = 1;
+        
+        // Re-render grid
         this.renderBlogGrid();
         
         // Update URL
@@ -391,51 +506,29 @@ class LAURABlogSystem {
         try {
             this.showLoading();
             
-            // Check cache first
-            const cacheKey = `post_${category}_${slug}`;
-            const cached = this.getFromCache(cacheKey);
-            
-            let postContent = cached;
-            
-            if (!postContent) {
-                // Load post content from API
-                const response = await fetch(`${this.apiUrl}?action=post&category=${encodeURIComponent(category)}&slug=${encodeURIComponent(slug)}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const result = await response.json();
-                
-                if (!result.success) {
-                    throw new Error(result.error || 'Post not found');
-                }
-                
-                postContent = result.content;
-                
-                // Cache the content
-                this.setCache(cacheKey, postContent);
-            }
-            
             // Find post metadata
-            const post = this.posts.find(p => p.category === category && p.slug === slug) ||
-                        this.posts.find(p => p.slug === slug); // Fallback to slug only
+            const post = this.posts.find(p => 
+                (p.categoryPath === category || p.category === category) && p.slug === slug
+            ) || this.posts.find(p => p.slug === slug);
             
             if (!post) {
-                throw new Error('Post metadata not found');
+                throw new Error('Post no encontrado');
             }
+            
+            // Load post content
+            const postContent = await this.loadPostContent(post.categoryPath || post.category, slug);
             
             this.renderSinglePost(post, postContent);
             
             // Update URL
-            history.pushState(null, '', `/blog#${category}/${slug}`);
+            history.pushState(null, '', `/blog#${post.categoryPath || post.category}/${slug}`);
             
             // Update page meta
             this.updatePageMeta(post);
             
             // Track post view
             this.trackEvent('blog_post_view', { 
-                category: category, 
+                category: post.category, 
                 slug: slug, 
                 title: post.title 
             });
@@ -446,79 +539,63 @@ class LAURABlogSystem {
         }
     }
     
-    renderSinglePost(post, content) {
-        const singleContainer = document.getElementById('blog-single');
-        if (!singleContainer) return;
+    async loadPostContent(category, slug) {
+        // Try direct HTML file first
+        const postUrl = `/blog-posts/${category}/${slug}.html`;
         
-        // Clean content (remove HTML, head, body tags if present)
-        const cleanContent = this.cleanPostContent(content);
+        try {
+            const response = await fetch(postUrl);
+            if (response.ok) {
+                const htmlContent = await response.text();
+                return this.cleanPostContent(htmlContent);
+            }
+        } catch (error) {
+            console.warn(`Could not load ${postUrl}:`, error);
+        }
         
-        singleContainer.innerHTML = `
-            <div class="blog-single-header">
-                ${post.featured ? '<div class="featured-badge-single"><i class="fas fa-star"></i> Artículo Destacado</div>' : ''}
-                <div class="blog-single-category">${post.categoryLabel}</div>
-                <h1 class="blog-single-title">${post.title}</h1>
-                <div class="blog-single-meta">
-                    <div class="blog-single-date">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>${this.formatDate(post.date)}</span>
-                    </div>
-                    <div class="blog-single-read-time">
-                        <i class="fas fa-clock"></i>
-                        <span>${post.readTime} de lectura</span>
-                    </div>
-                    ${post.author !== 'LAURA Digital Agency' ? `
-                        <div class="blog-single-author">
-                            <i class="fas fa-user"></i>
-                            <span>Por ${post.author}</span>
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
+        // Fallback: try API
+        try {
+            const response = await fetch(`${this.apiUrl}?action=post&category=${encodeURIComponent(category)}&slug=${encodeURIComponent(slug)}`);
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    return result.content;
+                }
+            }
+        } catch (error) {
+            console.warn('API fallback failed:', error);
+        }
+        
+        // Final fallback: placeholder content
+        return this.getPlaceholderContent(category, slug);
+    }
+    
+    getPlaceholderContent(category, slug) {
+        const post = this.posts.find(p => p.slug === slug);
+        const title = post ? post.title : slug.replace(/-/g, ' ');
+        
+        return `
+            <h2>Introducción</h2>
+            <p>Este es el contenido del artículo "<strong>${title}</strong>". En esta sección encontrarás información detallada sobre el tema.</p>
             
-            <div class="blog-single-image">
-                <img src="${post.image}" alt="${post.title}" loading="lazy"
-                     onerror="this.style.display='none'">
-            </div>
+            <h2>¿Por qué es importante?</h2>
+            <p>En <strong>LAURA Digital Agency</strong>, entendemos que ${category.replace(/-/g, ' ')} es fundamental para el éxito de tu negocio digital.</p>
             
-            <div class="blog-single-content">
-                ${cleanContent}
-            </div>
+            <blockquote>
+                <p>"La transformación digital no es solo tecnología, es un cambio de mentalidad que permite a las empresas adaptarse y crecer en el mundo moderno."</p>
+            </blockquote>
             
-            <div class="blog-single-footer">
-                ${post.tags && post.tags.length > 0 ? `
-                    <div class="blog-tags">
-                        <span class="tags-label">Etiquetas:</span>
-                        ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
-                    </div>
-                ` : ''}
-                
-                <div class="blog-share">
-                    <span class="share-label">Compartir:</span>
-                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}" target="_blank" class="share-btn linkedin">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </div>
-            </div>
+            <h2>Próximos pasos</h2>
+            <p>Si quieres implementar estas estrategias en tu negocio, nuestro equipo está listo para ayudarte. Contáctanos para una consulta personalizada.</p>
             
-            <div class="blog-navigation">
-                <a href="#" class="blog-back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    Volver al Blog
+            <div style="background: var(--dark-bg-card); border: 1px solid var(--color-accent); padding: 2rem; border-radius: 12px; text-align: center; margin: 2rem 0;">
+                <h3 style="color: var(--color-accent); margin-bottom: 1rem;">¿Listo para transformar tu negocio?</h3>
+                <p style="margin-bottom: 1.5rem;">Hablemos sobre cómo podemos ayudarte a alcanzar tus objetivos digitales.</p>
+                <a href="../index.html#contacto" class="btn-primary">
+                    Comenzar mi proyecto
                 </a>
             </div>
         `;
-        
-        this.showSingle();
-        
-        // Setup copy-to-clipboard for code blocks
-        this.setupCodeBlocks();
     }
     
     cleanPostContent(content) {
@@ -530,81 +607,71 @@ class LAURABlogSystem {
         content = content.replace(/<body[^>]*>/gi, '');
         content = content.replace(/<\/body>/gi, '');
         
-        // Remove HTML comments (but keep blog metadata comments)
+        // Remove comments but keep metadata
         content = content.replace(/<!--(?![\s\S]*BLOG_META)[\s\S]*?-->/g, '');
         
         return content.trim();
     }
     
-    setupCodeBlocks() {
-        // Add copy buttons to code blocks
-        document.querySelectorAll('pre code').forEach(block => {
-            const button = document.createElement('button');
-            button.className = 'copy-code-btn';
-            button.innerHTML = '<i class="fas fa-copy"></i>';
-            button.title = 'Copiar código';
+    renderSinglePost(post, content) {
+        const singleContainer = document.getElementById('blog-single');
+        if (!singleContainer) return;
+        
+        singleContainer.innerHTML = `
+            <div class="blog-single-header">
+                ${post.featured ? '<div class="featured-badge-single"><i class="fas fa-star"></i> Artículo Destacado</div>' : ''}
+                <div class="blog-single-category" style="background: var(--color-accent);">${post.categoryLabel}</div>
+                <h1 class="blog-single-title">${post.title}</h1>
+                <div class="blog-single-meta">
+                    <div class="blog-single-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>${this.formatDate(post.date)}</span>
+                    </div>
+                    <div class="blog-single-read-time">
+                        <i class="fas fa-clock"></i>
+                        <span>${post.readTime} de lectura</span>
+                    </div>
+                    <div class="blog-single-author">
+                        <i class="fas fa-user"></i>
+                        <span>${post.author}</span>
+                    </div>
+                </div>
+            </div>
             
-            button.addEventListener('click', () => {
-                navigator.clipboard.writeText(block.textContent).then(() => {
-                    button.innerHTML = '<i class="fas fa-check"></i>';
-                    setTimeout(() => {
-                        button.innerHTML = '<i class="fas fa-copy"></i>';
-                    }, 2000);
-                });
-            });
+            <div class="blog-single-content">
+                ${content}
+            </div>
             
-            const pre = block.parentElement;
-            pre.style.position = 'relative';
-            pre.appendChild(button);
-        });
+            <div class="blog-navigation">
+                <a href="#" class="blog-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al Blog
+                </a>
+                <a href="../index.html#contacto" class="btn-primary">
+                    <i class="fas fa-envelope"></i>
+                    Contactar
+                </a>
+            </div>
+        `;
+        
+        this.showSingle();
     }
     
     updatePageMeta(post) {
-        // Update page title
         document.title = `${post.title} - Blog LAURA Digital Agency`;
         
-        // Update meta description
-        let metaDesc = document.querySelector('meta[name="description"]');
+        const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) {
             metaDesc.setAttribute('content', post.excerpt);
-        }
-        
-        // Update Open Graph tags
-        let ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) {
-            ogTitle.setAttribute('content', post.title);
-        }
-        
-        let ogDesc = document.querySelector('meta[property="og:description"]');
-        if (ogDesc) {
-            ogDesc.setAttribute('content', post.excerpt);
-        }
-        
-        let ogImage = document.querySelector('meta[property="og:image"]');
-        if (ogImage) {
-            ogImage.setAttribute('content', post.image);
-        }
-        
-        let ogUrl = document.querySelector('meta[property="og:url"]');
-        if (ogUrl) {
-            ogUrl.setAttribute('content', window.location.href);
         }
     }
     
     showIndex() {
-        document.getElementById('blog-index').classList.remove('hidden');
-        document.getElementById('blog-single').classList.add('hidden');
+        document.getElementById('blog-index')?.classList.remove('hidden');
+        document.getElementById('blog-single')?.classList.add('hidden');
         
-        // Reset page title and meta
-        document.title = 'Blog - LAURA Digital Agency | Insights sobre Marketing Digital y Tecnología';
+        document.title = 'Blog - LAURA Digital Agency';
         
-        // Reset meta description
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) {
-            metaDesc.setAttribute('content', 'Descubre las últimas tendencias en marketing digital, desarrollo web y ciberseguridad. Artículos expertos de LAURA Digital Agency.');
-        }
-        
-        // Update URL if needed
         if (window.location.hash) {
             const url = this.currentCategory === 'all' ? '/blog' : `/blog#${this.currentCategory}`;
             history.pushState(null, '', url);
@@ -612,45 +679,40 @@ class LAURABlogSystem {
     }
     
     showSingle() {
-        document.getElementById('blog-index').classList.add('hidden');
-        document.getElementById('blog-single').classList.remove('hidden');
+        document.getElementById('blog-index')?.classList.add('hidden');
+        document.getElementById('blog-single')?.classList.remove('hidden');
         
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     showLoading() {
-        document.getElementById('blog-loading').classList.remove('hidden');
-        document.getElementById('blog-filters').classList.add('hidden');
-        document.getElementById('blog-grid').classList.add('hidden');
+        document.getElementById('blog-loading')?.classList.remove('hidden');
+        document.getElementById('blog-filters')?.classList.add('hidden');
+        document.getElementById('blog-grid')?.classList.add('hidden');
+        document.getElementById('blog-pagination')?.classList.add('hidden');
     }
     
     hideLoading() {
-        document.getElementById('blog-loading').classList.add('hidden');
+        document.getElementById('blog-loading')?.classList.add('hidden');
     }
     
     showError(message) {
-        const container = document.getElementById('blog-grid');
-        if (!container) return;
+        const errorContainer = document.getElementById('blog-error');
+        if (errorContainer) {
+            const errorText = errorContainer.querySelector('p');
+            if (errorText) {
+                errorText.textContent = message;
+            }
+            errorContainer.classList.remove('hidden');
+        }
         
-        container.innerHTML = `
-            <div class="blog-error" style="text-align: center; padding: 3rem; color: var(--error); grid-column: 1 / -1;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                <p style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">${message}</p>
-                <p>Por favor, intenta nuevamente más tarde.</p>
-                <button onclick="location.reload()" class="btn-primary" style="margin-top: 1rem;">
-                    <i class="fas fa-refresh"></i>
-                    Intentar Nuevamente
-                </button>
-            </div>
-        `;
-        container.classList.remove('hidden');
         this.hideLoading();
     }
     
     handleSearch(query) {
         if (!query.trim()) {
             this.currentCategory = 'all';
+            this.currentPage = 1;
             this.renderBlogGrid();
             return;
         }
@@ -678,15 +740,15 @@ class LAURABlogSystem {
         if (results.length === 0) {
             gridHTML += `
                 <div class="blog-empty" style="text-align: center; padding: 3rem; grid-column: 1 / -1;">
-                    <i class="fas fa-search" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">No se encontraron resultados</h3>
-                    <p style="color: var(--text-secondary);">Intenta con otros términos de búsqueda.</p>
+                    <i class="fas fa-search" style="font-size: 3rem; color: var(--dark-text-muted); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--dark-text-primary);">No se encontraron resultados</h3>
+                    <p style="color: var(--dark-text-secondary);">Intenta con otros términos de búsqueda.</p>
                 </div>
             `;
         } else {
             results.forEach(post => {
                 gridHTML += `
-                    <article class="blog-card" data-category="${post.category}" data-slug="${post.slug}">
+                    <article class="blog-card" data-category="${post.categoryPath}" data-slug="${post.slug}">
                         <div class="blog-card-image">
                             <img src="${post.image}" alt="${post.title}" loading="lazy">
                             <div class="blog-card-category">${post.categoryLabel}</div>
@@ -711,6 +773,12 @@ class LAURABlogSystem {
         }
         
         gridContainer.innerHTML = gridHTML;
+        
+        // Hide pagination during search
+        const paginationContainer = document.getElementById('blog-pagination');
+        if (paginationContainer) {
+            paginationContainer.classList.add('hidden');
+        }
     }
     
     highlightSearchTerm(text, term) {
@@ -722,12 +790,16 @@ class LAURABlogSystem {
     
     // Utility methods
     formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        } catch (error) {
+            return 'Fecha no disponible';
+        }
     }
     
     debounce(func, wait) {
@@ -764,7 +836,6 @@ class LAURABlogSystem {
     
     // Analytics tracking
     trackEvent(event, data = {}) {
-        // Google Analytics 4
         if (typeof gtag !== 'undefined') {
             gtag('event', event, {
                 ...data,
@@ -773,25 +844,25 @@ class LAURABlogSystem {
             });
         }
         
-        // Custom analytics
-        if (window.LAURA_Analytics && typeof window.LAURA_Analytics.track === 'function') {
-            window.LAURA_Analytics.track(event, {
-                ...data,
-                timestamp: new Date().toISOString(),
-                url: window.location.href
-            });
-        }
-        
         console.log(`📊 Blog event tracked: ${event}`, data);
+    }
+    
+    // Public methods
+    refresh() {
+        this.cache.clear();
+        this.loadBlogStructure();
     }
 }
 
 // Initialize blog system when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        new LAURABlogSystem();
+        window.blogSystem = new LAURABlogSystem();
         console.log('✅ LAURA Blog System initialized successfully');
     } catch (error) {
         console.error('❌ Error initializing LAURA Blog System:', error);
     }
 });
+
+// Expose for debugging
+window.LAURABlogSystem = LAURABlogSystem;
