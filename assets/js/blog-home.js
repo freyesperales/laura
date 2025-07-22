@@ -173,32 +173,30 @@ class BlogHomeLoader {
      * Realiza la petición a la API
      */
     async fetchBlogData() {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-        try {
-            // Agregar timestamp y headers anti-cache
-            const timestamp = Date.now();
-            const response = await fetch(`${this.apiUrl}?action=structure&_t=${timestamp}&_cache=false`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate',
-                    'Pragma': 'no-cache',
-                    'Expires': '0'
-                },
-                signal: controller.signal
-            });
+    try {
+        // Forzar recarga sin cache del navegador
+        const timestamp = Date.now();
+        const response = await fetch(`${this.apiUrl}?action=structure&_t=${timestamp}&_cache=false`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
+            },
+            signal: controller.signal
+        });
 
-            clearTimeout(timeoutId);
-            return response;
+        clearTimeout(timeoutId);
+        return response;
 
-        } catch (error) {
-            clearTimeout(timeoutId);
-            throw error;
-        }
+    } catch (error) {
+        clearTimeout(timeoutId);
+        throw error;
     }
+}
 
     /**
      * Procesa la estructura del blog recibida de la API
