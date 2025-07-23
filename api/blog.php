@@ -14,7 +14,50 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
+// Debug mode
+$debug = isset($_GET['_debug']);
+if ($debug) {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    error_log("LAURA Blog API: Debug mode enabled");
+    error_log("LAURA Blog API: Method = " . $_SERVER['REQUEST_METHOD']);
+    error_log("LAURA Blog API: Query = " . $_SERVER['QUERY_STRING']);
+}
 
+// Mejorar el manejo de CORS
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    if ($debug) error_log("LAURA Blog API: Handling OPTIONS preflight");
+    exit();
+}
+
+// Allow both GET and POST methods
+if (!in_array($_SERVER['REQUEST_METHOD'], ['GET', 'POST'])) {
+    http_response_code(405);
+    echo json_encode([
+        'success' => false, 
+        'error' => 'Method not allowed: ' . $_SERVER['REQUEST_METHOD'],
+        'allowed_methods' => ['GET', 'POST'],
+        'debug' => $debug ? [
+            'method' => $_SERVER['REQUEST_METHOD'],
+            'headers' => getallheaders()
+        ] : null
+    ]);
+    exit();
+}
+
+// Verificar que el archivo se pueda ejecutar
+if ($debug) {
+    error_log("LAURA Blog API: Script started successfully");
+    error_log("LAURA Blog API: PHP Version = " . PHP_VERSION);
+    error_log("LAURA Blog API: Current directory = " . __DIR__);
+}
 // Handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -50,22 +93,23 @@ class LAURABlogAPI {
     }
     
     private function resolvePath($blogDir) {
-        // Try multiple possible locations
         $possiblePaths = [
-            __DIR__ . '/' . $blogDir,
-            __DIR__ . '/../' . $blogDir,
-            $_SERVER['DOCUMENT_ROOT'] . '/' . $blogDir
+            __DIR__ . '/' . $blogDir,           // api/blog-posts (CORRECTO)
+            __DIR__ . '/../' . $blogDir,        // ../blog-posts
+            $_SERVER['DOCUMENT_ROOT'] . '/' . $blogDir,  // /blog-posts
+            $_SERVER['DOCUMENT_ROOT'] . '/api/' . $blogDir  // /api/blog-posts
         ];
         
         foreach ($possiblePaths as $path) {
-            if (is_dir($path)) {
-                return $path;
-            }
+        if (is_dir($path)) {
+            error_log("LAURA Blog API: Using directory: " . $path);
+            return $path;
         }
-        
-        // Return first path for creation
-        return $possiblePaths[0];
     }
+        
+    // Return first path for creation (api/blog-posts)
+    return __DIR__ . '/' . $blogDir;
+}
     
     private function createDirectories() {
         if (!is_dir($this->blogDirectory)) {

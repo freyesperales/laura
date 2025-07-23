@@ -731,7 +731,7 @@ techStack: [
   }
 };
 
-// Utility function to get config values - RESTAURADO
+// Utility function to get config values
 window.getConfig = function(path, defaultValue = null) {
   return path.split('.').reduce((obj, key) => obj?.[key], window.LAURA_CONFIG) || defaultValue;
 };

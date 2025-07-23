@@ -487,105 +487,49 @@
         </a>
     </div>
 
-    <!-- Blog System JavaScript -->
-    <script>
-class LAURABlogSystem {
-    constructor() {
-        this.apiUrl = '/api/blog.php';
-        this.posts = [];
-        this.categories = new Set();
-        this.currentCategory = 'all';
-        this.currentPost = null;
-        
-        this.init();
-    }
-    
-    async init() {
-        this.parseURL();
-        await this.loadBlogContent();
-        this.setupEventListeners();
-    }
-    
-    parseURL() {
-        const params = new URLSearchParams(window.location.search);
-        this.currentCategory = params.get('category') || 'all';
-        this.currentPost = params.get('post');
-    }
-    
-    async loadBlogContent() {
-        try {
-            const response = await fetch(this.apiUrl + '?action=list');
-            const data = await response.json();
-            
-            if (data.success) {
-                this.posts = data.data;
-                this.extractCategories();
-                
-                if (this.currentPost) {
-                    this.showSinglePost();
-                } else {
-                    this.showBlogIndex();
-                }
-            }
-        } catch (error) {
-            console.error('Error loading blog content:', error);
-            this.showError();
-        }
-    }
-    
-    extractCategories() {
-        this.categories.clear();
-        this.categories.add('all');
-        
-        this.posts.forEach(post => {
-            this.categories.add(post.category);
-        });
-    }
-    
-    showBlogIndex() {
-        this.renderFilters();
-        this.renderPosts();
-        document.getElementById('blog-index').style.display = 'block';
-        document.getElementById('blog-single-view').style.display = 'none';
-    }
-    
-    renderFilters() {
-        const filtersContainer = document.getElementById('blog-filters');
-        const filtersHTML = Array.from(this.categories).map(category => {
-            const active = category === this.currentCategory ? 'active' : '';
-            const label = category === 'all' ? 'Todos' : this.formatCategory(category);
-            
-            return `<button class="filter-btn ${active}" data-category="${category}">${label}</button>`;
-        }).join('');
-        
-        filtersContainer.innerHTML = filtersHTML;
-    }
-    
-    renderPosts() {
-        const postsContainer = document.getElementById('blog-posts');
-        const filteredPosts = this.currentCategory === 'all' 
-            ? this.posts 
-            : this.posts.filter(post => post.category === this.currentCategory);
-        
-        const postsHTML = filteredPosts.map(post => this.createPostCard(post)).join('');
-        postsContainer.innerHTML = postsHTML;
-    }
-    
-    setupEventListeners() {
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                this.handleCategoryFilter(e.target);
-            }
-        });
-    }
-}
+ <script src="./assets/js/config.js"></script>
+<script src="./assets/js/blog.js"></script>
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    new LAURABlogSystem();
+<!-- Script de inicialización simplificado -->
+<script>
+console.log('🚀 Iniciando blog simplificado...');
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Verificar que las dependencias estén cargadas
+    if (typeof window.getConfig === 'function') {
+        console.log('✅ config.js cargado');
+    } else {
+        console.error('❌ config.js NO cargado');
+    }
+    
+    if (typeof window.LAURABlogSystem === 'function') {
+        console.log('✅ blog.js cargado');
+        
+        // Inicializar blog system
+        try {
+            window.blogSystem = new window.LAURABlogSystem();
+            console.log('✅ Blog system inicializado');
+        } catch (error) {
+            console.error('❌ Error inicializando blog:', error);
+        }
+    } else {
+        console.error('❌ blog.js NO cargado');
+    }
+    
+    // Configurar navegación básica si existe
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    
+    if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+    }
+    
+    console.log('🎯 Blog inicialización completada');
 });
 </script>
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/template-loader.js"></script>
 </body>
 </html>

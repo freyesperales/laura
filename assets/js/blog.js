@@ -10,7 +10,7 @@ class LAURABlogSystem {
         this.categories = new Set();
         this.currentCategory = 'all';
         this.currentPost = null;
-        this.apiUrl = '/api/blog.php';
+        this.apiUrl = './api/blog.php';
         this.cache = new Map();
         this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
         
@@ -539,9 +539,8 @@ class LAURABlogSystem {
         }
     }
     
-    async loadPostContent(category, slug) {
-        // Try direct HTML file first
-        const postUrl = `/blog-posts/${category}/${slug}.html`;
+        async loadPostContent(category, slug) {
+            const postUrl = `./api/blog-posts/${category}/${slug}.html`;
         
         try {
             const response = await fetch(postUrl);

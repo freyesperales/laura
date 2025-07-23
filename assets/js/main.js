@@ -27,25 +27,26 @@ class LauraApp {
   }
 
   start() {
-    try {
-      // Core functionality
-      this.setupNavigation();
-      this.setupServices();
-      this.setupAnimations();
-      this.setupForms();
-      this.setupUtils();
-      
-      // Hide loader
-      this.hideLoader();
-      
-      this.state.isInitialized = true;
-      console.log('🚀 LAURA App initialized successfully');
-      
-    } catch (error) {
-      console.error('❌ Error initializing LAURA App:', error);
-      this.hideLoader();
-    }
+  try {
+    // Core functionality
+    this.setupNavigation();
+    this.setupServices();
+    this.setupAnimations();
+    this.setupForms();           // ← Mantener esta
+    this.setupUtils();
+    
+    
+    // Hide loader
+    this.hideLoader();
+    
+    this.state.isInitialized = true;
+    console.log('🚀 LAURA App initialized successfully');
+    
+  } catch (error) {
+    console.error('❌ Error initializing LAURA App:', error);
+    this.hideLoader();
   }
+}
 
   // ========================================
   // NAVIGATION
