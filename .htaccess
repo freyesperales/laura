@@ -342,6 +342,8 @@ LimitRequestBody 10485760
 RewriteRule ^blog/?$ /blog.html [L]
 RewriteRule ^blog/([^/]+)/?$ /blog.html?category=$1 [L,QSA]
 RewriteRule ^blog/([^/]+)/([^/]+)/?$ /blog.html?category=$1&post=$2 [L,QSA]
+RewriteRule ^blog/([^/]+)/([^/]+)/?$ /blog-posts/$1/$2.html [L]
+RewriteRule ^blog/([^/]+)/?$ /blog.html?category=$1 [L,QSA]
 
 # ==========================================
 # ADDITIONAL OPTIMIZATIONS
@@ -382,3 +384,4 @@ Options +SymLinksIfOwnerMatch
 #     Header set Pragma "no-cache"
 #     Header set Expires "0"
 # </IfModule>
+
