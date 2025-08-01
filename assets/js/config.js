@@ -648,36 +648,7 @@ techStack: [
     { name: 'GTmetrix', logo: './assets/img/gtmetrix-logo.png' },
     { name: 'Meta Business', logo: './assets/img/meta-logo.png' }
 ],
-  // Testimonials - ENFOQUE GLOBAL
-  testimonials: [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      position: 'CEO',
-      company: 'TechStart USA',
-      avatar: 'https://via.placeholder.com/50x50/667eea/ffffff?text=SJ',
-      rating: 5,
-      quote: 'LAURA transformed our global digital presence. Their AI-driven approach helped us scale from startup to international company in just 18 months.'
-    },
-    {
-      id: 2,
-      name: 'Carlos Mendoza',
-      position: 'Director Marketing',
-      company: 'Innovación México',
-      avatar: 'https://via.placeholder.com/50x50/764ba2/ffffff?text=CM',
-      rating: 5,
-      quote: 'Su estrategia de marketing digital nos ayudó a expandirnos a 5 países de Latinoamérica. Los resultados superaron todas nuestras expectativas.'
-    },
-    {
-      id: 3,
-      name: 'Emma García',
-      position: 'Founder',
-      company: 'EcoTech Spain',
-      avatar: 'https://via.placeholder.com/50x50/10b981/ffffff?text=EG',
-      rating: 5,
-      quote: 'La ciberseguridad que implementaron nos permitió cumplir con GDPR y expandirnos por Europa sin preocupaciones. Profesionales excepcionales.'
-    }
-  ],
+ 
 
   // Animation Settings - RESTAURADO
   animations: {

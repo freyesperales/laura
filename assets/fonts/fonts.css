@@ -1,0 +1,74 @@
+/* ==========================================
+   LAURA DIGITAL AGENCY - Figtree Local Fonts
+   Reemplaza Google Fonts con versión local
+   Archivo: assets/fonts/fonts.css
+========================================== */
+
+/* Figtree Regular 400 */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap; /* Evita layout shifts */
+  src: url('./Figtree-Regular.ttf') format('truetype');
+}
+
+/* Figtree Medium 500 */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./Figtree-Medium.ttf') format('truetype');
+}
+
+/* Figtree SemiBold 600 */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./Figtree-SemiBold.ttf') format('truetype');
+}
+
+/* Figtree Bold 700 */
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./Figtree-Bold.ttf') format('truetype');
+}
+
+/* Actualizar variable de fuente en main.css */
+:root {
+  --font-family-base: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Override para asegurar que todo use Figtree */
+body, 
+html,
+* {
+  font-family: var(--font-family-base);
+}
+
+/* ==========================================
+   IMPLEMENTACIÓN:
+   
+   1. Crea este archivo: assets/fonts/fonts.css
+   2. En tu index.html, REEMPLAZA la línea de Google Fonts:
+   
+      <!-- ELIMINAR: -->
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+      
+      <!-- AGREGAR: -->
+      <link rel="stylesheet" href="./assets/fonts/fonts.css">
+   
+   3. Asegúrate de tener estos archivos en /assets/fonts/:
+      - Figtree-Regular.ttf
+      - Figtree-Medium.ttf  
+      - Figtree-SemiBold.ttf
+      - Figtree-Bold.ttf
+      
+   RESULTADO: De 316KB (Google Fonts) a ~80KB (local)
+========================================== */

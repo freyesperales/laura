@@ -1,0 +1,213 @@
+/* ==========================================
+   LAURA DIGITAL AGENCY - Icons CSS System
+   Reemplaza Font Awesome con iconos SVG optimizados
+   Archivo: assets/css/icons.css
+========================================== */
+
+/* BASE ICON STYLES */
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  transition: all 0.3s ease;
+  vertical-align: middle;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ICON SIZES */
+.icon-xs { width: 0.75rem; height: 0.75rem; }
+.icon-sm { width: 1rem; height: 1rem; }
+.icon-md { width: 1.25rem; height: 1.25rem; }
+.icon-lg { width: 1.5rem; height: 1.5rem; }
+.icon-xl { width: 2rem; height: 2rem; }
+.icon-2xl { width: 2.5rem; height: 2.5rem; }
+
+/* SOCIAL MEDIA ICONS - Colors específicos */
+.icon-whatsapp { color: #25D366; }
+.icon-linkedin { color: #0077B5; }
+.icon-twitter { color: #1DA1F2; }
+.icon-instagram { color: #E4405F; }
+
+/* CONTACT ICONS */
+.icon-envelope { color: var(--color-accent); }
+.icon-clock { color: var(--dark-text-secondary); }
+.icon-map-marker { color: var(--color-accent); }
+
+/* SERVICE ICONS */
+.icon-code { color: #667eea; }
+.icon-chart-line { color: #10b981; }
+.icon-shield { color: #f59e0b; }
+.icon-lightbulb { color: #8b5cf6; }
+
+/* FEATURE ICONS */
+.icon-award { color: #f59e0b; }
+.icon-handshake { color: var(--color-accent); }
+.icon-brain { color: #8b5cf6; }
+.icon-check { color: #10b981; }
+
+/* HOVER EFFECTS */
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.icon-whatsapp:hover { color: #128C7E; }
+.icon-linkedin:hover { color: #005885; }
+.icon-twitter:hover { color: #0d8bd4; }
+.icon-instagram:hover { color: #c13584; }
+
+/* CONTACT METHOD SPECIFIC STYLES */
+.contact-icon .icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: white;
+}
+
+/* FEATURE ICON SPECIFIC STYLES */
+.feature-icon .icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: white;
+}
+
+.benefit-icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+/* NAVIGATION ICON STYLES */
+.nav-link .icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* BUTTON ICON STYLES */
+.btn .icon {
+  margin-right: 0.5rem;
+}
+
+.btn-lg .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* FOOTER SOCIAL LINKS */
+.social-link .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover .icon {
+  transform: scale(1.1) translateY(-2px);
+}
+
+/* WHATSAPP BUBBLE SPECIFIC */
+.whatsapp-btn .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+/* ANIMATIONS */
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.icon-pulse {
+  animation: iconPulse 2s infinite;
+}
+
+@keyframes iconRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon-spin {
+  animation: iconRotate 1s linear infinite;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .contact-icon .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .benefit-icon .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* ==========================================
+   UTILITY CLASSES FOR EASY USAGE
+========================================== */
+
+/* Quick access classes matching Font Awesome names */
+.fa-whatsapp::before { content: none; }
+.fa-whatsapp { 
+  background-image: url('data:image/svg+xml,<svg viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+}
+
+/* Fallback para compatibilidad */
+.fas, .fab {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* ==========================================
+   IMPLEMENTACIÓN JAVASCRIPT (agregar a main.js)
+========================================== */
+
+/*
+// Función para reemplazar iconos Font Awesome
+function replaceIconsWithSVG() {
+  const iconMap = {
+    'fab fa-whatsapp': 'whatsapp',
+    'fas fa-envelope': 'envelope', 
+    'fas fa-clock': 'clock',
+    'fas fa-map-marker-alt': 'map-marker',
+    'fab fa-linkedin-in': 'linkedin',
+    'fab fa-twitter': 'twitter',
+    'fab fa-instagram': 'instagram',
+    'fas fa-code': 'code',
+    'fas fa-chart-line': 'chart-line',
+    'fas fa-shield-alt': 'shield',
+    'fas fa-lightbulb': 'lightbulb',
+    'fas fa-award': 'award',
+    'fas fa-handshake': 'handshake'
+  };
+
+  Object.entries(iconMap).forEach(([oldClass, iconName]) => {
+    document.querySelectorAll(`.${oldClass.replace(/ /g, '.')}`).forEach(el => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.classList.add('icon', `icon-${iconName}`);
+      svg.innerHTML = `<use href="#icon-${iconName}"></use>`;
+      
+      // Copiar clases existentes excepto las de Font Awesome
+      const existingClasses = Array.from(el.classList).filter(cls => 
+        !cls.startsWith('fa') && cls !== 'fas' && cls !== 'fab'
+      );
+      svg.classList.add(...existingClasses);
+      
+      el.replaceWith(svg);
+    });
+  });
+}
+
+// Ejecutar cuando cargue la página
+document.addEventListener('DOMContentLoaded', replaceIconsWithSVG);
+*/

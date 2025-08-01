@@ -234,6 +234,7 @@ input, textarea, select {
 
 .section {
   padding: var(--space-20) 0;
+  min-height: 400px;
   background-color: var(--dark-bg-primary);
 }
 
@@ -1067,6 +1068,7 @@ input, textarea, select {
   background: var(--dark-bg-card);
   border-radius: var(--radius-2xl);
   padding: 0;
+  min-height: 520px;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   border: 2px solid var(--dark-border);

@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <!-- Preload esenciales -->
+    <link rel="preload" href="./assets/js/config.js?=v01082025" as="script">
+    <link rel="preload" href="./assets/css/main.css?=v01082025" as="style">
+    <link rel="preload" href="./assets/img/LOGO-AGENCIA-LAURA.webp" as="image">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5V1Q1Y0CSH"></script>
     <script>
@@ -32,9 +35,10 @@
     <link rel="apple-touch-icon" href="./assets/img/favicon-laura-agency.png">
     
     <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+   
+
+
 
     <!-- Critical CSS -->
     <style>
@@ -155,11 +159,12 @@
     </style>
     
     <!-- Main CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css?=v1">
+    <link rel="stylesheet" href="./assets/css/main.css?=v01082025">
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/fonts/fonts.css?=v01082025">
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!--<link rel="stylesheet" href="./assets/css/icons.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css?=v01082025">
 </head>
 
 <body>
@@ -174,7 +179,7 @@
             <div class="nav-content">
                 <div class="nav-brand">
                     <a href="#inicio" title="Ir al inicio">
-                        <img src="./assets/img/logo.svg" alt="LAURA Logo" class="main-logo-svg">
+                        <img src="./assets/img/logo.svg" alt="LAURA Logo" class="main-logo-svg"loading="lazy">
                     </a>
                 </div>
                 
@@ -184,7 +189,6 @@
                     <a href="#planes" class="nav-link">Planes</a>
                     <a href="#nosotros" class="nav-link">¿Qué es LAURA?</a>
                     <a href="#metodologia" class="nav-link">Metodología</a>
-                    <a href="#blog" class="nav-link">Aprende</a>
                     <a href="#contacto" class="btn-primary">Comenzar Proyecto</a>
                 </div>
                 
@@ -240,12 +244,12 @@
                         <div class="certs-title">Tecnologías y Partners Certificados:</div>
                         <div class="certs-logos">
                             <a href="https://www.google.com/partners/agency?id=5572476115" target="_blank" rel="noopener noreferrer" title="Google Partner Certificado">
-                                <img src="./assets/img/google-partner-badge.png" alt="Google Partner" class="cert-logo">
+                                <img src="./assets/img/google-partner-badge.png" alt="Google Partner" class="cert-logo"loading="lazy">
                             </a>
-                            <img src="./assets/img/meta-partner-badge.png" alt="Meta Business Partner" class="cert-logo" title="Meta Business Partner">
-                            <img src="./assets/img/shopify-partner-badge.png" alt="Shopify Partner" class="cert-logo" title="Shopify Partner">
-                            <img src="./assets/img/hubspot-partner-badge.png" alt="Hubspot Solutions Partner" class="cert-logo" title="Hubspot Solutions Partner">
-                            <img src="./assets/img/gemini-partner-badge.png" alt="Potenciado por Gemini" class="cert-logo" title="Nuestras soluciones de IA son potenciadas por Gemini">
+                            <img src="./assets/img/meta-partner-badge.png" alt="Meta Business Partner" class="cert-logo" title="Meta Business Partner"loading="lazy">
+                            <img src="./assets/img/shopify-partner-badge.png" alt="Shopify Partner" class="cert-logo" title="Shopify Partner"loading="lazy">
+                            <img src="./assets/img/hubspot-partner-badge.png" alt="Hubspot Solutions Partner" class="cert-logo" title="Hubspot Solutions Partner"loading="lazy">
+                            <img src="./assets/img/gemini-partner-badge.png" alt="Potenciado por Gemini" class="cert-logo" title="Nuestras soluciones de IA son potenciadas por Gemini"loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -256,7 +260,7 @@
                         <img src="./assets/img/ICONO-LAURA-AGENCIA-SEGURIDAD.webp" 
                              alt="LAURA protegiendo negocios digitales" 
                              class="floating"
-                             loading="eager">
+                             loading="lazy">
                     </div>
                 </div>
             </div>
@@ -587,60 +591,6 @@
         </div>
     </div>
 </section>
-<!-- ✨ SECCIÓN DEL BLOG DINÁMICO ✨ -->
-<section id="blog" class="section section-alt">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-badge">
-                <i class="fas fa-blog"></i>
-                <span>Insights y Conocimiento</span>
-            </div>
-            <h2 class="section-title">
-                Últimas publicaciones de nuestro <span class="gradient-text">blog</span>
-            </h2>
-            <p class="section-subtitle">
-                Conocimiento experto actualizado que puedes aplicar hoy mismo en tu negocio.
-            </p>
-        </div>
-        
-        <!-- Estados del Blog -->
-        <div id="blog-home-container">
-            <!-- Loading State -->
-            <div id="blog-home-loading" class="blog-home-loading">
-                <div class="blog-loading-spinner"></div>
-                <p>Cargando últimos artículos...</p>
-            </div>
-
-            <!-- Content Grid -->
-            <div id="blog-home-grid" class="blog-home-grid hidden">
-                <!-- Se llenará dinámicamente -->
-            </div>
-
-            <!-- Empty State -->
-            <div id="blog-home-empty" class="blog-home-empty hidden">
-                <i class="fas fa-edit"></i>
-                <h3>¡Próximamente nuevos artículos!</h3>
-                <p>Estamos preparando contenido valioso para ti. Mantente atento.</p>
-            </div>
-
-            <!-- Error State -->
-            <div id="blog-home-error" class="blog-home-error hidden">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Error al cargar artículos</h3>
-                <p>Por favor, intenta nuevamente o visita nuestro blog directamente.</p>
-                <a href="/blog" class="btn-primary">Ir al Blog</a>
-            </div>
-        </div>
-
-        <!-- CTA siempre visible -->
-        <div class="blog-home-cta">
-            <a href="/blog" class="btn-primary">
-                <i class="fas fa-book-open"></i>
-                <span>Ver Todos los Artículos</span>
-            </a>
-        </div>
-    </div>
-</section>
     <!-- Enhanced Team Section -->
 <section id="team" class="section team-section-enhanced">
     <div class="container">
@@ -656,7 +606,7 @@
         <div class="founder-showcase">
             <div class="founder-visual">
                 <div class="founder-image-enhanced">
-                    <img src="./assets/img/frp.webp" alt="Francisco Reyes P, Fundador de LAURA Digital Agency" class="founder-photo">
+                    <img src="./assets/img/frp.webp" alt="Francisco Reyes P, Fundador de LAURA Digital Agency" class="founder-photo" loading="lazy">
                     <div class="founder-badge">
                         <i class="fas fa-rocket"></i>
                         <span>10+ años</span>
@@ -886,28 +836,28 @@
                 <h4 class="tech-stack-title">Herramientas que Utilizamos</h4>
                 <div class="tech-stack-grid">
                     <div class="tech-item">
-                        <img src="./assets/img/google-logo.png" alt="Google Analytics & Ads">
+                        <img src="./assets/img/google-logo.png" alt="Google Analytics & Ads"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/powerbi-logo.png" alt="Power BI">
+                        <img src="./assets/img/powerbi-logo.png" alt="Power BI"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/asana-logo.png" alt="Asana">
+                        <img src="./assets/img/asana-logo.png" alt="Asana"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/claude-logo.png" alt="Claude AI">
+                        <img src="./assets/img/claude-logo.png" alt="Claude AI"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/firebase-logo.png" alt="Firebase">
+                        <img src="./assets/img/firebase-logo.png" alt="Firebase"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/cpanel-logo.png" alt="cPanel">
+                        <img src="./assets/img/cpanel-logo.png" alt="cPanel"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/gtmetrix-logo.png" alt="GTmetrix">
+                        <img src="./assets/img/gtmetrix-logo.png" alt="GTmetrix"loading="lazy">
                     </div>
                     <div class="tech-item">
-                        <img src="./assets/img/meta-logo.png" alt="Meta Business">
+                        <img src="./assets/img/meta-logo.png" alt="Meta Business"loading="lazy">
                     </div>
                 </div>
             </div>
@@ -935,94 +885,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="./assets/js/config.js"></script>
-    <script src="./assets/js/components.js"></script>
-    <script src="./assets/js/animations.js"></script>
-    <script src="./assets/js/forms.js"></script>
-    <script src="./assets/js/main.js"></script>
-    <script src="./assets/js/blog-home.js"></script>
-    <script src="./assets/js/cache-buster.js"></script>
-    <script src="./assets/js/template-loader.js"></script>
+<script src="./assets/js/config.js?=v01082025"></script>
+<script src="./assets/js/main.unified.js?=v01082025"></script>
     <script>
-// Typewriter Effect - Versión Simple
-// Typewriter Effect - Versión Ultra Simple
-function initTypewriter() {
-    const element = document.getElementById('typewriter');
-    if (!element) return;
-    
-    const words = ['negocio', 'empresa', 'proyecto', 'startup', 'marca', 'visión'];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    
-    function type() {
-        const currentWord = words[wordIndex];
-        
-        if (isDeleting) {
-            element.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            element.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
-        
-        let speed = 150;
-        
-        if (isDeleting) speed = 100;
-        
-        if (!isDeleting && charIndex === currentWord.length) {
-            speed = 2000;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            speed = 500;
-        }
-        
-        setTimeout(type, speed);
-    }
-    
-    element.classList.add('typewriter-active');
-    type();
-}
-
-// Inicialización segura
-document.addEventListener('DOMContentLoaded', function() {
-    const typewriterElement = document.getElementById('typewriter');
-    
-    if (typewriterElement) {
-        // Limpiar cualquier instancia previa
-        typewriterElement.classList.remove('typewriter-active');
-        
-        // Crear nueva instancia
-        const words = ['negocio', 'empresa', 'proyecto', 'startup', 'marca', 'visión'];
-        window.typewriterInstance = new TypewriterEffect(typewriterElement, words, {
-            typeSpeed: 100,
-            deleteSpeed: 50,
-            pauseTime: 1800,
-            deleteDelay: 800
-        });
-    }
-    
-    // Setup tabs functionality...
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetTab = btn.getAttribute('data-tab');
-            
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            
-            btn.classList.add('active');
-            const targetContent = document.getElementById(`${targetTab}-plans`);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        });
-    });
-});
 
         // Global function for service plans
         function showServicePlans(serviceId) {

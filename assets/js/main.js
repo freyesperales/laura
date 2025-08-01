@@ -748,3 +748,565 @@ const app = new LauraApp();
 window.LauraApp = app;
 
 
+/**
+ * LAURA DIGITAL AGENCY - Smart WhatsApp Integration
+ * Se integra con tu formulario existente manteniendo tu diseño
+ * Version: 1.0 - Compatible con config.js
+ */
+
+class LauraWhatsAppIntegration {
+  constructor() {
+    this.whatsappNumber = window.getConfig('company.whatsapp', '56999968482');
+    this.init();
+  }
+
+  init() {
+    // Esperar a que el DOM y config.js estén listos
+    if (typeof window.LAURA_CONFIG === 'undefined') {
+      setTimeout(() => this.init(), 100);
+      return;
+    }
+    
+    this.setupExistingForm();
+    console.log('✅ LAURA WhatsApp Integration initialized');
+  }
+
+  /**
+   * Integra con tu formulario existente
+   */
+  setupExistingForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) {
+      console.log('⏳ Waiting for contact form...');
+      setTimeout(() => this.setupExistingForm(), 500);
+      return;
+    }
+
+    console.log('✅ Found existing contact form, integrating WhatsApp...');
+
+    // Interceptar el envío del formulario existente
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.handleExistingFormSubmission(form);
+    });
+
+    // Cambiar el texto del botón existente
+    this.updateSubmitButton(form);
+  }
+
+  /**
+   * Actualiza el botón de envío existente
+   */
+  updateSubmitButton(form) {
+    const submitBtn = form.querySelector('button[type="submit"], .form-submit, .btn-primary');
+    if (submitBtn) {
+      // Mantener el estilo existente, solo cambiar texto e ícono
+      const originalText = submitBtn.textContent || submitBtn.innerHTML;
+      
+      if (!originalText.includes('WhatsApp')) {
+        submitBtn.innerHTML = `
+          <i class="fab fa-whatsapp"></i>
+          Enviar por WhatsApp
+        `;
+      }
+    }
+  }
+
+  /**
+   * Maneja el envío del formulario existente
+   */
+  async handleExistingFormSubmission(form) {
+    try {
+      // Usar la validación existente si está disponible
+      if (window.FormsManager && window.FormsManager.validateForm) {
+        const validation = window.FormsManager.validateForm(form);
+        if (!validation.isValid) {
+          // Usar el sistema de errores existente
+          window.FormsManager.showValidationErrors(form, validation.errors);
+          return;
+        }
+      }
+
+      // Obtener datos del formulario existente
+      const formData = this.getFormDataFromExisting(form);
+      
+      // Mostrar loading usando el estilo existente
+      this.showLoadingState(form);
+      
+      // Generar mensaje inteligente
+      const whatsappMessage = this.generateIntelligentMessage(formData);
+      
+      // Simular delay para mejor UX (como lo tenías antes)
+      setTimeout(() => {
+        this.openWhatsApp(whatsappMessage);
+        this.showSuccess(form);
+        this.resetLoadingState(form);
+      }, 800);
+
+    } catch (error) {
+      console.error('Error al procesar formulario:', error);
+      this.showError(form, 'Error al procesar. Intenta nuevamente.');
+      this.resetLoadingState(form);
+    }
+  }
+
+  /**
+   * Obtiene datos del formulario existente con mapeo inteligente
+   */
+  getFormDataFromExisting(form) {
+    const formData = new FormData(form);
+    const data = {};
+    
+    // Mapear campos del formulario existente
+    for (const [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+    
+    return {
+      name: data.name || data.firstName || data.nombre || '',
+      email: data.email || data.correo || '',
+      company: data.company || data.empresa || '',
+      country: data.country || data.pais || '',
+      service: data.service || data.servicio || '',
+      message: data.message || data.mensaje || ''
+    };
+  }
+
+  /**
+   * Detecta el servicio principal basado en selección y texto
+   */
+  detectPrimaryService(formData) {
+    const { service, message } = formData;
+    
+    // Si hay servicio seleccionado, usar eso principalmente
+    if (service) {
+      if (service.includes('marketing')) return 'marketing';
+      if (service.includes('development') || service.includes('web')) return 'development';
+      if (service.includes('security')) return 'security';
+      if (service.includes('consultancy') || service.includes('consulting')) return 'consulting';
+      if (service.includes('integral')) return 'integral';
+    }
+
+    // Análisis de texto como backup
+    const text = message.toLowerCase();
+    const keywords = {
+      marketing: ['marketing', 'ventas', 'clientes', 'publicidad', 'redes sociales', 'seo', 'ads'],
+      development: ['página', 'sitio', 'web', 'aplicación', 'desarrollo', 'programar'],
+      security: ['seguridad', 'protección', 'ciberseguridad', 'vulnerabilidad'],
+      consulting: ['consultoría', 'estrategia', 'análisis', 'optimización']
+    };
+
+    let maxScore = 0;
+    let detectedService = 'general';
+    
+    Object.entries(keywords).forEach(([serviceKey, words]) => {
+      const score = words.reduce((acc, word) => acc + (text.includes(word) ? 1 : 0), 0);
+      if (score > maxScore) {
+        maxScore = score;
+        detectedService = serviceKey;
+      }
+    });
+
+    return detectedService;
+  }
+
+  /**
+   * Genera mensaje inteligente basado en tu config.js
+   */
+  generateIntelligentMessage(formData) {
+    const { name, email, company, country, service, message } = formData;
+    const detectedService = this.detectPrimaryService(formData);
+    
+    // Templates personalizados por servicio
+    const serviceIntros = {
+      marketing: "¡Hola! Me interesa potenciar mi marketing digital y multiplicar mis ventas.",
+      development: "¡Hola! Necesito desarrollar/mejorar mi presencia web para hacer crecer mi negocio.",
+      security: "¡Hola! Me preocupa la ciberseguridad de mi empresa y necesito protección profesional.",
+      consulting: "¡Hola! Busco consultoría estratégica para optimizar y digitalizar mi negocio.",
+      integral: "¡Hola! Necesito una solución integral que combine varios servicios digitales.",
+      general: "¡Hola! Me interesa conocer cómo LAURA puede ayudarme a crecer digitalmente."
+    };
+
+    const intro = serviceIntros[detectedService] || serviceIntros.general;
+    
+    // Construir mensaje personalizado
+    let whatsappMessage = `${intro}\n\n`;
+    
+    // Información personal
+    whatsappMessage += `📋 *Mis datos:*\n`;
+    whatsappMessage += `• Nombre: ${name}\n`;
+    whatsappMessage += `• Email: ${email}\n`;
+    if (company) whatsappMessage += `• Empresa: ${company}\n`;
+    if (country) whatsappMessage += `• País: ${country}\n`;
+    
+    // Servicio seleccionado
+    if (service) {
+      const serviceNames = {
+        'marketing-monthly': 'Plan Mensual - Marketing Digital',
+        'development-monthly': 'Plan Mensual - Desarrollo Web', 
+        'security-monthly': 'Plan Mensual - Ciberseguridad',
+        'integral-monthly': 'Plan Mensual - Solución Integral',
+        'web-project': 'Proyecto - Desarrollo Web',
+        'consultancy': 'Consultoría y Estrategia',
+        'custom': 'Proyecto Personalizado'
+      };
+      
+      whatsappMessage += `• Servicio: ${serviceNames[service] || service}\n`;
+    }
+    
+    whatsappMessage += `\n`;
+    
+    // Mensaje del usuario
+    if (message && message.trim()) {
+      whatsappMessage += `💬 *Detalles del proyecto:*\n"${message}"\n\n`;
+    }
+    
+    // Call to action personalizado
+    whatsappMessage += `¿Podemos agendar una *consultoría gratuita* para ver exactamente cómo podemos ayudarte? 🚀`;
+    
+    return whatsappMessage;
+  }
+
+  /**
+   * Abre WhatsApp con el mensaje
+   */
+  openWhatsApp(message) {
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  /**
+   * Estados de loading usando tus estilos existentes
+   */
+  showLoadingState(form) {
+    const submitBtn = form.querySelector('button[type="submit"], .form-submit, .btn-primary');
+    if (submitBtn) {
+      submitBtn.dataset.originalContent = submitBtn.innerHTML;
+      submitBtn.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <svg style="width: 16px; height: 16px; animation: spin 1s linear infinite;" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" stroke-opacity="0.3"/>
+            <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"/>
+          </svg>
+          <span>Abriendo WhatsApp...</span>
+        </div>
+      `;
+      submitBtn.disabled = true;
+    }
+  }
+
+  resetLoadingState(form) {
+    const submitBtn = form.querySelector('button[type="submit"], .form-submit, .btn-primary');
+    if (submitBtn && submitBtn.dataset.originalContent) {
+      submitBtn.innerHTML = submitBtn.dataset.originalContent;
+      submitBtn.disabled = false;
+      delete submitBtn.dataset.originalContent;
+    }
+  }
+
+  /**
+   * Muestra éxito usando tu sistema existente
+   */
+  showSuccess(form) {
+    // Usar el sistema de mensajes existente si está disponible
+    if (window.FormsManager && window.FormsManager.showSuccessMessage) {
+      window.FormsManager.showSuccessMessage(form, '¡Perfecto! Te hemos redirigido a WhatsApp con tu consulta personalizada. Responderemos en menos de 2 horas.');
+    } else {
+      // Fallback simple que respeta tu diseño
+      this.showMessage(form, 'success', '¡Perfecto! Te hemos redirigido a WhatsApp con tu consulta personalizada.');
+    }
+    
+    // Reset del formulario después de un momento
+    setTimeout(() => form.reset(), 2000);
+  }
+
+  showError(form, message) {
+    if (window.FormsManager && window.FormsManager.showErrorMessage) {
+      window.FormsManager.showErrorMessage(form, message);
+    } else {
+      this.showMessage(form, 'error', message);
+    }
+  }
+
+  /**
+   * Sistema de mensajes simple que respeta tu diseño
+   */
+  showMessage(form, type, message) {
+    // Remover mensajes existentes
+    form.querySelectorAll('.whatsapp-message').forEach(msg => msg.remove());
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `whatsapp-message ${type}`;
+    messageDiv.style.cssText = `
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      font-weight: 500;
+      ${type === 'success' 
+        ? 'background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);'
+        : 'background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);'
+      }
+    `;
+    messageDiv.textContent = message;
+    
+    form.insertBefore(messageDiv, form.firstChild);
+    
+    // Auto-hide después de 5 seconds
+    setTimeout(() => {
+      if (messageDiv.parentNode) messageDiv.remove();
+    }, 5000);
+  }
+}
+
+// CSS para animación (se integra con tu main.css)
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`;
+document.head.appendChild(style);
+
+// Inicializar cuando todo esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new LauraWhatsAppIntegration();
+  });
+} else {
+  new LauraWhatsAppIntegration();
+}
+
+// Disponible globalmente si necesitas acceder
+window.LauraWhatsAppIntegration = LauraWhatsAppIntegration;
+
+
+/**
+ * LAURA DIGITAL AGENCY - Icon Replacement System
+ * Reemplaza automáticamente Font Awesome por SVG optimizados
+ * Agregar al final de main.js
+ */
+
+class LauraIconSystem {
+  constructor() {
+    this.iconMap = {
+      // Social Media
+      'fab fa-whatsapp': 'whatsapp',
+      'fab fa-linkedin-in': 'linkedin', 
+      'fab fa-twitter': 'twitter',
+      'fab fa-instagram': 'instagram',
+      
+      // Contact & Utility
+      'fas fa-envelope': 'envelope',
+      'fas fa-clock': 'clock', 
+      'fas fa-map-marker-alt': 'map-marker',
+      
+      // Services
+      'fas fa-code': 'code',
+      'fas fa-chart-line': 'chart-line',
+      'fas fa-shield-alt': 'shield',
+      'fas fa-lightbulb': 'lightbulb',
+      
+      // Features
+      'fas fa-award': 'award',
+      'fas fa-handshake': 'handshake',
+      'fas fa-brain': 'brain',
+      'fas fa-check': 'check'
+    };
+    
+    this.init();
+  }
+
+  /**
+   * Inicializa el sistema de iconos
+   */
+  init() {
+    // Esperar a que el sprite SVG esté cargado
+    if (document.getElementById('laura-icons')) {
+      this.replaceAllIcons();
+    } else {
+      // Retry si el sprite no está listo
+      setTimeout(() => this.init(), 100);
+    }
+  }
+
+  /**
+   * Reemplaza todos los iconos Font Awesome por SVG
+   */
+  replaceAllIcons() {
+    console.log('🎨 LAURA Icons: Replacing Font Awesome with optimized SVG...');
+    
+    let replacedCount = 0;
+    
+    Object.entries(this.iconMap).forEach(([faClass, iconName]) => {
+      const selector = `.${faClass.replace(/ /g, '.')}`;
+      const elements = document.querySelectorAll(selector);
+      
+      elements.forEach(el => {
+        const svgIcon = this.createSVGIcon(iconName, el);
+        el.replaceWith(svgIcon);
+        replacedCount++;
+      });
+    });
+    
+    console.log(`✅ LAURA Icons: Replaced ${replacedCount} Font Awesome icons with SVG`);
+    
+    // Opcional: remover Font Awesome CSS si ya no es necesario
+    this.removeFontAwesome();
+  }
+
+  /**
+   * Crea un elemento SVG icon
+   */
+  createSVGIcon(iconName, originalElement) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    
+    // Configurar SVG
+    svg.classList.add('icon', `icon-${iconName}`);
+    svg.setAttribute('viewBox', '0 0 24 24');
+    
+    // Configurar use element
+    use.setAttribute('href', `#icon-${iconName}`);
+    svg.appendChild(use);
+    
+    // Copiar clases relevantes del elemento original
+    if (originalElement) {
+      const existingClasses = Array.from(originalElement.classList).filter(cls => 
+        !cls.startsWith('fa') && cls !== 'fas' && cls !== 'fab'
+      );
+      svg.classList.add(...existingClasses);
+      
+      // Copiar atributos importantes
+      if (originalElement.title) svg.setAttribute('title', originalElement.title);
+      if (originalElement.style.cssText) svg.style.cssText = originalElement.style.cssText;
+    }
+    
+    return svg;
+  }
+
+  /**
+   * Helper para crear iconos programáticamente
+   */
+  static createIcon(iconName, className = '') {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    
+    svg.classList.add('icon', `icon-${iconName}`);
+    if (className) svg.classList.add(...className.split(' '));
+    svg.setAttribute('viewBox', '0 0 24 24');
+    
+    use.setAttribute('href', `#icon-${iconName}`);
+    svg.appendChild(use);
+    
+    return svg;
+  }
+
+  /**
+   * Helper para obtener HTML de icono como string
+   */
+  static getIconHTML(iconName, className = '') {
+    return `<svg class="icon icon-${iconName} ${className}" viewBox="0 0 24 24"><use href="#icon-${iconName}"></use></svg>`;
+  }
+
+  /**
+   * Remueve Font Awesome CSS (opcional)
+   */
+  removeFontAwesome() {
+    const faLinks = document.querySelectorAll('link[href*="font-awesome"]');
+    faLinks.forEach(link => {
+      console.log('🗑️ LAURA Icons: Removing Font Awesome CSS:', link.href);
+      link.remove();
+    });
+  }
+
+  /**
+   * Actualiza componentes dinámicos que usen iconos
+   */
+  updateDynamicComponents() {
+    // Si tu proyecto carga componentes dinámicamente,
+    // llama a esta función después de cargarlos
+    this.replaceAllIcons();
+  }
+}
+
+/**
+ * Integración con tu config.js existente
+ */
+function updateConfigJSIcons() {
+  // Actualizar función renderSVGIcon en config.js para usar el nuevo sistema
+  if (window.renderSVGIcon) {
+    const originalRenderSVGIcon = window.renderSVGIcon;
+    
+    window.renderSVGIcon = function(iconType, className = 'icon-svg') {
+      // Mapear tus iconos custom existentes
+      const customIconMap = {
+        'code-svg': 'code',
+        'shield-svg': 'shield', 
+        'trending-up-svg': 'chart-line',
+        'award-svg': 'award',
+        'users-svg': 'handshake',
+        'brain-svg': 'brain'
+      };
+      
+      const iconName = customIconMap[iconType];
+      if (iconName) {
+        return LauraIconSystem.getIconHTML(iconName, className);
+      }
+      
+      // Fallback al sistema original si no encuentra el icono
+      return originalRenderSVGIcon(iconType, className);
+    };
+  }
+}
+
+/**
+ * Inicialización automática
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  // Crear instancia global
+  window.lauraIconSystem = new LauraIconSystem();
+  
+  // Actualizar config.js
+  updateConfigJSIcons();
+  
+  console.log('🎨 LAURA Icon System initialized');
+});
+
+// Export para uso manual
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = LauraIconSystem;
+}
+
+// Hacer disponible globalmente
+window.LauraIconSystem = LauraIconSystem;
+
+/**
+ * FUNCIONES HELPER PARA USO FÁCIL
+ */
+
+// Crear icono rápido
+window.createIcon = function(iconName, className = '') {
+  return LauraIconSystem.createIcon(iconName, className);
+};
+
+// Obtener HTML de icono
+window.getIconHTML = function(iconName, className = '') {
+  return LauraIconSystem.getIconHTML(iconName, className);
+};
+
+// Reemplazar iconos en elemento específico
+window.replaceIconsIn = function(element) {
+  const tempContainer = document.createElement('div');
+  tempContainer.innerHTML = element.innerHTML;
+  
+  // Aplicar reemplazo temporal
+  window.lauraIconSystem.replaceAllIcons.call({
+    iconMap: window.lauraIconSystem.iconMap,
+    createSVGIcon: window.lauraIconSystem.createSVGIcon.bind(window.lauraIconSystem)
+  });
+  
+  element.innerHTML = tempContainer.innerHTML;
+};
